@@ -1,0 +1,13 @@
+#!/bin/zsh
+alias tnl='npm run test && npm run lint'
+alias connect-znc='ssh root@51.15.50.81'
+
+# git
+alias glgg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}"'
+alias glgb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
+
+# source secret aliases
+if [ -e ~/.secret_alias ]; then
+  echo 'sourced secrets'
+  source ~/.secret_alias
+fi
