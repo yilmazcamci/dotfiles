@@ -1,0 +1,5 @@
+#!/bin/sh
+# Install stow, zsh, zgen
+# Clone dotfiles
+# Stow things
+# Set shell
