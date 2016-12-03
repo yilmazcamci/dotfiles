@@ -8,6 +8,5 @@ alias glgb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
 
 # source secret aliases
 if [ -e ~/.secret_alias ]; then
-  echo 'sourced secrets'
   source ~/.secret_alias
 fi
