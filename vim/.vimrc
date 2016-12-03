@@ -66,6 +66,7 @@ call vundle#end()
  set smartcase
  "set wrapscan
  set shortmess+=I
+ set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
@@ -94,7 +95,11 @@ if executable('ag')
 endif
 
 " ctrlp
-let g:ctrlp_custom_ignore = 'node_modules/'
+"
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.git|node_modules|flow-typed$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
