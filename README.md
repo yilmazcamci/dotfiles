@@ -1,1 +1,1 @@
-# AlexTes dotfiles
+# dotfiles
