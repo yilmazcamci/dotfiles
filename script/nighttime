@@ -1,0 +1,14 @@
+#!/bin/sh
+case $1 in
+	"start")
+		systemctl --user stop feh-wallpaper.timer
+		NIGHTIMG="$(find ~/Pictures/wallpapers/nighttime -type f -print|shuf|head -n 1)"
+		feh --bg-fill $NIGHTIMG
+		;;
+	"stop")
+		systemctl --user start feh-wallpaper.timer
+		;;
+	*)
+		printf "No option specified. Exiting..\n"
+		;;
+esac

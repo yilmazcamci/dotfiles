@@ -1,0 +1,3 @@
+#!/bin/sh
+# password is yendor
+ssh player@roguenex.us -p 32777

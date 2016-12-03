@@ -1,0 +1,2 @@
+#!/bin/bash
+/bin/youtube-dl --format bestaudio --extract-audio --audio-format mp3 --audio-quality 2 -o "%(title)s.%(ext)s" $1

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+vimdiff ~/.atom/packages/nucleus-dark-ui/styles/ui-variables.less ~/.atom/packages/ui-variables.less.backup

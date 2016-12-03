@@ -1,0 +1,1 @@
+sudo reflector --sort rate --country 'Netherlands' -f 8 --save /etc/pacman.d/mirrorlist

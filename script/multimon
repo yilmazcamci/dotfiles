@@ -1,0 +1,90 @@
+#!/bin/sh
+
+connect1() {
+  xrandr --output $2 --auto --right-of $1
+}
+
+connect2() {
+  xrandr --output $2 --auto --right-of $1
+  xrandr --output $3 --auto --right-of $2
+  #bspc monitor HDMI1 --swap VGA1
+}
+
+order1() {
+  bspc monitor $1 -d I II III IV V
+  bspc monitor $2 -d VI VII
+}
+
+order2() {
+  bspc monitor $1 -d I II III IV V
+  bspc monitor $2 -d VI VII
+  bspc monitor $3 -d VIII IX
+}
+
+swap() {
+  bspc monitor $1 --swap $2
+}
+
+zeroPadding() {
+  bspc config -m $1 top_padding 0
+}
+
+usage="$(basename "$0") [-h] <command>
+connects external monitors in the requested order and sets up bspwm desktops to reflect it
+where:
+  -h show this help text"
+
+#while getopts ':h:' option; do
+#  case "$option" in
+#    h) 
+#      echo "$usage"
+#      exit
+#      ;;
+#    \?)
+#      printf "illegal option: -%s\n" "$OPTARG" >&2
+#      echo "$usage" >&2
+#      exit 1
+#      ;;
+#  esac
+#done
+
+case $1 in
+  1)
+    shift
+    connect1 $1 $2
+    order1 $1 $2
+    ;;
+  2)
+    shift
+    connect2 $1 $2 $3
+    order2 $1 $2 $3
+    zeroPadding $2
+    zeroPadding $3
+    ;;
+  david)
+    xrandr --output HDMI1 --auto --right-of VGA1
+    xrandr --output eDP1 --auto --right-of HDMI1
+    bspc monitor eDP1 --swap VGA1
+    bspc monitor VGA1 -d I II III IV V
+    bspc monitor HDMI -d VI VII
+    bspc monitor eDP1 -d VIII IX
+    zeroPadding HDMI1
+    zeroPadding eDP1
+    ;;
+  2mv)
+    xrandr --output VGA1 --left-of eDP1
+    order2 eDP1 VGA1 HDMI1
+    ;;
+  2mh)
+    xrandr --output HDMI1 --left-of eDP1
+    order2 eDP1 HDMI1 VGA1
+    ;;
+  home)
+    xrandr --output VGA1 --auto --right-of eDP1
+    bspc config -m VGA1 top_padding 0
+    ;;
+  *)
+    echo "$usage" >&2
+    exit 1
+    ;;
+esac
