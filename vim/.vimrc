@@ -57,7 +57,7 @@ call vundle#end()
  set t_Co=256
  filetype plugin indent on
  set background=dark
- colorscheme gruvbox
+ colorscheme Tomorrow-Night
  set undofile
  set undodir=~/.vimundo/
  set guioptions-=m guioptions-=T guioptions-=r
