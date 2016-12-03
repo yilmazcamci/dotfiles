@@ -1,0 +1,32 @@
+[user]
+  name = Alexander Tesfamichael
+  email = alex.tesfamichael@gmail.com
+[push]
+  default = simple
+[core]
+  editor = vim
+[pull]
+  rebase = true
+[pager]
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
+[diff]
+  indentHeuristic = true
+[alias]
+  changelog = "!sh -c 'git --no-pager log --pretty=format:\"- %an: %b\" --grep \"pull request\" $(git tag -l \"[0-9-]*\" | tail -n${1-1} | head -n1)..master; echo' -"
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
+[mergetool "p4merge"]
+    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    keepTemporaries = false
+    trustExitCode = false
+    keepBackup = false
+[mergetool "webstorm-eap"]
+    cmd = webstorm-eap merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+    keepTemporaries = false
+    keepBackup = false
+    #trustExitCode = false
