@@ -119,7 +119,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Syntastic - Checkers
-let g:syntastic_javascript_checkers = ['eslint', 'flow']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:Syntastic_json_checkers = ['jsonlint']
 let g:syntastic_rust_checkers = ['rustc']
 
 " delimitMate

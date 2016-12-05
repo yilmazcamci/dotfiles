@@ -106,3 +106,10 @@ npm() {
     command npm $@
   fi
 }
+
+# flow watch
+flow-watch () {
+  clear;
+  flow status;
+  fswatch -e "/\." -o . | xargs -n1 -I{} flow status;
+}
