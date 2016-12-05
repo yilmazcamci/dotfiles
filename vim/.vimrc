@@ -103,7 +103,7 @@ let g:ctrlp_custom_ignore = {
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
-map <C-S-n> :NERDTreeFind<CR>
+map <leader>n :NERDTreeFind<CR>
 "autocmd vimenter * if !argc() | NERDTree | endif
 
 " Nerdcommenter
