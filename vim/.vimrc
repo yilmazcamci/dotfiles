@@ -97,7 +97,7 @@ endif
 " ctrlp
 "
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.git|node_modules|flow-typed$',
+  \ 'dir':  '\v[\/]\.git|node_modules|flow-typed|build$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 
