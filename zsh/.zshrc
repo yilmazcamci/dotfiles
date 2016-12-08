@@ -10,7 +10,7 @@ export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703"
 export XDG_CONFIG_HOME=/Users/alexander/.config
 
 # lazy load nvm
-export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD=false
 
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
@@ -95,6 +95,26 @@ export PATH="$PATH:$HOME/script"
 # source rust binaries
 export PATH="$PATH:/Users/alexander/.cargo/bin"
 
+# auto change node version
+export NVM_DIR="$HOME/.nvm"
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm install
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
 
 # make npm behave
 npm() {
