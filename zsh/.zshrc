@@ -6,11 +6,11 @@
 export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703" 
 
 # env vars we like
-#export TERM=rxvt-256color
+export TERM=xterm-256color
 export XDG_CONFIG_HOME=/Users/alexander/.config
 
 # lazy load nvm
-export NVM_LAZY_LOAD=false
+export NVM_LAZY_LOAD=true
 
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
@@ -33,7 +33,7 @@ if ! zgen saved; then
     zgen load unixorn/warhol.plugin.zsh
 
     # Adds aliases to open your current repo & branch on github.
-    # zgen load peterhurford/git-it-on.zsh
+    zgen load peterhurford/git-it-on.zsh
 
     # Other plugins
     # zgen oh-my-zsh plugins/aws
@@ -56,10 +56,6 @@ if ! zgen saved; then
     # Do things async
     # zgen load mafredri/zsh-async
 
-    # keybindings for history-substring-search
-    # bindkey '^[[A' history-substring-search-up
-    # bindkey '^[[B' history-substring-search-down
-
     # theme
     # zgen oh-my-zsh themes/arrow
     # zgen load sindresorhus/pure
@@ -71,12 +67,19 @@ if ! zgen saved; then
     zgen save
 fi
 
+# configure bullettrain
+BULLETTRAIN_TIME_SHOW=false
+
+# keybindings for history-substring-search
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # source npm bin
 if [ -d node_modules ]; then
   export PATH=${PATH}:$(npm bin)
 fi
 
-export PATH=${PATH}:/Users/alexander/.nvm/versions/node/v7.2.0/bin
+# export PATH=${PATH}:/Users/alexander/.nvm/versions/node/v7.2.1/bin
 
 # load sorin's special git formatting before alias
 zstyle -s ':prezto:module:git:log:medium' format '_git_log_medium_format' \
@@ -113,10 +116,13 @@ load-nvmrc() {
     nvm use default
   fi
 }
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
+
+# because we lazy load nvm we can't auto switch node versions
+# add-zsh-hook chpwd load-nvmrc
 
 # make npm behave
+# always silent on run commands
+# npm lint = npm run lint
 npm() {
   if [[ $1 == "run" && $2 == "lint" ]]; then
     command npm $@ --silent
