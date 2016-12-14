@@ -1,5 +1,30 @@
 #!/bin/sh
-# Install stow, zsh, zgen
+
+# install packages we always want
+if [ $(which pacman) -eq 0 ]; then
+  pacman -Syu --noconfirm
+  pacman -S --noconfirm zsh git stow tmux
+else
+  if [ $(which yum) -eq 0 ]; then
+    yum install -y epel-release
+    yum update -y
+    yum install -y zsh git stow tmux
+  fi
+fi
+
+# Clone zgen
+git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
+
 # Clone dotfiles
+git clone https://github.com/AlexTes/dotfiles.git
+
 # Stow things
+cd ${HOME}/dotfiles
+stow git script tmux vim zsh
+
+# Install vim plugins
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
+
 # Set shell
+chsh -s $(which zsh)
