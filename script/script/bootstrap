@@ -8,7 +8,7 @@ else
   if [ $(which yum) -eq 0 ]; then
     yum install -y epel-release
     yum update -y
-    yum install -y zsh git stow tmux
+    yum install -y zsh git stow tmux cmake
   fi
 fi
 
@@ -21,10 +21,24 @@ git clone https://github.com/AlexTes/dotfiles.git
 # Stow things
 cd ${HOME}/dotfiles
 stow git script tmux vim zsh
+cd ${HOME}
 
 # Install vim plugins
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
+mkdir ${HOME}/.vim/colors
+curl -o ${HOME}/.vim/colors/Tomorrow-Night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
+mkdir ${HOME}/.vimundo
+
+# YouCompleteMe
+if [ $(which pacman) -eq 0 ]; then
+  pacman -S --noconfirm build-essentials
+elif [ $(which yum) -eq 0 ]; then
+  yum install -y cmake gcc gcc-c++ make openssl-devel
+fi
+cd ~/.vim/bundle/YouCompleteMe
+./install.py
+cd ${HOME}
 
 # Set shell
 chsh -s $(which zsh)
