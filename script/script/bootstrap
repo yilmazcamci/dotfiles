@@ -34,7 +34,7 @@ mkdir ${HOME}/.vimundo
 if [ $(which pacman) -eq 0 ]; then
   pacman -S --noconfirm build-essentials
 elif [ $(which yum) -eq 0 ]; then
-  yum install -y cmake gcc gcc-c++ make openssl-devel
+  yum install -y cmake gcc gcc-c++ make openssl-devel python-devel
 fi
 cd ~/.vim/bundle/YouCompleteMe
 ./install.py
