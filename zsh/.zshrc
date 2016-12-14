@@ -79,7 +79,7 @@ if [ -d node_modules ]; then
   export PATH=${PATH}:$(npm bin)
 fi
 
-# export PATH=${PATH}:/Users/alexander/.nvm/versions/node/v7.2.1/bin
+export PATH=${PATH}:/Users/alexander/.nvm/versions/node/v7.2.1/bin
 
 # load sorin's special git formatting before alias
 zstyle -s ':prezto:module:git:log:medium' format '_git_log_medium_format' \
