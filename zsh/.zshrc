@@ -2,6 +2,9 @@
 # Executes commands at the start of an interactive session.
 #
 
+# see if this fixes locale locale warnings
+export LC_ALL=en_US.UTF-8
+
 # homebrew
 export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703" 
 
