@@ -53,21 +53,21 @@ Plugin 'millermedeiros/vim-esformatter'
 call vundle#end()
 
 "SETTINGS
- syntax enable
- set number
- set t_Co=256
- filetype plugin indent on
- set background=dark
- colorscheme Tomorrow-Night
- set undofile
- set undodir=~/.vimundo/
- set guioptions-=m guioptions-=T guioptions-=r
- set hlsearch
- set ignorecase
- set smartcase
- "set wrapscan
- set shortmess+=I
- set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+syntax enable
+set number
+set t_Co=256
+filetype plugin indent on
+set background=dark
+colorscheme Tomorrow-Night
+set undofile
+set undodir=~/.vimundo/
+set guioptions-=m guioptions-=T guioptions-=r
+set hlsearch
+set ignorecase
+set smartcase
+"set wrapscan
+set shortmess+=I
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
