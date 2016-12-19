@@ -68,6 +68,7 @@ set smartcase
 "set wrapscan
 set shortmess+=I
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set noswapfile
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
