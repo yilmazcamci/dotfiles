@@ -24,10 +24,6 @@ if ! zgen saved; then
 
     zgen oh-my-zsh
 
-    # syntax highlight needs to come before history-substring-search
-    zgen load zsh-users/zsh-syntax-highlighting
-    zgen load zsh-users/zsh-history-substring-search
-
     # Auto update every seven days
     zgen load unixorn/autoupdate-zgen
 
@@ -66,23 +62,19 @@ if ! zgen saved; then
     # Bullet train prompt setup
     zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
+    # syntax highlight needs to come before history-substring-search
+    zgen load zsh-users/zsh-syntax-highlighting
+    zgen load zsh-users/zsh-history-substring-search
+
     # save all to init script
     zgen save
 fi
 
+bindkey '\eOA' history-substring-search-up # or ^[OA
+bindkey '\eOB' history-substring-search-down # or ^[OB
+
 # configure bullettrain
 BULLETTRAIN_TIME_SHOW=false
-
-# keybindings for history-substring-search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-
-# source npm bin
-if [ -d node_modules ]; then
-  export PATH=${PATH}:$(npm bin)
-fi
-
-export PATH=${PATH}:/Users/alexander/.nvm/versions/node/v7.2.1/bin
 
 # load sorin's special git formatting before alias
 zstyle -s ':prezto:module:git:log:medium' format '_git_log_medium_format' \
@@ -100,6 +92,9 @@ export PATH="$PATH:$HOME/script"
 
 # source rust binaries
 export PATH="$PATH:/Users/alexander/.cargo/bin"
+
+# source user global node modules
+export PATH=${PATH}:/Users/alexander/.nvm/versions/node/v7.3.0/bin
 
 # auto change node version
 export NVM_DIR="$HOME/.nvm"
