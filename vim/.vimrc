@@ -15,6 +15,8 @@ Plugin 'VundleVim/Vundle.vim'
 " PLUGINS - GENERAL
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -32,21 +34,17 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
 
 " PLUGINS - LANGUAGES
-"Plugin 'digitaltoad/vim-jade'
-"Plugin 'cakebaker/scss-syntax.vim'
-"Plugin 'othree/html5-syntax.vim'
-"Plugin 'othree/html5.vim'
+" pug
+Plugin 'digitaltoad/vim-pug'
+" rust
 Plugin 'rust-lang/rust.vim'
-
-"
-" PLUGINS - JAVASCRIPT
-"
-" Syntax and indent plugins
+" API Blueprint
+Plugin 'kylef/apiblueprint.vim'
+" JavaScript
+" Syntax and indent
 Plugin 'pangloss/vim-javascript'
 " Correctly open required files or node source
 "Plugin 'moll/vim-node'
-" Syntax highlighting for common javascript libraries
-"Plugin 'othree/javascript-libraries-syntax.vim'
 " Esformatter
 Plugin 'millermedeiros/vim-esformatter'
 
