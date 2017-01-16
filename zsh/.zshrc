@@ -74,7 +74,13 @@ bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
 
 # configure bullettrain
-BULLETTRAIN_TIME_SHOW=false
+BULLETTRAIN_PROMPT_ORDER=(
+  dir
+  git
+  nvm
+  virtualenv
+  status
+)
 
 # load sorin's special git formatting before alias
 zstyle -s ':prezto:module:git:log:medium' format '_git_log_medium_format' \
@@ -93,13 +99,13 @@ export PATH="$PATH:$HOME/script"
 # source rust binaries
 export PATH="$PATH:/Users/alexander/.cargo/bin"
 
-# source user global node modules
-export PATH=${PATH}:/Users/alexander/.nvm/versions/node/v7.3.0/bin
-
 # auto change node version
 export NVM_DIR="$HOME/.nvm"
 autoload -U add-zsh-hook
 load-nvmrc() {
+  if [ -d node_modules ]; then
+    nvm
+  fi
   local node_version="$(nvm version)"
   local nvmrc_path="$(nvm_find_nvmrc)"
 
@@ -116,7 +122,12 @@ load-nvmrc() {
 }
 
 # because we lazy load nvm we can't auto switch node versions
-# add-zsh-hook chpwd load-nvmrc
+add-zsh-hook chpwd load-nvmrc
+
+# source npm bin
+if [ -d node_modules ]; then
+  export PATH=${PATH}:$(npm bin)
+fi
 
 # make npm behave
 # always silent on run commands
