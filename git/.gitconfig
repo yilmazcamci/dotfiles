@@ -1,6 +1,7 @@
 [user]
   name = Alexander Tesfamichael
   email = alex.tesfamichael@gmail.com
+  signingkey = B39F262D78F56F21
 [push]
   default = simple
 [core]
