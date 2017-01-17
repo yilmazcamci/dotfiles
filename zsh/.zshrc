@@ -77,7 +77,6 @@ bindkey '\eOB' history-substring-search-down # or ^[OB
 BULLETTRAIN_PROMPT_ORDER=(
   dir
   git
-  nvm
   virtualenv
   status
 )
@@ -99,35 +98,33 @@ export PATH="$PATH:$HOME/script"
 # source rust binaries
 export PATH="$PATH:/Users/alexander/.cargo/bin"
 
-# auto change node version
 export NVM_DIR="$HOME/.nvm"
+
+# when entering a project dir
+# 1. load nvm
+# 2. source the local binaries
+# 3. match node version to .nvmrc
 autoload -U add-zsh-hook
 load-nvmrc() {
   if [ -d node_modules ]; then
-    nvm
-  fi
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
+    _zsh_nvm_load
+    export PATH=${PATH}:$(npm bin)
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
 
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    if [ -n "$nvmrc_path" ]; then
+      local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
 
-    if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm install
+      if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
+        nvm install
+      fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+      echo "Reverting to nvm default version"
+      nvm use default
     fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
   fi
 }
-
-# because we lazy load nvm we can't auto switch node versions
 add-zsh-hook chpwd load-nvmrc
-
-# source npm bin
-if [ -d node_modules ]; then
-  export PATH=${PATH}:$(npm bin)
-fi
 
 # make npm behave
 # always silent on run commands
