@@ -43,6 +43,7 @@ Plugin 'kylef/apiblueprint.vim'
 " JavaScript
 " Syntax and indent
 Plugin 'pangloss/vim-javascript'
+Plugin 'sindresorhus/vim-xo'
 " Correctly open required files or node source
 "Plugin 'moll/vim-node'
 " Esformatter
@@ -84,6 +85,15 @@ nmap <leader>l :set list!<CR>
 nnoremap <leader>h :noh<CR>
 nmap <leader>j :%!python -m json.tool<CR>
 nnoremap <leader>s :w<CR>
+nnoremap <silent> <leader>co :call g:ToggleColorColumn()<CR>
+
+function! g:ToggleColorColumn()
+  if &colorcolumn != ''
+    setlocal colorcolumn&
+  else
+    setlocal colorcolumn=+1
+  endif
+endfunction
 
 "
 " Plugins
@@ -119,7 +129,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Syntastic - Checkers
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['eslint', 'xo']
 let g:Syntastic_json_checkers = ['jsonlint']
 let g:syntastic_rust_checkers = ['rustc']
 
@@ -131,6 +141,9 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
+
+" YouCompleteMe
+let g:ycm_python_binary_path = '/usr/bin/python3'
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
