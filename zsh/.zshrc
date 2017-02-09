@@ -126,21 +126,8 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 
-# make npm behave
-# always silent on run commands
-# npm lint = npm run lint
-npm() {
-  if [[ $1 == "run" && $2 == "lint" ]]; then
-    command npm $@ --silent
-  elif [[ $1 == "lint" ]]; then
-    command npm run lint --silent $@
-  else
-    command npm $@
-  fi
-}
-
 # flow watch
-flow-watch () {
+flow-watch() {
   clear;
   flow status;
   fswatch -e "/\." -o . | xargs -n1 -I{} flow status;
