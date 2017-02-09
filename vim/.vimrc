@@ -48,6 +48,8 @@ Plugin 'sindresorhus/vim-xo'
 "Plugin 'moll/vim-node'
 " Esformatter
 Plugin 'millermedeiros/vim-esformatter'
+" PostCSS
+Plugin 'hhsnopek/vim-sugarss'
 
 call vundle#end()
 
