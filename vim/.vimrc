@@ -31,6 +31,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'honza/vim-snippets'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
+Plugin 'chriskempson/base16-vim'
 
 " PLUGINS - LANGUAGES
 " pug
@@ -53,7 +54,6 @@ syntax enable
 set number
 filetype plugin indent on
 set background=dark
-colorscheme Tomorrow-Night
 set undofile
 set undodir=~/.vimundo/
 set guioptions-=m guioptions-=T guioptions-=r
@@ -64,6 +64,11 @@ set smartcase
 set shortmess+=I
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set noswapfile
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+colorscheme base16-default-dark
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
