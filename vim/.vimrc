@@ -29,15 +29,12 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'Raimondi/delimitMate'
 Plugin 'honza/vim-snippets'
-Plugin 'editorconfig/editorconfig-vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
 
 " PLUGINS - LANGUAGES
 " pug
 Plugin 'digitaltoad/vim-pug'
-" rust
-Plugin 'rust-lang/rust.vim'
 " API Blueprint
 Plugin 'kylef/apiblueprint.vim'
 " JavaScript
@@ -48,15 +45,12 @@ Plugin 'sindresorhus/vim-xo'
 "Plugin 'moll/vim-node'
 " Esformatter
 Plugin 'millermedeiros/vim-esformatter'
-" PostCSS
-Plugin 'hhsnopek/vim-sugarss'
 
 call vundle#end()
 
 "SETTINGS
 syntax enable
 set number
-set t_Co=256
 filetype plugin indent on
 set background=dark
 colorscheme Tomorrow-Night
