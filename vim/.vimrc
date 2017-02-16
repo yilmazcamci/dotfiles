@@ -133,6 +133,7 @@ let g:syntastic_check_on_wq = 0
 " Syntastic - Checkers
 let g:syntastic_javascript_checkers = ['eslint', 'xo']
 let g:Syntastic_json_checkers = ['jsonlint']
+let g:syntastic_python_checkers = ['flake8']
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
