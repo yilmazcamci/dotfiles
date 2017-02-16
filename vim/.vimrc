@@ -133,7 +133,6 @@ let g:syntastic_check_on_wq = 0
 " Syntastic - Checkers
 let g:syntastic_javascript_checkers = ['eslint', 'xo']
 let g:Syntastic_json_checkers = ['jsonlint']
-let g:syntastic_rust_checkers = ['rustc']
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
@@ -164,5 +163,3 @@ let g:used_javascript_libs = 'underscore,react'
 nnoremap <silent> <leader>es :Esformatter<CR>
 vnoremap <silent> <leader>es :EsformatterVisual<CR>
 
-" rustfmt
-nnoremap <silent> <leader>rf :RustFmt<CR>
