@@ -18,6 +18,9 @@ git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 # Clone dotfiles
 git clone https://github.com/AlexTes/dotfiles.git
 
+# Setup tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # Stow things
 cd ${HOME}/dotfiles
 stow git script tmux vim zsh
