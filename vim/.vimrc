@@ -35,11 +35,6 @@ Plugin 'mileszs/ack.vim'
 Plugin 'chriskempson/base16-vim'
 
 " PLUGINS - LANGUAGES
-" pug
-Plugin 'digitaltoad/vim-pug'
-" API Blueprint
-Plugin 'kylef/apiblueprint.vim'
-"
 " JavaScript
 "
 " Syntax and indent
@@ -48,11 +43,20 @@ Plugin 'pangloss/vim-javascript'
 "Plugin 'moll/vim-node'
 " Esformatter
 Plugin 'millermedeiros/vim-esformatter'
-"
+
 " Python
 "
 " Style
 Plugin 'Chiel92/vim-autoformat'
+
+" Markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+" pug
+Plugin 'digitaltoad/vim-pug'
+" API Blueprint
+Plugin 'kylef/apiblueprint.vim'
+
 
 call vundle#end()
 
