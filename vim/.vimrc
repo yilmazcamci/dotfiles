@@ -39,14 +39,20 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'digitaltoad/vim-pug'
 " API Blueprint
 Plugin 'kylef/apiblueprint.vim'
+"
 " JavaScript
+"
 " Syntax and indent
 Plugin 'pangloss/vim-javascript'
-Plugin 'sindresorhus/vim-xo'
 " Correctly open required files or node source
 "Plugin 'moll/vim-node'
 " Esformatter
 Plugin 'millermedeiros/vim-esformatter'
+"
+" Python
+"
+" Style
+Plugin 'Chiel92/vim-autoformat'
 
 call vundle#end()
 
@@ -163,4 +169,7 @@ let g:used_javascript_libs = 'underscore,react'
 " Esformatter
 nnoremap <silent> <leader>es :Esformatter<CR>
 vnoremap <silent> <leader>es :EsformatterVisual<CR>
+
+" Vim-autoformat
+let g:formatter_yapf_style = 'pep8'
 
