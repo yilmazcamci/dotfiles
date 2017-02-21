@@ -47,7 +47,6 @@ Plugin 'millermedeiros/vim-esformatter'
 " Python
 "
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'dbsr/vimpy'
 
 " Markdown
 Plugin 'godlygeek/tabular'
@@ -174,7 +173,3 @@ let g:used_javascript_libs = 'underscore,react'
 " Esformatter
 nnoremap <silent> <leader>es :Esformatter<CR>
 vnoremap <silent> <leader>es :EsformatterVisual<CR>
-
-" Vim-autoformat
-let g:formatter_yapf_style = 'pep8'
-
