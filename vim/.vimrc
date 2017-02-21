@@ -119,9 +119,10 @@ endif
 " ctrlp
 "
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.git|node_modules|flow-typed|build$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
