@@ -46,8 +46,8 @@ Plugin 'millermedeiros/vim-esformatter'
 
 " Python
 "
-" Style
-Plugin 'Chiel92/vim-autoformat'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'dbsr/vimpy'
 
 " Markdown
 Plugin 'godlygeek/tabular'
