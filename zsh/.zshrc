@@ -2,7 +2,7 @@
 # Executes commands at the start of an interactive session.
 #
 
-# see if this fixes locale locale warnings
+# fixes bad iterm locale
 export LC_ALL=en_US.UTF-8
 
 # homebrew
