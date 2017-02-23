@@ -13,7 +13,7 @@ export TERM=xterm-256color
 export XDG_CONFIG_HOME=/Users/alexander/.config
 
 # lazy load nvm
-export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD=false
 
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
@@ -106,7 +106,7 @@ export NVM_DIR="$HOME/.nvm"
 autoload -U add-zsh-hook
 load-nvmrc() {
   if [ -d node_modules ]; then
-    _zsh_nvm_load
+    # _zsh_nvm_load
     export PATH=${PATH}:$(npm bin)
     local node_version="$(nvm version)"
     local nvmrc_path="$(nvm_find_nvmrc)"
