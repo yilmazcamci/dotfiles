@@ -97,7 +97,6 @@ nmap <leader>l :set list!<CR>
 nnoremap <leader>h :noh<CR>
 nmap <leader>j :%!python -m json.tool<CR>
 nnoremap <leader>s :w<CR>
-nnoremap <silent> <leader>co :call g:ToggleColorColumn()<CR>
 
 " autocmd InsertEnter * :set norelativenumber
 " autocmd InsertLeave * :set relativenumber
@@ -110,6 +109,7 @@ function! g:ToggleColorColumn()
     setlocal colorcolumn=+1
   endif
 endfunction
+nnoremap <silent> <leader>co :call g:ToggleColorColumn()<CR>
 
 " Trim Whitespace
 function! TrimWhitespace()
@@ -138,7 +138,7 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
-map <leader>n :NERDTreeFind<CR>
+map <leader>nf :NERDTreeFind<CR>
 "autocmd vimenter * if !argc() | NERDTree | endif
 
 " Nerdcommenter
