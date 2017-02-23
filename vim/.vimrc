@@ -62,6 +62,7 @@ call vundle#end()
 "SETTINGS
 syntax enable
 set number
+set relativenumber
 filetype plugin indent on
 set background=dark
 set undofile
@@ -97,6 +98,10 @@ nnoremap <leader>h :noh<CR>
 nmap <leader>j :%!python -m json.tool<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <silent> <leader>co :call g:ToggleColorColumn()<CR>
+
+" autocmd InsertEnter * :set norelativenumber
+" autocmd InsertLeave * :set relativenumber
+nnoremap <leader>nu :set relativenumber!<CR>
 
 function! g:ToggleColorColumn()
   if &colorcolumn != ''
