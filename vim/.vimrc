@@ -111,6 +111,14 @@ function! g:ToggleColorColumn()
   endif
 endfunction
 
+" Trim Whitespace
+function! TrimWhitespace()
+    let l:save = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+nnoremap <leader>wi :call TrimWhitespace()<CR>
+
 "
 " Plugins
 "
