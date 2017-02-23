@@ -135,3 +135,6 @@ flow-watch() {
 # get that base16 color goodness
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+# Correction if completion is not possible
+zstyle ':completion:*' completer _complete _approximate
