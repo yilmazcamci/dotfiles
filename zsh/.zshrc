@@ -102,9 +102,12 @@ export NVM_DIR="$HOME/.nvm"
 # 3. match node version to .nvmrc
 autoload -U add-zsh-hook
 load-nvmrc() {
-  if [ -d node_modules ]; then
-    # _zsh_nvm_load
-    export PATH=${PATH}:$(npm bin)
+    # source local bins
+    if [ -d node_modules ]; then
+      export PATH=${PATH}:$(npm bin)
+    fi
+
+    # check for project defined version
     local node_version="$(nvm version)"
     local nvmrc_path="$(nvm_find_nvmrc)"
 
@@ -118,9 +121,10 @@ load-nvmrc() {
       echo "Reverting to nvm default version"
       nvm use default
     fi
-  fi
 }
 add-zsh-hook chpwd load-nvmrc
+# execute once on shell start
+load-nvmrc
 
 # flow watch
 flow-watch() {
@@ -135,3 +139,6 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 # Correction if completion is not possible
 zstyle ':completion:*' completer _complete _approximate
+
+# source yarn global bin
+export PATH=${PATH}:~/.config/yarn/global/node_modules/.bin
