@@ -213,3 +213,6 @@ let g:used_javascript_libs = 'underscore,react'
 " Esformatter
 nnoremap <silent> <leader>es :Esformatter<CR>
 vnoremap <silent> <leader>es :EsformatterVisual<CR>
+
+" Markdown
+let g:vim_markdown_folding_disabled = 1
