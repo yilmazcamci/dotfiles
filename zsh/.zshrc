@@ -94,9 +94,6 @@ source ~/.alias
 # source scripts
 export PATH="$PATH:$HOME/script"
 
-# source rust binaries
-export PATH="$PATH:/Users/alexander/.cargo/bin"
-
 export NVM_DIR="$HOME/.nvm"
 
 # when entering a project dir
