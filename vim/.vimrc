@@ -25,14 +25,15 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'morhetz/gruvbox'
-Plugin 'ervandew/supertab'
+" Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 Plugin 'Raimondi/delimitMate'
 Plugin 'honza/vim-snippets'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
 Plugin 'chriskempson/base16-vim'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 " PLUGINS - LANGUAGES
 " JavaScript
@@ -86,8 +87,8 @@ set tabstop=4 shiftwidth=2 expandtab
 "set listchars=tab:»·,trail:·
 
 " EXPERIMENTAL SETTINGS
-"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-"match OverLength /\%101v.\+/
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%79v.\+/
 
 " PERSONAL REMAPS
 inoremap jj <Esc>
@@ -102,14 +103,21 @@ nnoremap <leader>s :w<CR>
 " autocmd InsertLeave * :set relativenumber
 nnoremap <leader>nu :set relativenumber!<CR>
 
-function! g:ToggleColorColumn()
-  if &colorcolumn != ''
-    setlocal colorcolumn&
-  else
-    setlocal colorcolumn=+1
-  endif
+" toggle colored right border after 80 chars
+set colorcolumn=80
+let s:color_column_old = 0
+
+function! s:ToggleColorColumn()
+    if s:color_column_old == 0
+        let s:color_column_old = &colorcolumn
+        windo let &colorcolumn = 0
+    else
+        windo let &colorcolumn=s:color_column_old
+        let s:color_column_old = 0
+    endif
 endfunction
-nnoremap <silent> <leader>co :call g:ToggleColorColumn()<CR>
+
+nnoremap <Leader>co :call <SID>ToggleColorColumn()<cr>
 
 " Trim Whitespace
 function! TrimWhitespace()
