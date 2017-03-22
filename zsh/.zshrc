@@ -142,8 +142,3 @@ zstyle ':completion:*' completer _complete _approximate
 
 # source yarn global bin
 export PATH=${PATH}:~/.config/yarn/global/node_modules/.bin
-
-# no emoji, we're not fun
-yarn() {
-    command yarn $@ --no-emoji
-}
