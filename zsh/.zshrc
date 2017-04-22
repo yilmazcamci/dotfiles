@@ -98,15 +98,9 @@ export NVM_DIR="$HOME/.nvm"
 
 # when entering a project dir
 # 1. load nvm
-# 2. source the local binaries
-# 3. match node version to .nvmrc
+# 2. match node version to .nvmrc
 autoload -U add-zsh-hook
 load-nvmrc() {
-    # source local bins
-    if [ -d node_modules ]; then
-      export PATH=${PATH}:$(npm bin)
-    fi
-
     # check for project defined version
     local node_version="$(nvm version)"
     local nvmrc_path="$(nvm_find_nvmrc)"
@@ -141,4 +135,4 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 zstyle ':completion:*' completer _complete _approximate
 
 # source yarn global bin
-export PATH=${PATH}:~/.config/yarn/global/node_modules/.bin
+# export PATH=${PATH}:~/.config/yarn/global/node_modules/.bin
