@@ -187,6 +187,7 @@ let g:syntastic_python_checkers = ['flake8']
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
+au FileType python let b:delimitMate_nesting_quotes = ['"']
 
 " Airline
 let g:airline_powerline_fonts = 1
