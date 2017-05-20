@@ -13,7 +13,7 @@ export TERM=xterm-256color
 export XDG_CONFIG_HOME=/Users/alexander/.config
 
 # lazy load nvm
-export NVM_LAZY_LOAD=false
+export NVM_LAZY_LOAD=true
 
 # load zgen
 source "${HOME}/.zgen/zgen.zsh"
@@ -53,13 +53,13 @@ if ! zgen saved; then
     # zgen load zsh-users/zsh-autosuggestions
 
     # Do things async
-    zgen load mafredri/zsh-async
+    # zgen load mafredri/zsh-async
 
     # theme
-    zgen load sindresorhus/pure
+    # zgen load sindresorhus/pure
 
     # Bullet train prompt setup
-    # zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+    zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
     # syntax highlight needs to come before history-substring-search
     zgen load zsh-users/zsh-syntax-highlighting
@@ -94,32 +94,6 @@ source ~/.alias
 # source scripts
 export PATH="$PATH:$HOME/script"
 
-export NVM_DIR="$HOME/.nvm"
-
-# when entering a project dir
-# 1. load nvm
-# 2. match node version to .nvmrc
-autoload -U add-zsh-hook
-load-nvmrc() {
-    # check for project defined version
-    local node_version="$(nvm version)"
-    local nvmrc_path="$(nvm_find_nvmrc)"
-
-    if [ -n "$nvmrc_path" ]; then
-      local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-      if [ "$nvmrc_node_version" != "N/A" ] && [ "$nvmrc_node_version" != "$node_version" ]; then
-        nvm install
-      fi
-    elif [ "$node_version" != "$(nvm version default)" ]; then
-      echo "Reverting to nvm default version"
-      nvm use default
-    fi
-}
-add-zsh-hook chpwd load-nvmrc
-# execute once on shell start
-load-nvmrc
-
 # flow watch
 flow-watch() {
   clear;
@@ -134,5 +108,6 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 # Correction if completion is not possible
 zstyle ':completion:*' completer _complete _approximate
 
-# source yarn global bin
-# export PATH=${PATH}:~/.config/yarn/global/node_modules/.bin
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
