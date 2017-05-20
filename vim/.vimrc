@@ -25,15 +25,16 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'morhetz/gruvbox'
-" Plugin 'ervandew/supertab'
+Bundle 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
-" Plugin 'SirVer/ultisnips'
-Plugin 'Raimondi/delimitMate'
+Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
 Plugin 'chriskempson/base16-vim'
 Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'Chiel92/vim-autoformat'
 
 " PLUGINS - LANGUAGES
 " JavaScript
@@ -84,7 +85,7 @@ colorscheme base16-default-dark
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
-"set listchars=tab:»·,trail:·
+" set listchars=tab:»·,trail:·
 
 " EXPERIMENTAL SETTINGS
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
@@ -94,10 +95,11 @@ set tabstop=4 shiftwidth=2 expandtab
 inoremap jj <Esc>
 cmap w!! w !sudo tee > /dev/null %
 let mapleader=","
-nmap <leader>l :set list!<CR>
+nmap <leader>li :set list!<CR>
 nnoremap <leader>h :noh<CR>
 nmap <leader>j :%!python -m json.tool<CR>
 nnoremap <leader>s :w<CR>
+noremap <F3> :Autoformat<CR>
 
 " autocmd InsertEnter * :set norelativenumber
 " autocmd InsertLeave * :set relativenumber
@@ -199,9 +201,9 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:ycm_python_binary_path = '/usr/local/bin/python3'
 
 " make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
