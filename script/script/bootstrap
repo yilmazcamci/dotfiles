@@ -1,15 +1,14 @@
-▽
 #!/bin/sh
 
 # install packages we always want
-if [ $(which pacman) -eq 0 ]; then
+if [ $(command -v pacman) ]; then
   pacman -Syu --noconfirm
   pacman -S --noconfirm zsh git stow tmux
-elif [ $(which yum) -eq 0 ]; then
+elif [ $(command -v yum) ]; then
     yum install -y epel-release
     yum update -y
     yum install -y zsh git stow tmux cmake
-elif [ $(which apt-get) -eq 0 ]; then
+elif [ $(command -v apt-get) ]; then
     apt-get install -y zsh git stow tmux
 else
     echo "No valid package manager found"
@@ -31,6 +30,12 @@ cd ${HOME}/dotfiles
 stow git script tmux vim zsh
 cd ${HOME}
 
+# base16
+git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
+cat <<EOT >> ~/.zshrc
+BASE16_SHELL=$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+EOT
 # Install vim plugins
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
