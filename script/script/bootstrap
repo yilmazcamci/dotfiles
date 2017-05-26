@@ -1,15 +1,19 @@
+▽
 #!/bin/sh
 
 # install packages we always want
 if [ $(which pacman) -eq 0 ]; then
   pacman -Syu --noconfirm
   pacman -S --noconfirm zsh git stow tmux
-else
-  if [ $(which yum) -eq 0 ]; then
+elif [ $(which yum) -eq 0 ]; then
     yum install -y epel-release
     yum update -y
     yum install -y zsh git stow tmux cmake
-  fi
+elif [ $(which apt-get) -eq 0 ]; then
+    apt-get install -y zsh git stow tmux
+else
+    echo "No valid package manager found"
+    exit 1
 fi
 
 # Clone zgen
@@ -35,14 +39,14 @@ curl -o ${HOME}/.vim/colors/Tomorrow-Night.vim https://raw.githubusercontent.com
 mkdir ${HOME}/.vimundo
 
 # YouCompleteMe
-if [ $(which pacman) -eq 0 ]; then
-  pacman -S --noconfirm build-essentials
-elif [ $(which yum) -eq 0 ]; then
-  yum install -y cmake gcc gcc-c++ make openssl-devel python-devel
-fi
-cd ~/.vim/bundle/YouCompleteMe
-./install.py
-cd ${HOME}
+# if [ $(which pacman) -eq 0 ]; then
+#  pacman -S --noconfirm build-essentials
+# elif [ $(which yum) -eq 0 ]; then
+#   yum install -y cmake gcc gcc-c++ make openssl-devel python-devel
+# fi
+# cd ~/.vim/bundle/YouCompleteMe
+# ./install.py
+# cd ${HOME}
 
 # Set shell
 chsh -s $(which zsh)
