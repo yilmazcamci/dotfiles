@@ -34,10 +34,8 @@ cd ${HOME}
 
 # base16
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-cat <<EOT >> ~/.zshrc
-BASE16_SHELL=$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-EOT
+base16_default-dark
+
 # Install vim plugins
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
