@@ -1,7 +1,5 @@
 #!/bin/sh
 
-${ENV:='SERVER'}
-
 # install packages we always want
 if [ $(command -v pacman) ]; then
   pacman -Syu --noconfirm
@@ -32,7 +30,7 @@ sh ~/.tmux/plugins/tmp/scripts/install-plugins.sh
 # Stow things
 cd ${HOME}/dotfiles
 stow git scripts tmux zsh
-if [ $ENV == 'SERVER' ]; then
+if [ ${ENV:='SERVER'} == 'SERVER' ]; then
   stow vim-server
 else
   stow vim
