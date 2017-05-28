@@ -92,7 +92,7 @@ zstyle -s ':prezto:module:git:log:brief' format '_git_log_brief_format' \
 source ~/.alias
 
 # source scripts
-export PATH="$PATH:$HOME/script"
+export PATH="$PATH:$HOME/scripts"
 
 # flow watch
 flow-watch() {

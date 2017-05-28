@@ -29,7 +29,7 @@ sh ~/.tmux/plugins/tmp/scripts/install-plugins.sh
 
 # Stow things
 cd ${HOME}/dotfiles
-stow git script tmux vim zsh
+stow git scripts tmux vim zsh
 cd ${HOME}
 
 # base16
