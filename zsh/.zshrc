@@ -53,13 +53,13 @@ if ! zgen saved; then
     # zgen load zsh-users/zsh-autosuggestions
 
     # Do things async
-    # zgen load mafredri/zsh-async
+    zgen load mafredri/zsh-async
 
     # theme
-    # zgen load sindresorhus/pure
+    zgen load sindresorhus/pure
 
     # Bullet train prompt setup
-    zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+    # zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
     # syntax highlight needs to come before history-substring-search
     zgen load zsh-users/zsh-syntax-highlighting
