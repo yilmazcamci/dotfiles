@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # install packages we always want
 if [ $(command -v pacman) ]; then
