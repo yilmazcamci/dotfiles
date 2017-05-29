@@ -1,0 +1,9 @@
+#!/bin/bash
+# Installs docker at the currently (05-2017) latest compatible version with Kubernetes, using the overlay2 storage driver to support newer linux kernels
+mkdir /etc/docker
+cat <<EOT >> /etc/docker/daemon.json
+{
+    "storage-driver": "overlay2"
+}
+EOT
+curl https://releases.rancher.com/install-docker/1.12.sh | sh
