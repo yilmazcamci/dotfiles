@@ -1,4 +1,5 @@
 #!/bin/sh
+# Installs the latest version of docker on ubuntu
 apt-get remove -y docker docker-engine
 apt-get update -y
 apt-get install -y \
