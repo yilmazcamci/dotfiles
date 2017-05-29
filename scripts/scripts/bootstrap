@@ -42,10 +42,11 @@ git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shel
 base16_default-dark
 
 # Install vim plugins
+mkdir ${HOME}/.vim/colors
+git clone git://github.com/chriskempson/base16-vim.git ~/.vim/colors/base16
+cp ~/.vim/colors/base16/colors/*.vim ~/.vim/colors
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
-mkdir ${HOME}/.vim/colors
-curl -o ${HOME}/.vim/colors/Tomorrow-Night.vim https://raw.githubusercontent.com/chriskempson/tomorrow-theme/master/vim/colors/Tomorrow-Night.vim
 mkdir ${HOME}/.vimundo
 
 # YouCompleteMe
