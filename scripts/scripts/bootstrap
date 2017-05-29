@@ -60,3 +60,4 @@ mkdir ${HOME}/.vimundo
 
 # Set shell
 chsh -s $(which zsh)
+exec zsh
