@@ -1,0 +1,18 @@
+#!/bin/bash
+
+revision=${1:-$(git rev-parse master)}
+
+while true;
+do
+ status=$(hub ci-status ${revision})
+ if [ "$status" = "success" ];
+ then
+  exit 0;
+ elif [ "$status" = "no status" ] || [ "$status" = "pending" ];
+ then
+  sleep 5;
+ else
+  echo -e "\xf0\x9f\x92\xa5  Deploy failed!"
+  exit 1;
+ fi;
+done;
