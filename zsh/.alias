@@ -5,8 +5,10 @@ alias connect-znc='ssh root@51.15.50.81'
 # git
 alias glgg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}"'
 alias glgb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
-alias spe='source ./env/bin/activate'
+
+alias spe='source ./venv/bin/activate'
 alias 3dhubs='/Users/alexander/.local/venvs/3dhubs-v2/.venv/bin/3dhubs'
+alias scw='scw --region=ams1'
 
 # source secret aliases
 if [ -e ~/.secret_alias ]; then
