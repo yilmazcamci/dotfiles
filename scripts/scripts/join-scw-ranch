@@ -1,3 +1,3 @@
 PUBLIC_IP=$(scw-metadata --cached PUBLIC_IP_ADDRESS)
 NAME=$(scw-metadata --cached NAME)
-docker run -e CATTLE_AGENT_IP="$PUBLIC_IP" -e CATTLE_HOST_LABELS="name=$NAME"  --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.2 http://51.15.61.107:8080/v1/scripts/67E298FC67FFCA247A08:1483142400000:90rOvEcyiFfWiBljswUNQPpfTrY
+docker run -e CATTLE_AGENT_IP="$PUBLIC_IP" -e CATTLE_HOST_LABELS="name=$NAME"  --rm --privileged -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/rancher:/var/lib/rancher rancher/agent:v1.2.2 http://51.15.63.110:8080/v1/scripts/67E298FC67FFCA247A08:1483142400000:90rOvEcyiFfWiBljswUNQPpfTrY
