@@ -29,7 +29,7 @@ sh ~/.tmux/plugins/tmp/scripts/install-plugins.sh
 
 # Stow things
 cd ${HOME}/dotfiles
-stow git scripts tmux zsh
+stow git scripts zsh
 if [ ${ENV:='SERVER'} == 'SERVER' ]; then
   stow vim-server
 else
