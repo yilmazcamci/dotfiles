@@ -1,0 +1,2 @@
+sed s/img/$1/g /etc/hostname
+sed s/img/$1/g /etc/hosts
