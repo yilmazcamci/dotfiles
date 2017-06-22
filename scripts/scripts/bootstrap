@@ -9,9 +9,9 @@ elif [ $(command -v yum) ]; then
   yum update -y
   yum install -y zsh git stow tmux cmake
 elif [ $(command -v apt-get) ]; then
-  apt-get update -y
-  apt-get upgrade -y
-  apt-get install -y zsh git stow tmux
+  sudo apt-get update -y
+  sudo apt-get upgrade -y
+  sudo apt-get install -y zsh git stow tmux
 else
   echo "No valid package manager found"
   exit 1
