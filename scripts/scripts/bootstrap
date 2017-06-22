@@ -2,19 +2,19 @@
 
 # install packages we always want
 if [ $(command -v pacman) ]; then
-  pacman -Syu --noconfirm
-  pacman -S --noconfirm zsh git stow tmux
+  sudo pacman -Syu --noconfirm
+  sudo pacman -S --noconfirm zsh git stow tmux
 elif [ $(command -v yum) ]; then
-    yum install -y epel-release
-    yum update -y
-    yum install -y zsh git stow tmux cmake
+  yum install -y epel-release
+  yum update -y
+  yum install -y zsh git stow tmux cmake
 elif [ $(command -v apt-get) ]; then
-    apt-get update -y
-    apt-get upgrade -y
-    apt-get install -y zsh git stow tmux
+  apt-get update -y
+  apt-get upgrade -y
+  apt-get install -y zsh git stow tmux
 else
-    echo "No valid package manager found"
-    exit 1
+  echo "No valid package manager found"
+  exit 1
 fi
 
 # Clone zgen
