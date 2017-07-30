@@ -18,6 +18,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-fugitive',
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdcommenter'
@@ -39,6 +40,7 @@ Plugin 'Chiel92/vim-autoformat'
 " PLUGINS - LANGUAGES
 " JavaScript
 "
+Plugin 'flowtype/vim-flow'
 " Syntax and indent
 Plugin 'pangloss/vim-javascript'
 " Correctly open required files or node source
@@ -183,7 +185,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Syntastic - Checkers
-let g:syntastic_javascript_checkers = ['eslint', 'xo']
+let g:syntastic_javascript_checkers = ['eslint', 'flow', 'xo']
 let g:Syntastic_json_checkers = ['jsonlint']
 let g:syntastic_python_checkers = ['flake8']
 
