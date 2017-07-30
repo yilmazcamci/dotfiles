@@ -11,6 +11,9 @@ export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703"
 # env vars we like
 export TERM=xterm-256color
 export XDG_CONFIG_HOME=/Users/alexander/.config
+export GOPATH=$HOME/code/go
+export PATH=${PATH}:~/.nvm/versions/node/v8.2.1/bin/
+export PATH=${PATH}:/Users/alexander/.local/venvs/3dhubs-v2/.venv/bin/
 
 # lazy load nvm
 export NVM_LAZY_LOAD=true

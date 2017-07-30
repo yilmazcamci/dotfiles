@@ -1,6 +1,6 @@
 #!/bin/zsh
 alias tnl='npm run test && npm run lint'
-alias connect-znc='ssh root@51.15.50.81'
+alias connect-znc='ssh root@51.15.55.164'
 
 # git
 alias glgg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}"'
