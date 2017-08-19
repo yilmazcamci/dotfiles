@@ -8,10 +8,6 @@ filetype off
  " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-"
-" PLUGINS
-"
-
 " PLUGINS - GENERAL
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-unimpaired'
@@ -25,41 +21,25 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'morhetz/gruvbox'
-Bundle 'ervandew/supertab'
+Plugin 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
+
+" Theme
 Plugin 'chriskempson/base16-vim'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'Chiel92/vim-autoformat'
+" Plugin 'morhetz/gruvbox'
 
-" PLUGINS - LANGUAGES
 " JavaScript
-"
-Plugin 'flowtype/vim-flow'
-" Syntax and indent
 Plugin 'pangloss/vim-javascript'
-" Correctly open required files or node source
-"Plugin 'moll/vim-node'
-" Esformatter
-Plugin 'millermedeiros/vim-esformatter'
-
-" Python
-"
-Plugin 'vim-scripts/indentpython.vim'
+Plugin 'flowtype/vim-flow'
 
 " Markdown
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-" pug
-Plugin 'digitaltoad/vim-pug'
-" API Blueprint
-Plugin 'kylef/apiblueprint.vim'
-
 
 call vundle#end()
 
@@ -89,10 +69,6 @@ colorscheme base16-default-dark
 set tabstop=4 shiftwidth=2 expandtab
 " set listchars=tab:»·,trail:·
 
-" EXPERIMENTAL SETTINGS
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%79v.\+/
-
 " PERSONAL REMAPS
 inoremap jj <Esc>
 cmap w!! w !sudo tee > /dev/null %
@@ -101,10 +77,8 @@ nmap <leader>li :set list!<CR>
 nnoremap <leader>h :noh<CR>
 nmap <leader>j :%!python -m json.tool<CR>
 nnoremap <leader>s :w<CR>
-noremap <F3> :Autoformat<CR>
 
-" autocmd InsertEnter * :set norelativenumber
-" autocmd InsertLeave * :set relativenumber
+" absolute line number toggle
 nnoremap <leader>nu :set relativenumber!<CR>
 
 " toggle colored right border after 80 chars
@@ -139,16 +113,6 @@ nnoremap <Leader>l :ls<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
 
 "
 " Plugins
@@ -170,7 +134,6 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
-"autocmd vimenter * if !argc() | NERDTree | endif
 
 " Nerdcommenter
 let g:NERDSpaceDelims = 1
@@ -185,16 +148,11 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " Syntastic - Checkers
-let g:syntastic_javascript_checkers = ['eslint', 'flow', 'xo']
+let g:syntastic_javascript_checkers = ['eslint', 'flow']
 let g:Syntastic_json_checkers = ['jsonlint']
-let g:syntastic_python_checkers = ['flake8']
-
-" delimitMate
-let g:delimitMate_expand_cr = 1
-au FileType python let b:delimitMate_nesting_quotes = ['"']
 
 " Airline
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -211,13 +169,6 @@ let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" Javascript Libraries Syntax
-let g:used_javascript_libs = 'underscore,react'
-
-" Esformatter
-nnoremap <silent> <leader>es :Esformatter<CR>
-vnoremap <silent> <leader>es :EsformatterVisual<CR>
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
