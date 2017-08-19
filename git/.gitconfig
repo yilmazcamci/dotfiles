@@ -14,8 +14,6 @@
   diff = diff-so-fancy | less
 [diff]
   indentHeuristic = true
-[alias]
-  changelog = "!sh -c 'git --no-pager log --pretty=format:\"- %an: %b\" --grep \"pull request\" $(git tag -l \"[0-9-]*\" | tail -n${1-1} | head -n1)..master; echo' -"
 [merge]
   tool = vimdiff
   conflictstyle = diff3
