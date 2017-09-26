@@ -36,10 +36,17 @@ Plugin 'chriskempson/base16-vim'
 " JavaScript
 Plugin 'pangloss/vim-javascript'
 Plugin 'flowtype/vim-flow'
+Plugin 'prettier/vim-prettier'
 
 " Markdown
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+
+" Terraform
+Plugin 'hashivim/vim-terraform'
+
+" Ansible
+Plugin 'pearofducks/ansible-vim'
 
 call vundle#end()
 
@@ -67,7 +74,7 @@ colorscheme base16-default-dark
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
-" set listchars=tab:»·,trail:·
+set listchars=tab:»·,trail:·
 
 " PERSONAL REMAPS
 inoremap jj <Esc>
@@ -113,6 +120,7 @@ nnoremap <Leader>l :ls<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>d :bd<CR>
 
 "
 " Plugins
@@ -152,7 +160,7 @@ let g:syntastic_javascript_checkers = ['eslint', 'flow']
 let g:Syntastic_json_checkers = ['jsonlint']
 
 " Airline
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
@@ -172,3 +180,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " Markdown
 let g:vim_markdown_folding_disabled = 1
+
+" Terraform
+let g:terraform_align=1
+let g:terraform_remap_spacebar=1
+let g:terraform_fmt_on_save=1
