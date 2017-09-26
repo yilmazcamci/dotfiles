@@ -1,0 +1,46 @@
+2017-08-28 12:04:43		New key binding (context "default"): meta-meta-OQ => /bar scroll buflist * e
+2017-08-28 12:04:43		New key binding (context "default"): meta-meta-OP => /bar scroll buflist * b
+2017-08-28 12:04:43		New key binding (context "default"): meta-OQ => /bar scroll buflist * +100%
+2017-08-28 12:04:43		New key binding (context "default"): meta-OP => /bar scroll buflist * -100%
+2017-08-28 12:04:43		Plugins loaded: alias, buflist, charset, exec, fifo, irc, logger, relay, script, tcl, trigger, xfer
+2017-09-04 17:33:11		Plugins loaded: alias, buflist, charset, exec, fifo, irc, logger, relay, script, tcl, trigger, xfer
+2017-09-04 17:33:14		[core]  /set  [<option> [<value>]]
+2017-09-04 17:33:14		              diff [<option> [<option>...]]
+2017-09-04 17:33:14		              env [<variable> [<value>]]
+2017-09-04 17:33:14		set config options and environment variables
+2017-09-04 17:33:14		option: name of an option (wildcard "*" is allowed)
+2017-09-04 17:33:14		 value: new value for option, according to type:
+2017-09-04 17:33:14		          boolean: on, off or toggle
+2017-09-04 17:33:14		          integer: number, ++number or --number
+2017-09-04 17:33:14		           string: any string ("" for empty string)
+2017-09-04 17:33:14		            color: color name, ++number or --number
+2017-09-04 17:33:14		        Note: for all types, you can use null to remove option value (undefined value). This works only for some special plugin variables.
+2017-09-04 17:33:14		  diff: display only changed options
+2017-09-04 17:33:14		   env: display or set an environment variable (use value "" to unset a variable)
+2017-09-04 17:33:14		Examples:
+2017-09-04 17:33:14		  display options about highlight:
+2017-09-04 17:33:14		    /set *highlight*
+2017-09-04 17:33:14		  add a word to highlight:
+2017-09-04 17:33:14		    /set weechat.look.highlight "word"
+2017-09-04 17:33:14		  display changed options:
+2017-09-04 17:33:14		    /set diff
+2017-09-04 17:33:14		  display changed options in irc plugin:
+2017-09-04 17:33:14		    /set diff irc.*
+2017-09-04 17:33:14		  display value of environment variable LANG:
+2017-09-04 17:33:14		    /set env LANG
+2017-09-04 17:33:14		  set environment variable LANG and use it:
+2017-09-04 17:33:14		    /set env LANG fr_FR.UTF-8
+2017-09-04 17:33:14		    /upgrade
+2017-09-04 17:33:14		  unset environment variable ABC:
+2017-09-04 17:33:14		    /set env ABC ""
+2017-09-04 17:38:45		irc: server ZNC added
+2017-09-04 17:39:35		Plugins loaded: alias, buflist, charset, exec, fifo, irc, logger, relay, script, tcl, trigger, xfer
+2017-09-04 17:40:44		Plugins loaded: alias, buflist, charset, exec, fifo, irc, logger, relay, script, tcl, trigger, xfer
+2017-09-04 17:41:08		Plugins loaded: alias, buflist, charset, exec, fifo, irc, logger, relay, script, tcl, trigger, xfer
+2017-09-04 17:41:22		[server] (irc.conf)
+2017-09-04 17:41:22		  irc.server.ZNC.addresses = "http://51.15.55.164:6144"  (default if null: "")
+2017-09-04 17:41:22		1 option (matching with "irc.server.ZNC.addresses")
+2017-09-04 17:42:01		[server] (irc.conf)
+2017-09-04 17:42:01		  irc.server.ZNC.addresses = "http://51.15.55.164:6144"  (default if null: "")
+2017-09-04 17:42:01		1 option (matching with "irc.server.ZNC.addresses")
+2017-09-04 17:42:12		Option changed: irc.server.ZNC.addresses = "51.15.55.164/6144"  (default if null: "")
