@@ -1,9 +1,6 @@
 [user]
   name = Alexander Tesfamichael
   email = alex.tesfamichael@gmail.com
-  signingkey = B39F262D78F56F21
-[push]
-  default = simple
 [core]
   editor = vim
 [pull]
@@ -19,15 +16,6 @@
   conflictstyle = diff3
 [mergetool]
   prompt = false
-  keepBackup = false
-[mergetool "p4merge"]
-  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-  keepTemporaries = false
-  trustExitCode = false
-  keepBackup = false
-[mergetool "webstorm-eap"]
-  cmd = webstorm-eap merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
-  keepTemporaries = false
   keepBackup = false
 [filter "lfs"]
   clean = git-lfs clean -- %f
