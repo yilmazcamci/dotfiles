@@ -1,0 +1,9 @@
+#!/bin/bash
+osascript - "$@" <<EOF
+on run argv
+tell application "iTerm"
+    activate
+    set new_term to (create window with default profile)
+end tell
+end run
+EOF
