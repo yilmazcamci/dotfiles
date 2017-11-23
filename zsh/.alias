@@ -4,8 +4,8 @@ alias connect-dev-bastion='ssh -A developer@34.230.227.13'
 alias connect-uat-bastion='ssh -A developer@34.233.196.145'
 
 # git
-alias glgg='git log --topo-order --all --graph --pretty=format:"${_git_log_oneline_format}"'
-alias glgb='git log --topo-order --pretty=format:"${_git_log_brief_format}"'
+alias glgg='git log --topo-order --all --graph --oneline'
+alias glgb='git log --topo-order --pretty=short'
 
 # scw
 alias scw='scw --region=ams1'
