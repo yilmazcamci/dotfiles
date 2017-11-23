@@ -37,6 +37,9 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'flowtype/vim-flow'
 Plugin 'prettier/vim-prettier'
+Plugin 'mxw/vim-jsx'
+Plugin 'mvolkmann/vim-js-arrow-function'
+Plugin 'moll/vim-node'
 
 " Markdown
 Plugin 'godlygeek/tabular'
