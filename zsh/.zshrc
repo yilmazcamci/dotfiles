@@ -1,4 +1,4 @@
-export XDG_CONFIG_HOME=/Users/alexander/.config
+export XDG_CONFIG_HOME=/Users/alextes/.config
 export PATH="$PATH:$HOME/.nvm/versions/node/v8.4.0/bin/:$HOME/scripts"
 export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703" 
 export NVM_DIR="$HOME/.nvm"
@@ -13,9 +13,6 @@ source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.
 
 # Default AWS profile to use
 export AWS_PROFILE=adidas-linked-hypeplatform
-
-# AWS completion
-source /usr/local/bin/aws_zsh_completer.sh
 
 # Extend git with hub
 eval "$(hub alias -s)"
@@ -88,3 +85,5 @@ flow-watch() {
 # Correction if completion is not possible
 zstyle ':completion:*' completer _complete _approximate
 
+# Load ssh keys
+ssh-add -A 2>/dev/null
