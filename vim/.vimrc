@@ -16,7 +16,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-fugitive',
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -146,19 +146,6 @@ map <leader>nf :NERDTreeFind<CR>
 " Nerdcommenter
 let g:NERDSpaceDelims = 1
 
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Syntastic - Checkers
-let g:syntastic_javascript_checkers = ['eslint', 'flow']
-let g:Syntastic_json_checkers = ['jsonlint']
-
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
@@ -185,3 +172,9 @@ let g:vim_markdown_folding_disabled = 1
 let g:terraform_align=1
 let g:terraform_remap_spacebar=1
 let g:terraform_fmt_on_save=1
+
+" ALE
+let g:ale_linters = { 'javascript': ['eslint', 'flow', 'standard', 'xo'] }
+let g:ale_fixers = { 'javascript': [ 'eslint', 'prettier_eslint' ] }
+let g:ale_javascript_prettier_use_local_config = 1
+nnoremap <Leader>p :ALEFix<CR>
