@@ -45,20 +45,13 @@ Plugin 'moll/vim-node'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 
-" Terraform
-Plugin 'hashivim/vim-terraform'
-
-" Ansible
-Plugin 'pearofducks/ansible-vim'
-
 call vundle#end()
 
-"SETTINGS
+" General Settings
 syntax enable
 set number
 set relativenumber
 filetype plugin indent on
-set background=dark
 set undofile
 set undodir=~/.vimundo/
 set guioptions-=m guioptions-=T guioptions-=r
@@ -69,6 +62,8 @@ set smartcase
 set shortmess+=I
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set noswapfile
+" Set colors
+set background=dark
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
@@ -87,9 +82,8 @@ nmap <leader>li :set list!<CR>
 nnoremap <leader>h :noh<CR>
 nmap <leader>j :%!python -m json.tool<CR>
 nnoremap <leader>s :w<CR>
-
-" absolute line number toggle
 nnoremap <leader>nu :set relativenumber!<CR>
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 " toggle colored right border after 80 chars
 set colorcolumn=80
@@ -171,13 +165,11 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " Markdown
 let g:vim_markdown_folding_disabled = 1
 
-" Terraform
-let g:terraform_align=1
-let g:terraform_remap_spacebar=1
-let g:terraform_fmt_on_save=1
-
 " ALE
-let g:ale_linters = { 'javascript': ['eslint', 'flow', 'standard', 'xo'] }
-let g:ale_fixers = { 'javascript': [ 'eslint', 'prettier_eslint' ] }
+let g:ale_linters = { 'javascript': ['eslint', 'standard', 'xo'] }
+let g:ale_fixers = { 'javascript': [ 'eslint', 'prettier_eslint' ], 'json': ['prettier_eslint'] }
 let g:ale_javascript_prettier_use_local_config = 1
 nnoremap <Leader>p :ALEFix<CR>
+
+" Flow
+let g:flow#autoclose = 1
