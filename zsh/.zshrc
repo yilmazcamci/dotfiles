@@ -1,5 +1,5 @@
 export XDG_CONFIG_HOME=/Users/alextes/.config
-export PATH="$PATH:$HOME/.nvm/versions/node/v8.4.0/bin/:$HOME/scripts"
+export PATH="$PATH:$HOME/.nvm/versions/node/v9.2.0/bin/:$HOME/scripts"
 export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703" 
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
@@ -8,14 +8,15 @@ export NVM_LAZY_LOAD=true
 source ~/.alias
 
 # Google Cloud SDK
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+if [ -d '/usr/localCaskroom/google-cloud-sdk' ]; then
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+  source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+fi
 
-# Default AWS profile to use
-export AWS_PROFILE=adidas-linked-hypeplatform
-
-# Extend git with hub
-eval "$(hub alias -s)"
+if command -v hub; then
+  # Extend git with hub
+  eval "$(hub alias -s)"
+fi
 
 # get that base16 color goodness
 BASE16_SHELL=$HOME/.config/base16-shell/
