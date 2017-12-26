@@ -13,7 +13,7 @@ if [ -d '/usr/localCaskroom/google-cloud-sdk' ]; then
   source '/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
 fi
 
-if command -v hub; then
+if command -v hub &>/dev/null; then
   # Extend git with hub
   eval "$(hub alias -s)"
 fi
