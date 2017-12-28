@@ -8,40 +8,49 @@ filetype off
  " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-"
-" PLUGINS
-"
-
 " PLUGINS - GENERAL
 Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-fugitive',
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ervandew/supertab'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mileszs/ack.vim'
+
+" Theme
 Plugin 'chriskempson/base16-vim'
-Plugin 'AndrewRadev/splitjoin.vim'
+" Plugin 'morhetz/gruvbox'
+
+" JavaScript
+Plugin 'pangloss/vim-javascript'
+Plugin 'flowtype/vim-flow'
+Plugin 'prettier/vim-prettier'
+Plugin 'mxw/vim-jsx'
+Plugin 'mvolkmann/vim-js-arrow-function'
+Plugin 'moll/vim-node'
+
+" Markdown
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 
-"SETTINGS
+" General Settings
 syntax enable
 set number
 set relativenumber
 filetype plugin indent on
-set background=dark
 set undofile
 set undodir=~/.vimundo/
 set guioptions-=m guioptions-=T guioptions-=r
@@ -52,6 +61,8 @@ set smartcase
 set shortmess+=I
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set noswapfile
+" Set colors
+set background=dark
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
@@ -60,11 +71,7 @@ colorscheme base16-default-dark
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
-" set listchars=tab:»·,trail:·
-
-" EXPERIMENTAL SETTINGS
-" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-" match OverLength /\%79v.\+/
+set listchars=tab:»·,trail:·
 
 " PERSONAL REMAPS
 inoremap jj <Esc>
@@ -74,11 +81,8 @@ nmap <leader>li :set list!<CR>
 nnoremap <leader>h :noh<CR>
 nmap <leader>j :%!python -m json.tool<CR>
 nnoremap <leader>s :w<CR>
-noremap <F3> :Autoformat<CR>
-
-" autocmd InsertEnter * :set norelativenumber
-" autocmd InsertLeave * :set relativenumber
 nnoremap <leader>nu :set relativenumber!<CR>
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
 " toggle colored right border after 80 chars
 set colorcolumn=80
@@ -112,16 +116,7 @@ nnoremap <Leader>l :ls<CR>
 nnoremap <Leader>b :bp<CR>
 nnoremap <Leader>f :bn<CR>
 nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
+nnoremap <Leader>d :bd<CR>
 
 "
 " Plugins
@@ -143,28 +138,9 @@ let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standar
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
-"autocmd vimenter * if !argc() | NERDTree | endif
 
 " Nerdcommenter
 let g:NERDSpaceDelims = 1
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Syntastic - Checkers
-let g:syntastic_javascript_checkers = ['eslint', 'xo']
-let g:Syntastic_json_checkers = ['jsonlint']
-let g:syntastic_python_checkers = ['flake8']
-
-" delimitMate
-let g:delimitMate_expand_cr = 1
-au FileType python let b:delimitMate_nesting_quotes = ['"']
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -185,12 +161,12 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-" Javascript Libraries Syntax
-let g:used_javascript_libs = 'underscore,react'
-
-" Esformatter
-nnoremap <silent> <leader>es :Esformatter<CR>
-vnoremap <silent> <leader>es :EsformatterVisual<CR>
-
 " Markdown
 let g:vim_markdown_folding_disabled = 1
+
+" ALE
+let g:ale_linters = { 'javascript': ['eslint', 'standard', 'xo'] }
+let g:ale_fixers = { 'javascript': [ 'eslint', 'prettier_eslint', 'prettier' ], 'json': ['prettier_eslint'] }
+let g:ale_javascript_prettier_use_local_config = 1
+nnoremap <Leader>p :ALEFix<CR>
+
