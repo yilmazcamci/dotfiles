@@ -69,7 +69,6 @@ RESCAN_DB = false
 
 REMOTE_LIMIT_API = "removeNeighbors, addNeighbors, interruptAttachingToTangle, attachToTangle, getNeighbors"
 
-NEIGHBORS = []
 EOF
 
 # get latest db snapshot
