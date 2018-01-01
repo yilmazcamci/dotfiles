@@ -268,3 +268,6 @@ curl -H "Content-Type: application/json" -X POST -u admin:admin -d @/etc/grafana
 curl -H "Content-Type: application/json" -X POST -u admin:admin -d @/etc/grafana/prometheus-dashboard-node.json http://localhost:3000/api/dashboards/db
 
 curl -H "Content-Type: application/json" -X POST -u admin:admin -d @/etc/grafana/prometheus-dashboard-iota.json http://localhost:3000/api/dashboards/db
+
+# set up nelson
+sudo -u iota npm install -g nelson.cli
