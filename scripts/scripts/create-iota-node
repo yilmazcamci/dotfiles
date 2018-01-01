@@ -10,7 +10,7 @@ sudo apt install software-properties-common -y && sudo add-apt-repository ppa:we
 sudo sh -c 'echo JAVA_HOME="/usr/lib/jvm/java-8-oracle" >> /etc/environment' && source /etc/environment
 
 # set up iri
-sudo useradd -s /usr/sbin/nologin -m iota
+sudo useradd -s /bin/bash -m iota
 sudo -u iota mkdir -p /home/iota/node /home/iota/node/ixi /home/iota/node/mainnetdb
 sudo -u iota curl -Lo /home/iota/node/iri-1.4.1.4.jar https://github.com/iotaledger/iri/releases/download/v1.4.1.4/iri-1.4.1.4.jar
 
@@ -47,6 +47,8 @@ cat << "EOF" | sudo -u iota tee /home/iota/node/run-node
 /usr/bin/java -Xmx6000m -Djava.net.preferIPv4Stack=true -jar iri-1.4.1.4.jar -c iota.ini
 
 EOF
+
+chmod +x /home/iota/node/run-node
 
 # load and enable iota.service
 sudo systemctl daemon-reload && sudo systemctl enable iota.service
@@ -270,4 +272,4 @@ curl -H "Content-Type: application/json" -X POST -u admin:admin -d @/etc/grafana
 curl -H "Content-Type: application/json" -X POST -u admin:admin -d @/etc/grafana/prometheus-dashboard-iota.json http://localhost:3000/api/dashboards/db
 
 # set up nelson
-sudo -u iota npm install -g nelson.cli
+npm install -g nelson.cli
