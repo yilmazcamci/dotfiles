@@ -39,7 +39,7 @@ cd ${HOME}
 
 # base16
 git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
-base16_default-dark
+.config/base16-shell/scripts/base16-default-dark.sh
 
 # Install vim plugins
 git clone git://github.com/chriskempson/base16-vim.git ~/.vim/colors/base16
