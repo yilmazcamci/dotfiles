@@ -165,6 +165,7 @@ let g:vim_markdown_folding_disabled = 1
 let g:ale_linters = { 'javascript': ['eslint', 'standard', 'xo'] }
 let g:ale_fixers = { 'javascript': [ 'eslint', 'prettier_eslint' ], 'json': ['prettier_eslint'] }
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_fix_on_save = 1
 nnoremap <Leader>p :ALEFix<CR>
 
 " Flow
