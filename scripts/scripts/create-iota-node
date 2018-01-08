@@ -72,7 +72,7 @@ REMOTE_LIMIT_API = "removeNeighbors, addNeighbors, interruptAttachingToTangle, a
 EOF
 
 # get latest db snapshot
-cd /tmp/ && curl -LO http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz && sudo -u iota tar xzfv /tmp/IOTA.partners-mainnetdb.tar.gz -C /home/iota/node/mainnetdb && rm /tmp/IOTA.partners-mainnetdb.tar.gz
+cd /tmp/ && curl -LO http://db.iota.partners/IOTA.partners-mainnetdb.tar.gz && sudo -u iota tar xzf /tmp/IOTA.partners-mainnetdb.tar.gz -C /home/iota/node/mainnetdb && rm /tmp/IOTA.partners-mainnetdb.tar.gz
 
 # set up iri auto update
 echo '*/15 * * * * root bash -c "bash <(curl -s https://gist.githubusercontent.com/zoran/48482038deda9ce5898c00f78d42f801/raw)"' | sudo tee /etc/cron.d/iri_updater > /dev/null
@@ -83,7 +83,7 @@ cd /tmp && curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash - && sud
 # monitoring
 sudo useradd -s /usr/sbin/nologin -m prometheus && sudo -u prometheus mkdir -p /home/prometheus/prometheus2
 
-cd /tmp && curl -LO https://github.com/prometheus/prometheus/releases/download/v2.0.0/prometheus-2.0.0.linux-amd64.tar.gz && sudo -u prometheus tar xzfv /tmp/prometheus-2.0.0.linux-amd64.tar.gz -C /home/prometheus/prometheus2 --strip-components 1 && rm /tmp/prometheus-2.0.0.linux-amd64.tar.gz
+cd /tmp && curl -LO https://github.com/prometheus/prometheus/releases/download/v2.0.0/prometheus-2.0.0.linux-amd64.tar.gz && sudo -u prometheus tar xzf /tmp/prometheus-2.0.0.linux-amd64.tar.gz -C /home/prometheus/prometheus2 --strip-components 1 && rm /tmp/prometheus-2.0.0.linux-amd64.tar.gz
 
 cat << "EOF" | sudo -u prometheus tee /home/prometheus/prometheus2/prometheus.yml
 global:
@@ -145,7 +145,7 @@ EOF
 
 sudo systemctl daemon-reload && sudo systemctl enable prometheus.service && sudo service prometheus start
 
-sudo -u prometheus mkdir -p /home/prometheus/node_exporter && cd /tmp && curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz && sudo -u prometheus tar xzfv /tmp/node_exporter-0.15.2.linux-amd64.tar.gz -C /home/prometheus/node_exporter --strip-components 1 && rm /tmp/node_exporter-0.15.2.linux-amd64.tar.gz
+sudo -u prometheus mkdir -p /home/prometheus/node_exporter && cd /tmp && curl -LO https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz && sudo -u prometheus tar xzf /tmp/node_exporter-0.15.2.linux-amd64.tar.gz -C /home/prometheus/node_exporter --strip-components 1 && rm /tmp/node_exporter-0.15.2.linux-amd64.tar.gz
 
 cat << "EOF" | sudo tee /lib/systemd/system/node_exporter.service
 [Unit]
