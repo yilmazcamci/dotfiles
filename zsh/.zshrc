@@ -32,9 +32,6 @@ if ! zgen saved; then
 
   zgen load zsh-users/zsh-completions
 
-  # Open your current repo & branch on github.
-  zgen load peterhurford/git-it-on.zsh
-
   # colorize things
   # zgen oh-my-zsh plugins/colored-man-pages
   zgen load unixorn/warhol.plugin.zsh
@@ -60,26 +57,5 @@ fi
 bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
 
-#
-# Bullet train
-#
-# configure bullettrain
-# BULLETTRAIN_PROMPT_ORDER=(
-  # dir
-  # git
-  # virtualenv
-  # status
-# )
-
-# custom commands
-flow-watch() {
-  clear;
-  flow status;
-  fswatch -e "/\." -o . | xargs -n1 -I{} flow status;
-}
-
 # Correction if completion is not possible
 zstyle ':completion:*' completer _complete _approximate
-
-# Load ssh keys
-ssh-add -A 2>/dev/null
