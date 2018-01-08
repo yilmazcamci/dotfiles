@@ -1,51 +1,45 @@
-" LOAD VUNDLE
-set nocompatible
-filetype off
-" set the runtime path to include Vundle and initialize
- set rtp+=~/.vim/bundle/Vundle.vim
- call vundle#begin()
-
- " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+" Specify a directory for plugins
+call plug#begin('~/.vim/plugged')
 
 " PLUGINS - GENERAL
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-fugitive',
-Plugin 'scrooloose/nerdtree'
-Plugin 'w0rp/ale'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Raimondi/delimitMate'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'mileszs/ack.vim'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-fugitive',
+Plug 'scrooloose/nerdtree'
+Plug 'w0rp/ale'
+Plug 'scrooloose/nerdcommenter'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ervandew/supertab'
+Plug 'Valloric/YouCompleteMe'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Raimondi/delimitMate'
+Plug 'airblade/vim-gitgutter'
+Plug 'mileszs/ack.vim'
+Plug 'elzr/vim-json'
 
 " Theme
-Plugin 'chriskempson/base16-vim'
-" Plugin 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+" Plug 'morhetz/gruvbox'
 
 " JavaScript
-Plugin 'pangloss/vim-javascript'
-Plugin 'flowtype/vim-flow'
-Plugin 'prettier/vim-prettier'
-Plugin 'mxw/vim-jsx'
-Plugin 'mvolkmann/vim-js-arrow-function'
-Plugin 'moll/vim-node'
+Plug 'pangloss/vim-javascript'
+Plug 'flowtype/vim-flow'
+Plug 'prettier/vim-prettier'
+Plug 'mxw/vim-jsx'
+Plug 'mvolkmann/vim-js-arrow-function'
+Plug 'moll/vim-node'
 
 " Markdown
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
-call vundle#end()
+" Initialize plugin system
+call plug#end()
 
 " General Settings
 syntax enable
