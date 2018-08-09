@@ -2,7 +2,7 @@
   name = Alexander Tesfamichael
   email = alex.tesfamichael@gmail.com
 [core]
-  editor = vim
+  editor = nvim
 [pull]
   rebase = true
 [pager]
