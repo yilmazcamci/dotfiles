@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm install node --reinstall-packages-from=node
+rm ~/.node-bin # WHY?!!
+ln -sf $(nvm which node | cut -d '/' -f 1-8) ~/.node-bin
