@@ -8,9 +8,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
-Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Plug 'ervandew/supertab'
@@ -23,6 +23,10 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 if has('nvim')
+  Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   " Plug 'steelsojka/deoplete-flow'
   Plug 'carlitux/deoplete-ternjs', { 'do': 'npm i -g tern' }
@@ -43,7 +47,7 @@ Plug 'mxw/vim-jsx'
 Plug 'leafgarland/typescript-vim'
 
 " Rust
-Plug 'racer-rust/vim-racer'
+Plug 'rust-lang/rust.vim'
 
 " Markdown
 " Plug 'godlygeek/tabular'
@@ -74,6 +78,7 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 colorscheme base16-default-dark
+set hidden
 
 " TAB SETTINGS
 set tabstop=4 shiftwidth=2 expandtab
@@ -143,8 +148,9 @@ nnoremap <leader>wi :call TrimWhitespace()<CR>
 map <leader>no :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
 
-" Nerdcommenter
-let g:NERDSpaceDelims = 1
+" Commentary
+autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
+
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -245,3 +251,7 @@ if has('nvim')
     au TermClose * stopinsert
   augroup END
 endif
+
+let g:LanguageClient_serverCommands = {
+      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls']
+      \}
