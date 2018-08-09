@@ -1,6 +1,4 @@
-export XDG_CONFIG_HOME=/Users/alextes/.config
-export PATH="$PATH:$HOME/.nvm/versions/node/v9.3.0/bin/:$HOME/scripts"
-export PATH="/usr/local/bin/:$PATH"
+export XDG_CONFIG_HOME="$HOME/.config"
 export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703" 
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
