@@ -49,6 +49,9 @@ Plug 'leafgarland/typescript-vim'
 " Rust
 Plug 'rust-lang/rust.vim'
 
+" Reason
+Plug 'reasonml-editor/vim-reason-plus'
+
 " Markdown
 " Plug 'godlygeek/tabular'
 " Plug 'plasticboy/vim-markdown'
@@ -151,28 +154,11 @@ map <leader>nf :NERDTreeFind<CR>
 " Commentary
 autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
 
-
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-
-" YouCompleteMe
-let g:ycm_python_binary_path = '/usr/local/bin/python3'
-
-" make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion   = ['<c-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
-" let g:UltiSnipsExpandTrigger = "<tab>"
-" let g:UltiSnipsJumpForwardTrigger = "<tab>"
-" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-" Markdown
-" let g:vim_markdown_folding_disabled = 1
 
 " ALE
 let g:ale_linters = {
@@ -208,25 +194,8 @@ nnoremap <leader>Fl       :Lines<CR>
 nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
 nnoremap <leader>m        :History<CR>
 
-" " Command for git grep
-" " - fzf#vim#grep(command, with_column, [options], [fullscreen])
-" command! -bang -nargs=* GGrep
-  " \ call fzf#vim#grep('git grep --line-number '.shellescape(<q-args>), 0, <bang>0)
-
-" " Override Colors command. You can safely do this in your .vimrc as fzf.vim
-" " will not override existing commands.
-" command! -bang Colors
-  " \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
-
-" " Likewise, Files, GFiles command with preview window
-" command! -bang -nargs=? -complete=dir Files
-  " \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" command! -bang -nargs=? -complete=dir GFiles
-  " \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
-
 " Pangloss
-let g:javascript_plugin_flow = 1
+let g:javascript_plugin_flow = 0
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
@@ -253,5 +222,15 @@ if has('nvim')
 endif
 
 let g:LanguageClient_serverCommands = {
+      \ 'reason': ['~/.node-bin/ocaml-language-server', '--stdio'],
+      \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls']
       \}
+
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
+nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
+nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
