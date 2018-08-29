@@ -13,25 +13,17 @@ Plug 'scrooloose/nerdtree'
 Plug 'w0rp/ale'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-" Plug 'ervandew/supertab'
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
 Plug 'Raimondi/delimitMate'
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-if has('nvim')
-  Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  " Plug 'steelsojka/deoplete-flow'
-  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm i -g tern' }
-  " Plug 'wokalski/autocomplete-flow'
-endif
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 
 Plug 'Shougo/neosnippet'
@@ -41,20 +33,14 @@ Plug 'chriskempson/base16-vim'
 
 " JavaScript
 Plug 'pangloss/vim-javascript'
-" Plug 'flowtype/vim-flow'
 Plug 'mxw/vim-jsx'
-" Plug 'moll/vim-node'
-Plug 'leafgarland/typescript-vim'
+Plug 'mattn/emmet-vim'
 
 " Rust
 Plug 'rust-lang/rust.vim'
 
 " Reason
 Plug 'reasonml-editor/vim-reason-plus'
-
-" Markdown
-" Plug 'godlygeek/tabular'
-" Plug 'plasticboy/vim-markdown'
 
 " Initialize plugin system
 call plug#end()
@@ -171,7 +157,8 @@ let g:ale_fixers = {
       \ 'json': ['prettier_eslint'],
       \ 'typescript': ['prettier'],
       \ 'rust': ['rustfmt'],
-      \ 'scss': ['stylelint']
+      \ 'scss': ['stylelint'],
+      \ 'reason': ['refmt']
       \}
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_fix_on_save = 1
@@ -181,9 +168,6 @@ let g:ale_pattern_options = {
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>p :ALEFix<CR>
-
-" Flow
-let g:flow#autoclose = 1
 
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
@@ -221,12 +205,17 @@ if has('nvim')
   augroup END
 endif
 
+let g:LanguageClient_diagnosticsSignsMax = 0
+
 let g:LanguageClient_serverCommands = {
       \ 'reason': ['~/.node-bin/ocaml-language-server', '--stdio'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
+      \ 'javascript': ['~/.node-bin/javascript-typescript-stdio'],
+      \ 'javascript.jsx': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls']
       \}
 
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
 nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
 nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
