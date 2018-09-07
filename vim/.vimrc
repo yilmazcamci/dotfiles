@@ -7,29 +7,34 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-Plug 'scrooloose/nerdtree'
-Plug 'w0rp/ale'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'Raimondi/delimitMate'
-Plug 'airblade/vim-gitgutter'
-Plug 'elzr/vim-json'
+Plug 'w0rp/ale'
+
+" Files
+Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" Visual
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'chriskempson/base16-vim'
+
+"Completion
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
-
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
-Plug 'chriskempson/base16-vim'
 
 " JavaScript
 Plug 'pangloss/vim-javascript'
@@ -41,6 +46,10 @@ Plug 'rust-lang/rust.vim'
 
 " Reason
 Plug 'reasonml-editor/vim-reason-plus'
+
+" JSON
+Plug 'elzr/vim-json'
+Plug 'rhysd/vim-fixjson'
 
 " Initialize plugin system
 call plug#end()
