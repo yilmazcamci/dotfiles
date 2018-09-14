@@ -158,18 +158,19 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:ale_linters = {
       \ 'javascript': ['flow', 'eslint', 'standard', 'xo'],
       \ 'rust': ['cargo', 'rls'],
-      \ 'scss': ['stylelint']
+      \ 'scss': ['stylelint'],
+      \ 'typescript': ['prettier', 'tsserver']
       \}
 let g:ale_fixers = { 
       \ 'javascript': [ 'eslint', 'prettier_eslint' ], 
-      \ 'json': ['prettier_eslint'],
+      \ 'json': ['fixjson'],
       \ 'typescript': ['prettier'],
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt']
       \}
 let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_pattern_options = {
 \ 'node_modules/.*\.json$': {'ale_enabled': 0},
 \}
@@ -231,3 +232,5 @@ nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+let g:fixjson_fix_on_save = 0
