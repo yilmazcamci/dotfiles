@@ -92,7 +92,7 @@ nmap <leader>li :set list!<CR>
 nnoremap <leader>s :w<CR>
 nnoremap <leader>nu :set relativenumber!<CR>
 nnoremap <leader>qa :qall<CR>
-nnoremap <leader>pj :%!jq '.'<CR>
+nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
 nnoremap <Leader>co :call <SID>ToggleColorColumn()<cr>
 
