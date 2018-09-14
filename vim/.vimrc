@@ -148,9 +148,6 @@ nnoremap <leader>wi :call TrimWhitespace()<CR>
 map <leader>no :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
 
-" Commentary
-autocmd FileType javascript.jsx setlocal commentstring={/*\ %s\ */}
-
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
