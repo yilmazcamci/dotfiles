@@ -48,6 +48,9 @@ if ! zgen saved; then
   # Bullet train prompt
   # zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
 
+  # Safe rm
+  zgen load MikeDacre/careful_rm
+
   # generate the init script from plugins above
   zgen save
 fi
