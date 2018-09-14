@@ -40,6 +40,8 @@ Plug 'Shougo/neosnippet-snippets'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
+Plug 'mvolkmann/vim-js-arrow-function'
+Plug 'leafgarland/typescript-vim'
 
 " Rust
 Plug 'rust-lang/rust.vim'
