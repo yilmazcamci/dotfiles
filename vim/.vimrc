@@ -89,7 +89,7 @@ inoremap jk <Esc>
 cmap w!! w !sudo tee > /dev/null %
 let mapleader=" "
 nmap <leader>li :set list!<CR>
-nnoremap <leader>s :w<CR>
+nnoremap <C-s> :w<CR>
 nnoremap <leader>nu :set relativenumber!<CR>
 nnoremap <leader>qa :qall<CR>
 nnoremap <leader>jq :%!jq '.'<CR>
@@ -164,7 +164,7 @@ let g:ale_linters = {
 let g:ale_fixers = { 
       \ 'javascript': [ 'eslint', 'prettier_eslint' ], 
       \ 'json': ['fixjson'],
-      \ 'typescript': ['prettier'],
+      \ 'typescript': ['prettier', 'tslint'],
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt']
