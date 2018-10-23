@@ -159,7 +159,7 @@ let g:ale_linters = {
       \ 'javascript': ['flow', 'eslint', 'standard', 'xo'],
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
-      \ 'typescript': ['prettier', 'tsserver']
+      \ 'typescript': ['tsserver', 'tslint']
       \}
 let g:ale_fixers = { 
       \ 'javascript': [ 'eslint', 'prettier_eslint' ], 
@@ -217,10 +217,11 @@ endif
 let g:LanguageClient_diagnosticsSignsMax = 0
 
 let g:LanguageClient_serverCommands = {
-      \ 'reason': ['~/.node-bin/ocaml-language-server', '--stdio'],
+      \ 'reason': ['~/.node-bin/reason-language-server'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
       \ 'javascript': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'javascript.jsx': ['~/.node-bin/javascript-typescript-stdio'],
+      \ 'typescript': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls']
       \}
 
@@ -228,6 +229,7 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
 nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
 nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
+nnoremap <leader>rn :call LanguageClient_textDocument_rename()<CR>
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
