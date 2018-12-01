@@ -54,6 +54,9 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'elzr/vim-json'
 Plug 'rhysd/vim-fixjson'
 
+" Lisp
+Plug 'l04m33/vlime', {'rtp': 'vim/'}
+
 " Initialize plugin system
 call plug#end()
 
