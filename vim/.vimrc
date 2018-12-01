@@ -209,6 +209,7 @@ nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
+nnoremap <leader>gl :Glog<CR>
 
 if has('nvim')
   augroup nvim_term
