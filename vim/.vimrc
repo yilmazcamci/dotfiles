@@ -166,7 +166,7 @@ let g:ale_linters = {
       \ 'typescript': ['tsserver', 'tslint']
       \}
 let g:ale_fixers = { 
-      \ 'javascript': [ 'eslint', 'prettier_eslint' ], 
+      \ 'javascript': ['prettier_eslint', 'prettier', 'eslint'],
       \ 'json': ['fixjson'],
       \ 'typescript': ['prettier', 'tslint'],
       \ 'rust': ['rustfmt'],
