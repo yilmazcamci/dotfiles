@@ -222,7 +222,7 @@ endif
 let g:LanguageClient_diagnosticsSignsMax = 0
 
 let g:LanguageClient_serverCommands = {
-      \ 'reason': ['~/.node-bin/reason-language-server'],
+      \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
       \ 'javascript': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'javascript.jsx': ['~/.node-bin/javascript-typescript-stdio'],
