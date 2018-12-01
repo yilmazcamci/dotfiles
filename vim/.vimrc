@@ -42,6 +42,7 @@ Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'mvolkmann/vim-js-arrow-function'
 Plug 'leafgarland/typescript-vim'
+Plug 'galooshi/vim-import-js'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -236,3 +237,8 @@ smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 let g:fixjson_fix_on_save = 0
+
+" import-js
+nnoremap <leader>ij	:ImportJSWord<CR>
+nnoremap <Leader>ii	:ImportJSFix<CR>
+nnoremap <Leader>ig	:ImportJSGoto<CR>
