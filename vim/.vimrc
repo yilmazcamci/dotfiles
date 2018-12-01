@@ -85,7 +85,7 @@ colorscheme base16-default-dark
 set hidden
 
 " TAB SETTINGS
-set tabstop=4 shiftwidth=2 expandtab
+set tabstop=2 shiftwidth=2 expandtab
 " set listchars=tab:»·,trail:·
 
 " BINDING
