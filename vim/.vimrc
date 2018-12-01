@@ -227,7 +227,8 @@ let g:LanguageClient_serverCommands = {
       \ 'javascript': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'javascript.jsx': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'typescript': ['~/.node-bin/javascript-typescript-stdio'],
-      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls']
+      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
+      \ 'haskell': ['hie-wrapper']
       \}
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
