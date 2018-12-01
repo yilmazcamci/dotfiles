@@ -10,3 +10,6 @@ alias glgb='git log --topo-order --pretty=short'
 # scw
 alias scw='scw --region=ams1'
 
+alias code='code-insiders'
+
+alias gll='gitlab-cli'
