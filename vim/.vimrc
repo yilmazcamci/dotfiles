@@ -7,9 +7,12 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-commentary'
+" Plug 'tpope/vim-commentary'
+Plug 'tomtom/tcomment_vim'
 Plug 'Raimondi/delimitMate'
 Plug 'w0rp/ale'
+Plug 'rhysd/devdocs.vim'
+" Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 
 " Files
 Plug 'scrooloose/nerdtree'
@@ -35,14 +38,15 @@ let g:deoplete#enable_at_startup = 1
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 
-
 " JavaScript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'mvolkmann/vim-js-arrow-function'
-Plug 'leafgarland/typescript-vim'
 Plug 'galooshi/vim-import-js'
+
+" TypeScript
+Plug 'HerringtonDarkholme/yats.vim'
 
 " Rust
 Plug 'rust-lang/rust.vim'
@@ -56,6 +60,11 @@ Plug 'rhysd/vim-fixjson'
 
 " Lisp
 Plug 'l04m33/vlime', {'rtp': 'vim/'}
+
+" Haskell
+Plug 'neovimhaskell/haskell-vim'
+Plug 'eagletmt/neco-ghc'
+Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 
 " Initialize plugin system
 call plug#end()
@@ -86,7 +95,8 @@ set hidden
 
 " TAB SETTINGS
 set tabstop=2 shiftwidth=2 expandtab
-" set listchars=tab:»·,trail:·
+set listchars=tab:»·,trail:·
+set list
 
 " BINDING
 inoremap jk <Esc>
@@ -110,12 +120,15 @@ nnoremap <leader>sc :noh<CR>
 nnoremap <leader>sr :%s/\<<C-r><C-w>\>/
 
 " Buffers
-" \l       : list buffers
-" \b \f \g : go back/forward/last-used
-nnoremap <silent> <C-p> :bp<CR>
-nnoremap <silent> <C-n> :bn<CR>
-nnoremap <silent> <C-l> :Bclose<CR>
-" nnoremap <silent> <C-L> :bd<CR>
+nnoremap <Leader>b :bp<CR>
+nnoremap <Leader>f :bn<CR>
+nnoremap <Leader>g :e#<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+" nnoremap <silent> <C-l> :Bclose<CR>
+nnoremap <silent> <C-l> :bd<CR>
 nnoremap <silent> <C-h> :e#<CR>
 nnoremap <leader>wc :wq<CR>
 
@@ -160,39 +173,35 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " ALE
 let g:ale_linters = {
-      \ 'javascript': ['flow', 'eslint', 'standard', 'xo'],
+      \ 'javascript': ['eslint'],
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
-      \ 'typescript': ['tsserver', 'tslint']
+      \ 'typescript': ['tsserver'],
+      \ 'haskell': ['ghc_mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc']
       \}
-let g:ale_fixers = { 
-      \ 'javascript': ['prettier_eslint', 'prettier', 'eslint'],
+let g:ale_fixers = {
+      \ 'javascript': ['prettier', 'eslint'],
       \ 'json': ['fixjson'],
-      \ 'typescript': ['prettier', 'tslint'],
+      \ 'typescript': ['prettier'],
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
-      \ 'reason': ['refmt']
+      \ 'reason': ['refmt'],
+      \ 'haskell': ['hfmt']
       \}
-let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_fix_on_save = 0
-let g:ale_pattern_options = {
-\ 'node_modules/.*\.json$': {'ale_enabled': 0},
-\}
+let g:ale_lint_on_text_changed = 1
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>p :ALEFix<CR>
 
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
-nnoremap <leader>Fi       :Files<CR>
+nnoremap <leader>fi       :Files<CR>
 nnoremap <leader>C        :Colors<CR>
 nnoremap <leader><Enter>  :Buffers<CR>
-nnoremap <leader>Fl       :Lines<CR>
+nnoremap <leader>fl       :Lines<CR>
 nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
 nnoremap <leader>m        :History<CR>
-
-" Pangloss
-let g:javascript_plugin_flow = 0
 
 " delimitMate
 let g:delimitMate_expand_cr = 1
@@ -210,6 +219,8 @@ nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
 nnoremap <leader>gl :Glog<CR>
+" map <space>l :Git! log<CR>gg
+nnoremap <C-F> yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 
 if has('nvim')
   augroup nvim_term
@@ -228,14 +239,17 @@ let g:LanguageClient_serverCommands = {
       \ 'javascript.jsx': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'typescript': ['~/.node-bin/javascript-typescript-stdio'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
-      \ 'haskell': ['hie-wrapper']
+      \ 'haskell': ['~/.hie-bin/hie-wrapper']
       \}
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<cr>
-" nnoremap <silent> gf :call LanguageClient_textDocument_formatting()<cr>
-nnoremap <silent> <cr> :call LanguageClient_textDocument_hover()<cr>
-nnoremap <leader>rn :call LanguageClient_textDocument_rename()<CR>
+nnoremap K :call LanguageClient#textDocument_hover()<CR>
+map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
 
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
@@ -254,6 +268,16 @@ function! s:check_back_space() abort "{{{
 endfunction"}}}
 
 " import-js
-nnoremap <leader>ij	:ImportJSWord<CR>
-nnoremap <Leader>ii	:ImportJSFix<CR>
+nnoremap <leader>iw	:ImportJSWord<CR>
+nnoremap <Leader>if	:ImportJSFix<CR>
 nnoremap <Leader>ig	:ImportJSGoto<CR>
+
+" devdocs
+augroup plugin-devdocs
+  autocmd!
+  autocmd FileType haskell,javascript,javascript.jsx,typescript,typescript.tsx]
+        \ nmap <leader>dd <Plug>(devdocs-under-cursor)
+augroup END
+let g:LanguageClient_loggingLevel = 'INFO'
+let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
