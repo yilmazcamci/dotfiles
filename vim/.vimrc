@@ -281,3 +281,9 @@ augroup END
 let g:LanguageClient_loggingLevel = 'INFO'
 let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
 let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+
+if has("gui_running")
+  set macligatures
+  set guifont=Pragmata\ Pro\ Mono:h14
+  " set linespace=2
+endif
