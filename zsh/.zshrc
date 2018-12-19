@@ -50,6 +50,9 @@ if ! zgen saved; then
   # Safe rm
   zgen load MikeDacre/careful_rm
 
+  # Alias tips
+  zgen load djui/alias-tips
+
   # generate the init script from plugins above
   zgen save
 fi
