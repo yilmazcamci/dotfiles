@@ -188,8 +188,8 @@ let g:ale_fixers = {
       \}
 let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 1
-hi ALEError ctermbg=none cterm=underline
-hi ALEWarning ctermbg=none cterm=underline
+highlight ALEError ctermbg=none cterm=underline
+highlight ALEWarning ctermbg=none cterm=underline
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>p :ALEFix<CR>
@@ -284,6 +284,11 @@ let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.l
 
 if has("gui_running")
   set macligatures
-  set guifont=Pragmata\ Pro\ Mono:h14
-  " set linespace=2
+  set guifont=PragmataPro\ Liga:h14
+  " set guifont=Hack
+  set linespace=2
+  " fixes highlights somehow
+  syntax on
+  highlight link ALEError SpellBad
+  highlight link ALEWarning SpellCap
 endif
