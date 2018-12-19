@@ -21,12 +21,14 @@ source "${HOME}/.zgen/zgen.zsh"
 # if the init scipt doesn't exist
 if ! zgen saved; then
 
-  # specify plugins here
-  zgen oh-my-zsh
-  zgen oh-my-zsh plugins/git
-
   # Auto update every seven days
   zgen load unixorn/autoupdate-zgen
+
+  # zgen oh-my-zsh
+  # zgen oh-my-zsh plugins/git
+
+  zgen prezto
+  zgen prezto git
 
   zgen load zsh-users/zsh-completions
 
@@ -42,11 +44,8 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-history-substring-search
 
   # pure prompt
-  zgen load mafredri/zsh-async
-  zgen load sindresorhus/pure
-
-  # Bullet train prompt
-  # zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+  # zgen load mafredri/zsh-async
+  # zgen load sindresorhus/pure
 
   # Safe rm
   zgen load MikeDacre/careful_rm
