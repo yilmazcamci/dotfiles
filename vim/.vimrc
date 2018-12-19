@@ -120,17 +120,15 @@ nnoremap <leader>sc :noh<CR>
 nnoremap <leader>sr :%s/\<<C-r><C-w>\>/
 
 " Buffers
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-nnoremap <Leader>g :e#<CR>
+nnoremap <silent> <C-b> :bp<CR>
+nnoremap <silent> <C-m> :bn<CR>
+nnoremap <silent> <C-l> :bd<CR>
+" nnoremap <silent> <C-l> :Bclose<CR>
+nnoremap <silent> <C-h> :e#<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
 nnoremap <Leader>4 :4b<CR>
-" nnoremap <silent> <C-l> :Bclose<CR>
-nnoremap <silent> <C-l> :bd<CR>
-nnoremap <silent> <C-h> :e#<CR>
-nnoremap <leader>wc :wq<CR>
 
 " COMMANDS
 command! PrettyPrintHTML !tidy -mi -html -wrap 0 %
