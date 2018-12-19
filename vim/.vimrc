@@ -190,6 +190,8 @@ let g:ale_fixers = {
       \}
 let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 1
+hi ALEError ctermbg=none cterm=underline
+hi ALEWarning ctermbg=none cterm=underline
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>p :ALEFix<CR>
