@@ -162,6 +162,8 @@ nnoremap <leader>wi :call TrimWhitespace()<CR>
 " Nerdtree
 map <leader>no :NERDTreeToggle<CR>
 map <leader>nf :NERDTreeFind<CR>
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeShowHidden = 1
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -184,7 +186,7 @@ let g:ale_fixers = {
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt'],
-      \ 'haskell': ['hfmt']
+      \ 'haskell': ['hfmt'],
       \}
 let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 1
