@@ -32,10 +32,6 @@ if ! zgen saved; then
 
   zgen load zsh-users/zsh-completions
 
-  # colorize things
-  zgen oh-my-zsh plugins/colored-man-pages
-  zgen load unixorn/warhol.plugin.zsh
-
   # Load nvm manager plugin
   zgen load lukechilds/zsh-nvm
 
