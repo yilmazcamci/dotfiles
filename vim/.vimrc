@@ -176,7 +176,7 @@ let g:ale_linters = {
       \ 'javascript': ['eslint'],
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
-      \ 'typescript': ['tsserver'],
+      \ 'typescript': ['tsserver', 'tslint'],
       \ 'haskell': ['ghc_mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc']
       \}
 let g:ale_fixers = {
