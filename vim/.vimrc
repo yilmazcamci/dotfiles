@@ -280,15 +280,11 @@ augroup plugin-devdocs
   autocmd FileType haskell,javascript,javascript.jsx,typescript,typescript.tsx]
         \ nmap <leader>dd <Plug>(devdocs-under-cursor)
 augroup END
-let g:LanguageClient_loggingLevel = 'INFO'
-let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
-let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
 
 if has("gui_running")
   set macligatures
   set guifont=PragmataPro\ Liga:h14
   " set guifont=Hack
-  set linespace=2
   " fixes highlights somehow
   syntax on
   highlight link ALEError SpellBad
