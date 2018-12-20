@@ -246,7 +246,7 @@ let g:LanguageClient_serverCommands = {
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap K :call LanguageClient#textDocument_hover()<CR>
-map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+map gd :call LanguageClient#textDocument_definition()<CR>
 map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
 map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
 map <Leader>lb :call LanguageClient#textDocument_references()<CR>
