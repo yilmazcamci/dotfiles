@@ -116,11 +116,6 @@ nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
 nnoremap <Leader>co :call <SID>ToggleColorColumn()<cr>
 
-noremap <leader>h <c-w>h
-noremap <leader>l <c-w>l
-noremap <leader>k <c-w>k
-noremap <leader>j <c-w>j
-
 " Search
 nnoremap <leader>sc :noh<CR>
 nnoremap <leader>sr :%s/\<<C-r><C-w>\>/
