@@ -134,7 +134,6 @@ nnoremap <Leader>4 :4b<CR>
 " toggle colored right border after 80 chars
 set colorcolumn=80
 let s:color_column_old = 0
-
 function! s:ToggleColorColumn()
     if s:color_column_old == 0
         let s:color_column_old = &colorcolumn
@@ -280,4 +279,3 @@ inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
 let g:UltiSnipsRemoveSelectModeMappings = 0
-
