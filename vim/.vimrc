@@ -90,14 +90,14 @@ set wrapscan
 set shortmess+=I
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set noswapfile
+set hidden
+
 " Set colors
 set background=dark
 if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
 endif
-colorscheme base16-tomorrow-night
-set hidden
 
 " TAB SETTINGS
 set tabstop=2 shiftwidth=2 expandtab
