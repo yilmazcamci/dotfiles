@@ -99,12 +99,12 @@ if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 endif
 
-" TAB SETTINGS
+" Tab settings
 set tabstop=2 shiftwidth=2 expandtab
 set listchars=tab:»·,trail:·
 set list
 
-" BINDING
+" Mapping
 inoremap jk <Esc>
 cmap w!! w !sudo tee > /dev/null %
 let mapleader=" "
@@ -160,10 +160,6 @@ function! TrimWhitespace()
     call winrestview(l:save)
 endfun
 nnoremap <leader>wi :call TrimWhitespace()<CR>
-
-"
-" Plugins
-"
 
 " Nerdtree
 map <leader>no :NERDTreeToggle<CR>
