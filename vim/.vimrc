@@ -86,7 +86,7 @@ set guioptions-=m guioptions-=T guioptions-=r
 set hlsearch
 set ignorecase
 set smartcase
-"set wrapscan
+set wrapscan
 set shortmess+=I
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set noswapfile
