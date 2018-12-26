@@ -185,7 +185,7 @@ let g:ale_fixers = {
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt'],
-      \ 'haskell': ['hfmt'],
+      \ 'haskell': ['britanny', 'hfmt'],
       \}
 let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 1
