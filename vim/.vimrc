@@ -11,7 +11,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'Raimondi/delimitMate'
 Plug 'w0rp/ale'
 Plug 'rhysd/devdocs.vim'
-" Plug 'mg979/vim-visual-multi', {'branch': 'test'}
+Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 
 " Files
 Plug 'scrooloose/nerdtree'
