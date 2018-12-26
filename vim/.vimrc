@@ -172,14 +172,14 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " ALE
 let g:ale_linters = {
-      \ 'javascript': ['eslint'],
+      \ 'javascript': ['eslint', 'xo'],
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
       \ 'typescript': ['tsserver', 'tslint'],
       \ 'haskell': ['ghc_mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc']
       \}
 let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint'],
+      \ 'javascript': ['prettier', 'eslint', 'xo'],
       \ 'json': ['fixjson'],
       \ 'typescript': ['prettier'],
       \ 'rust': ['rustfmt'],
