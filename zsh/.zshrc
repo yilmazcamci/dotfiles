@@ -29,8 +29,10 @@ if ! zgen saved; then
 
   zgen prezto
   zgen prezto git
+  zgen prezto syntax-highlighting
+  zgen prezto prompt theme pure
 
-  zgen load zsh-users/zsh-completions
+  zgen load zsh-users/zsh-completions src
 
   # Load nvm manager plugin
   zgen load lukechilds/zsh-nvm

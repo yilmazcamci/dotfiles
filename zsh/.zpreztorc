@@ -1,8 +1,3 @@
 # Set the command prefix on non-GNU systems.
 zstyle ':prezto:module:gnu-utility' prefix 'g'
-
-# Color output (auto set to 'no' on dumb terminals).
-zstyle ':prezto:*:*' color 'yes'
-
-zstyle ':prezto:module:prompt' theme 'pure'
-
+zstyle ':prezto:module:utility' safe-ops no
