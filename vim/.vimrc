@@ -136,9 +136,6 @@ nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
 nnoremap <Leader>4 :4b<CR>
 
-" COMMANDS
-command! PrettyPrintHTML !tidy -mi -html -wrap 0 %
-
 " toggle colored right border after 80 chars
 set colorcolumn=80
 let s:color_column_old = 0
