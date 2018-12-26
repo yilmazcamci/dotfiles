@@ -51,6 +51,7 @@ Plug 'mvolkmann/vim-js-arrow-function'
 Plug 'galooshi/vim-import-js'
 
 " TypeScript
+" Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
 " Rust
