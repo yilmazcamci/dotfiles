@@ -12,4 +12,6 @@ alias scw='scw --region=ams1'
 
 alias code='code-insiders'
 
-alias gll='gitlab-cli'
+alias iphone-simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
+
+alias rm='careful_rm'
