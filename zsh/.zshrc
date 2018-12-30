@@ -2,6 +2,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703"
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
+export ZGEN_PREZTO_LOAD_DEFAULT=0
 
 # aliases
 source ~/.alias
@@ -28,22 +29,32 @@ if ! zgen saved; then
 
   # zgen oh-my-zsh
   # zgen oh-my-zsh plugins/git
+  # zgen oh-my-zsh plugins/github
+
+  zgen prezto gnu-utility prefix 'g'
+  zgen prezto utility safe-ops 'no'
+  zgen prezto prompt theme 'pure'
+  zstyle ':prezto:*:*' color 'yes'
 
   zgen prezto
+  zgen prezto environment
+  zgen prezto terminal
+  zgen prezto editor
+  zgen prezto history
+  zgen prezto directory
+  zgen prezto spectrum
+  zgen prezto gnu-utility
+  zgen prezto utility
+  zgen prezto completion
+  zgen prezto prompt
   zgen prezto git
-  zgen prezto syntax-highlighting
-  zgen prezto prompt theme pure
 
   zgen load zsh-users/zsh-completions src
 
   # Load nvm manager plugin
   zgen load lukechilds/zsh-nvm
 
-  # syntax highlight needs to come before history-substring-search
-  zgen load zsh-users/zsh-syntax-highlighting
-  zgen load zsh-users/zsh-history-substring-search
-
-  # pure prompt
+  # Pure prompt
   # zgen load mafredri/zsh-async
   # zgen load sindresorhus/pure
 
