@@ -170,7 +170,8 @@ let g:ale_linters = {
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
       \ 'typescript': ['tsserver', 'tslint'],
-      \ 'haskell': ['ghc_mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc']
+      \ 'haskell': ['ghc_mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'],
+      \ 'python': ['flake8'],
       \}
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint', 'xo'],
@@ -179,7 +180,8 @@ let g:ale_fixers = {
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt'],
-      \ 'haskell': ['hfmt'],
+      \ 'haskell': ['brittany'],
+      \ 'python': ['autopep8'],
       \}
 let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 1
