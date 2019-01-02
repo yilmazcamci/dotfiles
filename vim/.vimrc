@@ -170,7 +170,7 @@ let g:ale_linters = {
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
       \ 'typescript': ['tsserver', 'tslint'],
-      \ 'haskell': ['ghc_mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'],
+      \ 'haskell': ['hie'],
       \ 'python': ['flake8'],
       \}
 let g:ale_fixers = {
@@ -180,7 +180,7 @@ let g:ale_fixers = {
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt'],
-      \ 'haskell': ['brittany'],
+      \ 'haskell': ['hfmt'],
       \ 'python': ['autopep8'],
       \}
 let g:ale_fix_on_save = 0
@@ -190,6 +190,7 @@ highlight ALEWarning ctermbg=none cterm=underline
 nmap <C-k> <Plug>(ale_previous_wrap)
 nmap <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>p :ALEFix<CR>
+let g:ale_haskell_hie_executable = 'hie-wrapper'
 
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
