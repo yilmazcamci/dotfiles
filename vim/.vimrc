@@ -72,6 +72,9 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 
+" PureScript
+Plug 'purescript-contrib/purescript-vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -239,6 +242,7 @@ let g:LanguageClient_serverCommands = {
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
       \ 'haskell': ['hie-wrapper'],
       \ 'python': ['python-language-server'],
+      \ 'purescript': ['~/.node-bin/purescript-language-server', '--stdio']
       \}
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
