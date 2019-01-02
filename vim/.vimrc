@@ -1,7 +1,7 @@
 " Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
-" PLUGINS - GENERAL
+" General
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
