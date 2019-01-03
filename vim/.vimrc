@@ -94,6 +94,7 @@ set shortmess+=I
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set noswapfile
 set hidden
+set updatetime=100
 
 " Set colors
 set background=dark
