@@ -21,7 +21,6 @@ Plug 'junegunn/fzf.vim'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'jreybert/vimagit'
 
 " Visual
 Plug 'vim-airline/vim-airline'
