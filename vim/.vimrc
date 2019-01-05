@@ -126,6 +126,11 @@ nnoremap <leader>qa :qall<CR>
 nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
 nnoremap <Leader>co :call <SID>ToggleColorColumn()<cr>
+nnoremap <CR> <CR>
+nnoremap <C-j> :lprevious<CR>
+nnoremap <C-k> :lnext<CR>
+nnoremap ]] :ll<CR>
+nnoremap [[ :cc<CR>
 
 " Search
 nnoremap <leader>sc :noh<CR>
@@ -198,8 +203,6 @@ let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 1
 highlight ALEError ctermbg=none cterm=underline
 highlight ALEWarning ctermbg=none cterm=underline
-nmap <C-k> <Plug>(ale_previous_wrap)
-nmap <C-j> <Plug>(ale_next_wrap)
 nnoremap <Leader>p :ALEFix<CR>
 let g:ale_haskell_hie_executable = 'hie-wrapper'
 
