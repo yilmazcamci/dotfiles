@@ -142,10 +142,6 @@ nnoremap <silent> <C-m> :bn<CR>
 nnoremap <silent> <C-l> :bd<CR>
 " nnoremap <silent> <C-l> :Bclose<CR>
 nnoremap <silent> <C-h> :e#<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
 
 " toggle colored right border after 80 chars
 set colorcolumn=80
