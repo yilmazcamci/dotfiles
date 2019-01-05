@@ -83,6 +83,8 @@ if ! zgen saved; then
   zgen save
 fi
 
+source ~/.zgen/MikeDacre/careful_rm-master/careful_rm.alias.sh
+
 bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
 
