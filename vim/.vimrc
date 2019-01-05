@@ -205,6 +205,7 @@ highlight ALEError ctermbg=none cterm=underline
 highlight ALEWarning ctermbg=none cterm=underline
 nnoremap <Leader>p :ALEFix<CR>
 let g:ale_haskell_hie_executable = 'hie-wrapper'
+nnoremap <leader>ld <Plug>(ale_detail)
 
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
