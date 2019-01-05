@@ -248,8 +248,8 @@ let g:LanguageClient_diagnosticsSignsMax = 0
 let g:LanguageClient_serverCommands = {
       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
-      \ 'javascript': ['~/.node-bin/javascript-typescript-stdio'],
-      \ 'javascript.jsx': ['~/.node-bin/javascript-typescript-stdio'],
+      \ 'javascript': ['~/.node-bin/typescript-language-server', '--stdio'],
+      \ 'javascript.jsx': ['~/.node-bin/typescript-language-server', '--stdio'],
       \ 'typescript': ['~/.node-bin/typescript-language-server', '--stdio'],
       \ 'typescript.tsx': ['~/.node-bin/typescript-language-server', '--stdio'],
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
