@@ -133,7 +133,7 @@ nnoremap ]] :ll<CR>
 nnoremap [[ :cc<CR>
 
 " Search
-nnoremap <leader>sc :noh<CR>
+nnoremap <silent> <leader>sc :nohlsearch<CR>
 nnoremap <leader>sr :%s/\<<C-r><C-w>\>/
 
 " Buffers
