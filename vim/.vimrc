@@ -14,7 +14,7 @@ Plug 'rhysd/devdocs.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 
 " Files
-Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-vinegar'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
