@@ -163,12 +163,6 @@ function! TrimWhitespace()
 endfun
 nnoremap <leader>wi :call TrimWhitespace()<CR>
 
-" Nerdtree
-map <leader>no :NERDTreeToggle<CR>
-map <leader>nf :NERDTreeFind<CR>
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeShowHidden = 1
-
 " Airline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
