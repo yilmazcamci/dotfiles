@@ -14,7 +14,7 @@ Plug 'rhysd/devdocs.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 
 " Files
-Plug 'tpope/vim-vinegar'
+Plug 'justinmk/vim-dirvish'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
