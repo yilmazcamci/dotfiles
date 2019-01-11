@@ -49,14 +49,13 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " JavaScript
-Plug 'pangloss/vim-javascript'
+" Plug 'pangloss/vim-javascript'
+Plug 'othree/yajs.vim'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
-Plug 'mvolkmann/vim-js-arrow-function'
 Plug 'galooshi/vim-import-js'
 
 " TypeScript
-" Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
 " Rust
@@ -79,24 +78,20 @@ Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 
 " PureScript
 Plug 'purescript-contrib/purescript-vim'
+Plug 'FrigoEU/psc-ide-vim'
 
 " Initialize plugin system
 call plug#end()
 
 " General Settings
-syntax enable
-set number
-set relativenumber
-filetype plugin indent on
-set undofile
+" set number
+" set relativenumber
 set undodir=~/.vimundo/
-set guioptions-=m guioptions-=T guioptions-=r
-set hlsearch
+set undofile
 set ignorecase
 set smartcase
 set wrapscan
 set shortmess+=I
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set noswapfile
 set hidden
 set updatetime=100
@@ -117,70 +112,38 @@ set list
 inoremap jk <Esc>
 cmap w!! w !sudo tee > /dev/null %
 let mapleader=" "
-nmap <leader>li :set list!<CR>
 nnoremap <C-s> :w<CR>
-nnoremap <leader>nu :set relativenumber!<CR>
-nnoremap <leader>qa :qall<CR>
 nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
 nnoremap <Leader>co :call <SID>ToggleColorColumn()<cr>
-nnoremap <CR> <CR>
-nnoremap <C-j> :lprevious<CR>
-nnoremap <C-k> :lnext<CR>
-nnoremap ]] :ll<CR>
-nnoremap [[ :cc<CR>
+nnoremap <C-j> :ALENext<CR>
+nnoremap <C-k> :ALEPrevious<CR>
+" nnoremap ]] :ll<CR>
+" nnoremap [[ :cc<CR>
 
 " Search
 nnoremap <silent> <leader>sc :nohlsearch<CR>
 nnoremap <leader>sr :%s/\<<C-r><C-w>\>/
 
 " Buffers
-nnoremap <silent> <C-b> :bp<CR>
-nnoremap <silent> <C-m> :bn<CR>
+nnoremap <silent> <C-h> :bp<CR>
+nnoremap <silent> <C-t> :bn<CR>
 nnoremap <silent> <C-l> :bd<CR>
-" nnoremap <silent> <C-l> :Bclose<CR>
-nnoremap <silent> <C-h> :e#<CR>
-
-" toggle colored right border after 80 chars
-set colorcolumn=80
-let s:color_column_old = 0
-function! s:ToggleColorColumn()
-    if s:color_column_old == 0
-        let s:color_column_old = &colorcolumn
-        windo let &colorcolumn = 0
-    else
-        windo let &colorcolumn=s:color_column_old
-        let s:color_column_old = 0
-    endif
-endfunction
-
-" Trim Whitespace
-function! TrimWhitespace()
-    let l:save = winsaveview()
-    %s/\s\+$//e
-    call winrestview(l:save)
-endfun
-nnoremap <leader>wi :call TrimWhitespace()<CR>
-
-" Airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+nnoremap <silent> <C-b> :e#<CR>
 
 " ALE
 let g:ale_linters = {
       \ 'javascript': ['eslint', 'xo'],
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
-      \ 'typescript': ['tsserver', 'tslint'],
+      \ 'typescript': ['tsserver'],
       \ 'haskell': ['hie'],
       \ 'python': ['flake8'],
       \}
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint', 'xo'],
       \ 'json': ['fixjson'],
-      \ 'typescript': ['prettier'],
+      \ 'typescript': ['prettier', 'tslint'],
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt'],
@@ -191,15 +154,15 @@ let g:ale_fix_on_save = 0
 let g:ale_lint_on_text_changed = 1
 highlight ALEError ctermbg=none cterm=underline
 highlight ALEWarning ctermbg=none cterm=underline
-nnoremap <Leader>p :ALEFix<CR>
+nnoremap <C-p> :ALEFix<CR>
 let g:ale_haskell_hie_executable = 'hie-wrapper'
-nnoremap <leader>ld <Plug>(ale_detail)
+nnoremap <leader>ld :ALEDetail<CR>
 
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
 nnoremap <leader>fi       :Files<CR>
 nnoremap <leader>C        :Colors<CR>
-nnoremap <leader><Enter>  :Buffers<CR>
+nnoremap <leader><CR>     :Buffers<CR>
 nnoremap <leader>fl       :Lines<CR>
 nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
 nnoremap <leader>m        :History<CR>
@@ -220,19 +183,15 @@ nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
 nnoremap <leader>gl :Glog<CR>
-" map <space>l :Git! log<CR>gg
 nnoremap <C-F> yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 
-if has('nvim')
-  augroup nvim_term
-    au!
-    au TermOpen * startinsert
-    au TermClose * stopinsert
-  augroup END
-endif
+augroup nvim_term
+  au!
+  au TermOpen * startinsert
+  au TermClose * stopinsert
+augroup END
 
-let g:LanguageClient_diagnosticsSignsMax = 0
-
+" let g:LanguageClient_diagnosticsSignsMax = 0
 let g:LanguageClient_serverCommands = {
       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
@@ -247,19 +206,21 @@ let g:LanguageClient_serverCommands = {
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap K :call LanguageClient#textDocument_hover()<CR>
-map gd :call LanguageClient#textDocument_definition()<CR>
-map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
-map <Leader>lb :call LanguageClient#textDocument_references()<CR>
-map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
-map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <leader>lb :call LanguageClient#textDocument_references()<CR>
+nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
+nnoremap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
 
+" fixjson
 let g:fixjson_fix_on_save = 0
 
 " import-js
-nnoremap <leader>iw	:ImportJSWord<CR>
-nnoremap <Leader>if	:ImportJSFix<CR>
-nnoremap <Leader>ig	:ImportJSGoto<CR>
+nnoremap <leader>iw :ImportJSWord<CR>
+nnoremap <Leader>if :ImportJSFix<CR>
+nnoremap <Leader>ig :ImportJSGoto<CR>
 
 " devdocs
 augroup plugin-devdocs
@@ -281,8 +242,12 @@ endif
 " NCM2
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
+au TextChangedI * call ncm2#auto_trigger()
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent> <expr> <TAB> ncm2_ultisnips#expand_or("\<TAB>", 'n')
 
+" Ultisnips
 let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
 let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
 let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
@@ -294,3 +259,21 @@ let g:user_emmet_settings = {
 \      'extends' : 'jsx',
 \  },
 \}
+
+" PureScript
+augroup pscbindings
+  autocmd! pscbindings
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pL :Plist<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pl :Pload!<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pr :Prebuild!<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pf :PaddClause<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pt :PaddType<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pa :Papply<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pA :Papply!<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pC :Pcase!<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pi :Pimport<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pq :PaddImportQualifications<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pg :Pgoto<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> <leader>pp :Pursuit<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> K :Ptype<CR>
+augroup end
