@@ -117,7 +117,6 @@ let mapleader=" "
 nnoremap <C-s> :w<CR>
 nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
-nnoremap <Leader>co :call <SID>ToggleColorColumn()<cr>
 nnoremap <C-j> :ALENext<CR>
 nnoremap <C-k> :ALEPrevious<CR>
 " nnoremap ]] :ll<CR>
