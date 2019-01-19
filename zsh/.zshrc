@@ -34,7 +34,7 @@ if ! zgen saved; then
   zgen prezto gnu-utility prefix 'g'
   zgen prezto utility safe-ops 'no'
   zgen prezto prompt theme 'pure'
-  zstyle ':prezto:*:*' color 'yes'
+  zgen prezto '*' color 'yes'
 
   zgen prezto
   zgen prezto environment
