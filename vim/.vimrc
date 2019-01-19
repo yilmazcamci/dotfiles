@@ -12,6 +12,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'w0rp/ale'
 Plug 'rhysd/devdocs.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " Files
 Plug 'justinmk/vim-dirvish'
