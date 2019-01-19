@@ -192,7 +192,7 @@ augroup nvim_term
   au TermClose * stopinsert
 augroup END
 
-" let g:LanguageClient_diagnosticsSignsMax = 0
+let g:LanguageClient_diagnosticsSignsMax = 0
 let g:LanguageClient_serverCommands = {
       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
