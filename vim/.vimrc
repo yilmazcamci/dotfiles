@@ -53,6 +53,7 @@ Plug 'honza/vim-snippets'
 " JavaScript
 " Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'galooshi/vim-import-js'
@@ -96,7 +97,8 @@ set wrapscan
 set shortmess+=I
 set noswapfile
 set hidden
-set updatetime=100
+set updatetime=200
+set dictionary+=/usr/share/dict/words
 
 " Set colors
 set background=dark
@@ -137,7 +139,7 @@ let g:ale_linters = {
       \ 'javascript': ['eslint', 'xo'],
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
-      \ 'typescript': ['tsserver'],
+      \ 'typescript': ['tsserver', 'tslint'],
       \ 'haskell': ['hie'],
       \ 'python': ['flake8'],
       \}
@@ -152,9 +154,9 @@ let g:ale_fixers = {
       \ 'python': ['autopep8'],
       \}
 let g:ale_fix_on_save = 0
-let g:ale_lint_on_text_changed = 1
+let g:ale_lint_on_text_changed = 0
 highlight ALEError ctermbg=none cterm=underline
-highlight ALEWarning ctermbg=none cterm=underline
+" highlight ALEWarning ctermbg=none cterm=underline
 nnoremap <C-p> :ALEFix<CR>
 let g:ale_haskell_hie_executable = 'hie-wrapper'
 nnoremap <leader>ld :ALEDetail<CR>
@@ -174,7 +176,7 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_balance_matchpairs = 1
 
 " Fugitive
-nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gs :vertical Gstatus<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gb :Gblame<CR>
@@ -192,7 +194,8 @@ augroup nvim_term
   au TermClose * stopinsert
 augroup END
 
-let g:LanguageClient_diagnosticsSignsMax = 0
+let g:LanguageClient_diagnosticsSignsMax = 1
+let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
@@ -274,7 +277,7 @@ augroup pscbindings
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pC :Pcase!<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pi :Pimport<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pq :PaddImportQualifications<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pg :Pgoto<CR>
+  autocmd Filetype purescript nmap <buffer> <silent> gd :Pgoto<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pp :Pursuit<CR>
   autocmd Filetype purescript nmap <buffer> <silent> K :Ptype<CR>
 augroup end
