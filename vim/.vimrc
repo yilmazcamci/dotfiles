@@ -139,7 +139,7 @@ let g:ale_linters = {
       \ 'javascript': ['eslint', 'xo'],
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
-      \ 'typescript': ['tsserver', 'tslint'],
+      \ 'typescript': [],
       \ 'haskell': ['hie'],
       \ 'python': ['flake8'],
       \}
@@ -195,7 +195,8 @@ augroup nvim_term
 augroup END
 
 let g:LanguageClient_diagnosticsSignsMax = 1
-let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_diagnosticsEnable = 1
+let g:LanguageClient_settingsPath = '~/.vim/'
 let g:LanguageClient_serverCommands = {
       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
