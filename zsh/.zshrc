@@ -3,6 +3,7 @@ export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703"
 export NVM_DIR="$HOME/.nvm"
 export NVM_LAZY_LOAD=true
 export ZGEN_PREZTO_LOAD_DEFAULT=0
+export EDITOR=nvim
 
 # aliases
 source ~/.alias
