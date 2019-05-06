@@ -12,6 +12,9 @@ Plug 'Raimondi/delimitMate'
 Plug 'w0rp/ale'
 Plug 'rhysd/devdocs.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
+Plug 'terryma/vim-expand-region'
+
+" Writing
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
@@ -46,9 +49,9 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-cssomni'
 
 " Snippets
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'ncm2/ncm2-ultisnips'
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
 
 " JavaScript
 " Plug 'pangloss/vim-javascript'
@@ -58,11 +61,18 @@ Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
 Plug 'galooshi/vim-import-js'
 
+function! SynGroup()
+  let l:s = synID(line('.'), col('.'), 1)
+  echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
+map <F10> :call SynGroup()<CR>
+
 " TypeScript
+" Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
 
 " Rust
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 
 " Reason
 Plug 'reasonml-editor/vim-reason-plus'
@@ -72,16 +82,24 @@ Plug 'elzr/vim-json'
 Plug 'rhysd/vim-fixjson'
 
 " Lisp
-Plug 'l04m33/vlime', {'rtp': 'vim/'}
+" Plug 'l04m33/vlime', {'rtp': 'vim/'}
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim'
-Plug 'eagletmt/neco-ghc'
-Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+" Plug 'eagletmt/neco-ghc'
+Plug 'dan-t/vim-hsimport'
+autocmd FileType haskell nmap <silent> <leader>hm :silent update <bar> HsimportModule<CR>
+autocmd FileType haskell nmap <silent> <leader>hy :silent update <bar> HsimportSymbol<CR>
 
 " PureScript
 Plug 'purescript-contrib/purescript-vim'
 Plug 'FrigoEU/psc-ide-vim'
+
+" Dhall
+Plug 'vmchale/dhall-vim'
+
+" GraphQL
+Plug 'jparise/vim-graphql'
 
 " Initialize plugin system
 call plug#end()
@@ -119,8 +137,10 @@ let mapleader=" "
 nnoremap <C-s> :w<CR>
 nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
-nnoremap <C-j> :ALENext<CR>
-nnoremap <C-k> :ALEPrevious<CR>
+nmap <silent> <C-k> <Plug>(ale_previous)
+nmap <silent> <C-j> <Plug>(ale_next)
+" nnoremap <C-j> :cnext<CR>
+" nnoremap <C-k> :cprevious<CR>
 " nnoremap ]] :ll<CR>
 " nnoremap [[ :cc<CR>
 
@@ -140,26 +160,26 @@ let g:ale_linters = {
       \ 'rust': ['cargo', 'rls'],
       \ 'scss': ['stylelint'],
       \ 'typescript': [],
-      \ 'haskell': ['hie'],
+      \ 'haskell': [],
       \ 'python': ['flake8'],
       \}
+      " \ 'typescript': ['prettier', 'tslint', 'xo'],
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint', 'xo'],
       \ 'json': ['fixjson'],
-      \ 'typescript': ['prettier', 'tslint'],
+      \ 'typescript': ['prettier', 'tslint', 'xo'],
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt'],
       \ 'haskell': ['hfmt'],
       \ 'python': ['autopep8'],
       \}
-let g:ale_fix_on_save = 0
-let g:ale_lint_on_text_changed = 0
-highlight ALEError ctermbg=none cterm=underline
+" let g:ale_lint_on_text_changed = 0
+" highlight ALEError ctermbg=none cterm=underline
 " highlight ALEWarning ctermbg=none cterm=underline
 nnoremap <C-p> :ALEFix<CR>
-let g:ale_haskell_hie_executable = 'hie-wrapper'
 nnoremap <leader>ld :ALEDetail<CR>
+let g:ale_haskell_hie_executable = 'hie-wrapper'
 
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
@@ -176,7 +196,7 @@ let g:delimitMate_expand_space = 1
 let g:delimitMate_balance_matchpairs = 1
 
 " Fugitive
-nnoremap <leader>gs :vertical Gstatus<CR>
+nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gr :Gread<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gb :Gblame<CR>
@@ -188,15 +208,19 @@ nnoremap <leader>dp :diffput<CR>
 nnoremap <leader>gl :Glog<CR>
 nnoremap <C-F> yiw <ESC>:Git commit --fixup=<C-r>"<CR>
 
-augroup nvim_term
-  au!
-  au TermOpen * startinsert
-  au TermClose * stopinsert
-augroup END
 
-let g:LanguageClient_diagnosticsSignsMax = 1
+if has("nvim")
+  augroup nvim_term
+    au!
+    au TermOpen * startinsert
+    au TermClose * stopinsert
+  augroup END
+endif
+
+" let g:LanguageClient_diagnosticsSignsMax = 1
 let g:LanguageClient_diagnosticsEnable = 1
 let g:LanguageClient_settingsPath = '~/.vim/'
+" let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
 let g:LanguageClient_serverCommands = {
       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
@@ -208,6 +232,9 @@ let g:LanguageClient_serverCommands = {
       \ 'haskell': ['hie-wrapper'],
       \ 'python': ['python-language-server'],
       \}
+let g:LanguageClient_rootMarkers = {
+      \ 'purescript': ['spago.dhall', 'psc-package.json']
+      \ }
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 nnoremap K :call LanguageClient#textDocument_hover()<CR>
@@ -218,6 +245,7 @@ nnoremap <leader>lb :call LanguageClient#textDocument_references()<CR>
 nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
 nnoremap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+nnoremap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
 
 " fixjson
 let g:fixjson_fix_on_save = 0
@@ -250,13 +278,13 @@ set completeopt=noinsert,menuone,noselect
 au TextChangedI * call ncm2#auto_trigger()
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent> <expr> <TAB> ncm2_ultisnips#expand_or("\<TAB>", 'n')
+" inoremap <silent> <expr> <TAB> ncm2_ultisnips#expand_or("\<TAB>", 'n')
 
 " Ultisnips
-let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-let g:UltiSnipsRemoveSelectModeMappings = 0
+" let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+" let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+" let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " Emmet
 let g:user_emmet_settings = {
@@ -265,11 +293,27 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-" PureScript
 augroup pscbindings
   autocmd! pscbindings
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pL :Plist<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pl :Pload!<CR>
+    autocmd Filetype purescript set tabstop=2
+    autocmd Filetype purescript set shiftwidth=2
+    if executable("purescript-language-server")
+      " See https://github.com/nwolverson/vscode-ide-purescript/blob/master/package.json#L80-L246 for list of properties to use
+      let config =
+            \ { 'purescript.autoStartPscIde': v:true
+            \ , 'purescript.pscIdePort': v:null
+            \ , 'purescript.autocompleteAddImport': v:true
+            \ , 'purescript.pursExe': 'purs'
+            \ }
+
+      let g:LanguageClient_serverCommands.purescript = ['purescript-language-server', '--stdio', '--config', json_encode(config)]
+      " autocmd filetype purescript setlocal omnifunc=LanguageClient#complete
+      " autocmd filetype purescript nm <buffer> <silent> <leader>pi :call LanguageClient_workspace_executeCommand(
+            " \ 'purescript.addCompletionImport', [ expand('<cword>'), v:null, v:null, 'file://' . expand('%:p') ])<CR>
+      autocmd filetype purescript nm <buffer> <silent> <leader>pl :call LanguageClient_workspace_executeCommand('purescript.build', [])<CR>
+    endif
+  " autocmd Filetype purescript nmap <buffer> <silent> <leader>pL :Plist<CR>
+  " autocmd Filetype purescript nmap <buffer> <silent> <leader>pl :Pload!<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pr :Prebuild!<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pf :PaddClause<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pt :PaddType<CR>
@@ -278,7 +322,14 @@ augroup pscbindings
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pC :Pcase!<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pi :Pimport<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pq :PaddImportQualifications<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> gd :Pgoto<CR>
+  " autocmd Filetype purescript nmap <buffer> <silent> gd :Pgoto<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pp :Pursuit<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> K :Ptype<CR>
+  " autocmd Filetype purescript nmap <buffer> <silent> K :Ptype<CR>
+
+  nnoremap <silent> <leader>ps :silent exec "!purty % --write"<CR>
+augroup end
+
+augroup haskellbindings
+  autocmd! haskellbindings
+  autocmd Filetype haskell setlocal formatprg=hindent
 augroup end
