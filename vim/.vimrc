@@ -9,7 +9,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tomtom/tcomment_vim'
 Plug 'Raimondi/delimitMate'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'rhysd/devdocs.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 Plug 'terryma/vim-expand-region'
@@ -38,15 +38,18 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 
 " Completion
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-cssomni'
+" Plug 'autozimu/LanguageClient-neovim', {
+"     \ 'branch': 'next',
+"     \ 'do': 'bash install.sh',
+"     \ }
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-bufword'
+" Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/ncm2-cssomni'
+
+" Install nightly build, replace ./install.sh with install.cmd on windows
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
 " Snippets
 " Plug 'ncm2/ncm2-ultisnips'
@@ -165,9 +168,9 @@ let g:ale_linters = {
       \}
       " \ 'typescript': ['prettier', 'tslint', 'xo'],
 let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint', 'xo'],
+      \ 'javascript': ['prettier', 'eslint'],
       \ 'json': ['fixjson'],
-      \ 'typescript': ['prettier', 'tslint', 'xo'],
+      \ 'typescript': ['prettier', 'tslint'],
       \ 'rust': ['rustfmt'],
       \ 'scss': ['stylelint'],
       \ 'reason': ['refmt'],
@@ -218,34 +221,34 @@ if has("nvim")
 endif
 
 " let g:LanguageClient_diagnosticsSignsMax = 1
-let g:LanguageClient_diagnosticsEnable = 1
-let g:LanguageClient_settingsPath = '~/.vim/'
+" let g:LanguageClient_diagnosticsEnable = 1
+" let g:LanguageClient_settingsPath = '~/.vim/'
 " let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
-let g:LanguageClient_serverCommands = {
-      \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
-      \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
-      \ 'javascript': ['~/.node-bin/typescript-language-server', '--stdio'],
-      \ 'javascript.jsx': ['~/.node-bin/typescript-language-server', '--stdio'],
-      \ 'typescript': ['~/.node-bin/typescript-language-server', '--stdio'],
-      \ 'typescript.tsx': ['~/.node-bin/typescript-language-server', '--stdio'],
-      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
-      \ 'haskell': ['hie-wrapper'],
-      \ 'python': ['python-language-server'],
-      \}
-let g:LanguageClient_rootMarkers = {
-      \ 'purescript': ['spago.dhall', 'psc-package.json']
-      \ }
+" let g:LanguageClient_serverCommands = {
+"       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
+"       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
+"       \ 'javascript': ['~/.node-bin/typescript-language-server', '--stdio'],
+"       \ 'javascript.jsx': ['~/.node-bin/typescript-language-server', '--stdio'],
+"       \ 'typescript': ['~/.node-bin/typescript-language-server', '--stdio'],
+"       \ 'typescript.tsx': ['~/.node-bin/typescript-language-server', '--stdio'],
+"       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
+"       \ 'haskell': ['hie-wrapper'],
+"       \ 'python': ['python-language-server'],
+"       \}
+" let g:LanguageClient_rootMarkers = {
+"       \ 'purescript': ['spago.dhall', 'psc-package.json']
+"       \ }
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-nnoremap K :call LanguageClient#textDocument_hover()<CR>
-nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <leader>lb :call LanguageClient#textDocument_references()<CR>
-nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
-nnoremap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-nnoremap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
+" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" nnoremap K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap gd :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+" nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+" nnoremap <leader>lb :call LanguageClient#textDocument_references()<CR>
+" nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
+" nnoremap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+" nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+" nnoremap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
 
 " fixjson
 let g:fixjson_fix_on_save = 0
@@ -273,12 +276,11 @@ if has("gui_running")
 endif
 
 " NCM2
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
-au TextChangedI * call ncm2#auto_trigger()
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" inoremap <silent> <expr> <TAB> ncm2_ultisnips#expand_or("\<TAB>", 'n')
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+" set completeopt=noinsert,menuone,noselect
+" au TextChangedI * call ncm2#auto_trigger()
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Ultisnips
 " let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
@@ -295,37 +297,37 @@ let g:user_emmet_settings = {
 
 augroup pscbindings
   autocmd! pscbindings
-    autocmd Filetype purescript set tabstop=2
-    autocmd Filetype purescript set shiftwidth=2
-    if executable("purescript-language-server")
-      " See https://github.com/nwolverson/vscode-ide-purescript/blob/master/package.json#L80-L246 for list of properties to use
-      let config =
-            \ { 'purescript.autoStartPscIde': v:true
-            \ , 'purescript.pscIdePort': v:null
-            \ , 'purescript.autocompleteAddImport': v:true
-            \ , 'purescript.pursExe': 'purs'
-            \ }
-
-      let g:LanguageClient_serverCommands.purescript = ['purescript-language-server', '--stdio', '--config', json_encode(config)]
-      " autocmd filetype purescript setlocal omnifunc=LanguageClient#complete
-      " autocmd filetype purescript nm <buffer> <silent> <leader>pi :call LanguageClient_workspace_executeCommand(
-            " \ 'purescript.addCompletionImport', [ expand('<cword>'), v:null, v:null, 'file://' . expand('%:p') ])<CR>
-      autocmd filetype purescript nm <buffer> <silent> <leader>pl :call LanguageClient_workspace_executeCommand('purescript.build', [])<CR>
-    endif
-  " autocmd Filetype purescript nmap <buffer> <silent> <leader>pL :Plist<CR>
-  " autocmd Filetype purescript nmap <buffer> <silent> <leader>pl :Pload!<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pr :Prebuild!<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pf :PaddClause<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pt :PaddType<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pa :Papply<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pA :Papply!<CR>
+    " autocmd Filetype purescript set tabstop=2
+    " autocmd Filetype purescript set shiftwidth=2
+"     if executable("purescript-language-server")
+"       " See https://github.com/nwolverson/vscode-ide-purescript/blob/master/package.json#L80-L246 for list of properties to use
+"       let config =
+"             \ { 'purescript.autoStartPscIde': v:true
+"             \ , 'purescript.pscIdePort': v:null
+"             \ , 'purescript.autocompleteAddImport': v:true
+"             \ , 'purescript.pursExe': 'purs'
+"             \ }
+"
+"       let g:LanguageClient_serverCommands.purescript = ['purescript-language-server', '--stdio', '--config', json_encode(config)]
+"       " autocmd filetype purescript setlocal omnifunc=LanguageClient#complete
+"       " autocmd filetype purescript nm <buffer> <silent> <leader>pi :call LanguageClient_workspace_executeCommand(
+"             " \ 'purescript.addCompletionImport', [ expand('<cword>'), v:null, v:null, 'file://' . expand('%:p') ])<CR>
+"       autocmd filetype purescript nm <buffer> <silent> <leader>pl :call LanguageClient_workspace_executeCommand('purescript.build', [])<CR>
+"     endif
+"   " autocmd Filetype purescript nmap <buffer> <silent> <leader>pL :Plist<CR>
+"   " autocmd Filetype purescript nmap <buffer> <silent> <leader>pl :Pload!<CR>
+"   autocmd Filetype purescript nmap <buffer> <silent> <leader>pr :Prebuild!<CR>
+"   autocmd Filetype purescript nmap <buffer> <silent> <leader>pf :PaddClause<CR>
+"   autocmd Filetype purescript nmap <buffer> <silent> <leader>pt :PaddType<CR>
+"   autocmd Filetype purescript nmap <buffer> <silent> <leader>pa :Papply<CR>
+"   autocmd Filetype purescript nmap <buffer> <silent> <leader>pA :Papply!<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pC :Pcase!<CR>
   autocmd Filetype purescript nmap <buffer> <silent> <leader>pi :Pimport<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pq :PaddImportQualifications<CR>
-  " autocmd Filetype purescript nmap <buffer> <silent> gd :Pgoto<CR>
-  autocmd Filetype purescript nmap <buffer> <silent> <leader>pp :Pursuit<CR>
-  " autocmd Filetype purescript nmap <buffer> <silent> K :Ptype<CR>
-
+"   autocmd Filetype purescript nmap <buffer> <silent> <leader>pq :PaddImportQualifications<CR>
+"   " autocmd Filetype purescript nmap <buffer> <silent> gd :Pgoto<CR>
+"   autocmd Filetype purescript nmap <buffer> <silent> <leader>pp :Pursuit<CR>
+"   " autocmd Filetype purescript nmap <buffer> <silent> K :Ptype<CR>
+"
   nnoremap <silent> <leader>ps :silent exec "!purty % --write"<CR>
 augroup end
 
@@ -333,3 +335,80 @@ augroup haskellbindings
   autocmd! haskellbindings
   autocmd Filetype haskell setlocal formatprg=hindent
 augroup end
+
+" CoC
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+" let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
