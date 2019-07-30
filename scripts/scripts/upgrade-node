@@ -1,4 +1,4 @@
-#!/bin/zsh -e
+#!/bin/bash -e
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 OLD_NODE=$(nvm current)
