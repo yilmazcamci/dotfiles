@@ -28,10 +28,15 @@ if ! zgen saved; then
   # Auto update every seven days
   zgen load unixorn/autoupdate-zgen
 
+  # Oh My Zsh
   # zgen oh-my-zsh
   # zgen oh-my-zsh plugins/git
   # zgen oh-my-zsh plugins/github
+  # Pure prompt
+  # zgen load mafredri/zsh-async
+  # zgen load sindresorhus/pure
 
+  # Prezto
   zgen prezto gnu-utility prefix 'g'
   zgen prezto utility safe-ops 'no'
   zgen prezto prompt theme 'pure'
@@ -54,10 +59,6 @@ if ! zgen saved; then
 
   # Load nvm manager plugin
   zgen load lukechilds/zsh-nvm
-
-  # Pure prompt
-  # zgen load mafredri/zsh-async
-  # zgen load sindresorhus/pure
 
   # Safe rm
   zgen load MikeDacre/careful_rm
