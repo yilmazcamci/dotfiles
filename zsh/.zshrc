@@ -87,6 +87,8 @@ fi
 
 source ~/.zgen/MikeDacre/careful_rm-master/careful_rm.alias.sh
 
+source ~/.nix-profile/etc/profile.d/nix.sh
+
 bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
 
