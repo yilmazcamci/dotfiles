@@ -10,15 +10,15 @@ Plug 'tpope/vim-sleuth'
 Plug 'tomtom/tcomment_vim'
 Plug 'Raimondi/delimitMate'
 " Plug 'w0rp/ale'
-Plug 'rhysd/devdocs.vim'
+" Plug 'rhysd/devdocs.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
-Plug 'terryma/vim-expand-region'
+" Plug 'terryma/vim-expand-region'
 
-" Writing
+" Focus
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
-" Files
+" Explore
 Plug 'justinmk/vim-dirvish'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -49,7 +49,7 @@ Plug 'chriskempson/base16-vim'
 " Plug 'ncm2/ncm2-cssomni'
 
 " Install nightly build, replace ./install.sh with install.cmd on windows
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 " Snippets
 " Plug 'ncm2/ncm2-ultisnips'
@@ -62,7 +62,7 @@ Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
-Plug 'galooshi/vim-import-js'
+" Plug 'galooshi/vim-import-js'
 
 function! SynGroup()
   let l:s = synID(line('.'), col('.'), 1)
@@ -71,28 +71,17 @@ endfun
 map <F10> :call SynGroup()<CR>
 
 " TypeScript
-" Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
-
-" Rust
-" Plug 'rust-lang/rust.vim'
 
 " Reason
 Plug 'reasonml-editor/vim-reason-plus'
 
 " JSON
 Plug 'elzr/vim-json'
-Plug 'rhysd/vim-fixjson'
-
-" Lisp
-" Plug 'l04m33/vlime', {'rtp': 'vim/'}
+" Plug 'rhysd/vim-fixjson'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim'
-" Plug 'eagletmt/neco-ghc'
-Plug 'dan-t/vim-hsimport'
-autocmd FileType haskell nmap <silent> <leader>hm :silent update <bar> HsimportModule<CR>
-autocmd FileType haskell nmap <silent> <leader>hy :silent update <bar> HsimportSymbol<CR>
 
 " PureScript
 Plug 'purescript-contrib/purescript-vim'
@@ -100,9 +89,6 @@ Plug 'FrigoEU/psc-ide-vim'
 
 " Dhall
 Plug 'vmchale/dhall-vim'
-
-" GraphQL
-Plug 'jparise/vim-graphql'
 
 " Initialize plugin system
 call plug#end()
@@ -140,8 +126,10 @@ let mapleader=" "
 nnoremap <C-s> :w<CR>
 nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
-nmap <silent> <C-k> <Plug>(ale_previous)
-nmap <silent> <C-j> <Plug>(ale_next)
+" nmap <silent> <C-k> <Plug>(ale_previous)
+" nmap <silent> <C-j> <Plug>(ale_next)
+" nmap <silent> <C-k> <Plug>(coc-diagnostic-prev)
+" nmap <silent> <C-j> <Plug>(coc-diagnostic-next)
 " nnoremap <C-j> :cnext<CR>
 " nnoremap <C-k> :cprevious<CR>
 " nnoremap ]] :ll<CR>
@@ -180,8 +168,8 @@ let g:ale_fixers = {
 " let g:ale_lint_on_text_changed = 0
 " highlight ALEError ctermbg=none cterm=underline
 " highlight ALEWarning ctermbg=none cterm=underline
-nnoremap <C-p> :ALEFix<CR>
-nnoremap <leader>ld :ALEDetail<CR>
+" nnoremap <C-p> :ALEFix<CR>
+" nnoremap <leader>ld :ALEDetail<CR>
 let g:ale_haskell_hie_executable = 'hie-wrapper'
 
 " Fzf
@@ -209,8 +197,6 @@ nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
 nnoremap <leader>gl :Glog<CR>
-nnoremap <C-F> yiw <ESC>:Git commit --fixup=<C-r>"<CR>
-
 
 if has("nvim")
   augroup nvim_term
@@ -251,12 +237,12 @@ endif
 " nnoremap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
 
 " fixjson
-let g:fixjson_fix_on_save = 0
+" let g:fixjson_fix_on_save = 0
 
 " import-js
-nnoremap <leader>iw :ImportJSWord<CR>
-nnoremap <Leader>if :ImportJSFix<CR>
-nnoremap <Leader>ig :ImportJSGoto<CR>
+" nnoremap <leader>iw :ImportJSWord<CR>
+" nnoremap <Leader>if :ImportJSFix<CR>
+" nnoremap <Leader>ig :ImportJSGoto<CR>
 
 " devdocs
 augroup plugin-devdocs
@@ -291,6 +277,9 @@ endif
 " Emmet
 let g:user_emmet_settings = {
 \  'javascript.jsx' : {
+\      'extends' : 'jsx',
+\  },
+\  'typescript.tsx' : {
 \      'extends' : 'jsx',
 \  },
 \}
@@ -337,25 +326,42 @@ augroup haskellbindings
 augroup end
 
 " CoC
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
+inoremap <silent><expr> <Tab>
       \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent><expr> <cr> pumvisible() ? "\<CR>"
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Map <tab> for trigger completion, completion confirm, snippet expand and jump like VSCode.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+let g:coc_snippet_next = '<tab>'
 
 " Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
@@ -384,10 +390,10 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <C-P> <Plug>(coc-format-selected)
+nmap <C-P> <Plug>(coc-format-selected)
 
-augroup mygroup
+augroup cocformat
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
@@ -409,6 +415,8 @@ command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+nmap <C-p> <Plug>(coc-format)
 
 " let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
 " let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
