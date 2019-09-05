@@ -63,11 +63,8 @@ if ! zgen saved; then
   # Safe rm
   zgen load MikeDacre/careful_rm
 
-  # Git Extra
-  zgen load unixorn/git-extra-commands
-
   # Neat ls alternative
-  zgen load supercrabtree/k
+  # zgen load supercrabtree/k
 
   # As you type auto suggestions
   zgen load zsh-users/zsh-autosuggestions
