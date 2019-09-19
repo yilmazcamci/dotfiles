@@ -90,6 +90,9 @@ Plug 'FrigoEU/psc-ide-vim'
 " Dhall
 Plug 'vmchale/dhall-vim'
 
+" Terraform
+Plug 'hashivim/vim-terraform'
+
 " Initialize plugin system
 call plug#end()
 
@@ -102,7 +105,6 @@ set ignorecase
 set smartcase
 set wrapscan
 set shortmess+=I
-set noswapfile
 set hidden
 set updatetime=200
 set dictionary+=/usr/share/dict/words
