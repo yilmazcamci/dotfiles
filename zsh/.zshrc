@@ -32,7 +32,6 @@ if ! zgen saved; then
   # zgen oh-my-zsh
   # zgen oh-my-zsh plugins/git
   # zgen oh-my-zsh plugins/github
-  # Pure prompt
   # zgen load mafredri/zsh-async
   # zgen load sindresorhus/pure
 
