@@ -1,7 +1,7 @@
 #!/bin/zsh
 # git
-# alias glgg='git log --topo-order --all --graph --oneline'
-# alias glgb='git log --topo-order --pretty=short'
+alias glgg='git log --topo-order --all --graph --oneline'
+alias glgb='git log --topo-order --pretty=short'
 
 # scw
 alias scw='scw --region=ams1'
