@@ -63,7 +63,6 @@ if ! zgen saved; then
   # zgen load MikeDacre/careful_rm
   alias rm="$(command -v ~/.zgen/MikeDacre/careful_rm-master/careful_rm.py)"
 
-
   # Neat ls alternative
   # zgen load supercrabtree/k
 
