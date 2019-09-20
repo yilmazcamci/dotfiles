@@ -61,7 +61,6 @@ if ! zgen saved; then
 
   # Safe rm
   # zgen load MikeDacre/careful_rm
-  alias rm="$(command -v ~/.zgen/MikeDacre/careful_rm-master/careful_rm.py)"
 
   # Neat ls alternative
   # zgen load supercrabtree/k
@@ -81,6 +80,9 @@ if ! zgen saved; then
   # generate the init script from plugins above
   zgen save
 fi
+
+# Safe rm
+alias rm="$(command -v ~/.zgen/MikeDacre/careful_rm-master/careful_rm.py)"
 
 source ~/.nix-profile/etc/profile.d/nix.sh
 
