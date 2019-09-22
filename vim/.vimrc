@@ -9,10 +9,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tomtom/tcomment_vim'
 Plug 'Raimondi/delimitMate'
-" Plug 'w0rp/ale'
-" Plug 'rhysd/devdocs.vim'
 Plug 'mg979/vim-visual-multi', {'branch': 'test'}
-" Plug 'terryma/vim-expand-region'
 
 " Focus
 Plug 'junegunn/goyo.vim'
@@ -38,26 +35,10 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 
 " Completion
-" Plug 'autozimu/LanguageClient-neovim', {
-"     \ 'branch': 'next',
-"     \ 'do': 'bash install.sh',
-"     \ }
-" Plug 'ncm2/ncm2'
-" Plug 'roxma/nvim-yarp'
-" Plug 'ncm2/ncm2-bufword'
-" Plug 'ncm2/ncm2-path'
-" Plug 'ncm2/ncm2-cssomni'
-
 " Install nightly build, replace ./install.sh with install.cmd on windows
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
-" Snippets
-" Plug 'ncm2/ncm2-ultisnips'
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
-
 " JavaScript
-" Plug 'pangloss/vim-javascript'
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'mxw/vim-jsx'
@@ -78,7 +59,7 @@ Plug 'reasonml-editor/vim-reason-plus'
 
 " JSON
 Plug 'elzr/vim-json'
-" Plug 'rhysd/vim-fixjson'
+Plug 'neoclide/jsonc.vim'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim'
@@ -128,14 +109,6 @@ let mapleader=" "
 nnoremap <C-s> :w<CR>
 nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
-" nmap <silent> <C-k> <Plug>(ale_previous)
-" nmap <silent> <C-j> <Plug>(ale_next)
-" nmap <silent> <C-k> <Plug>(coc-diagnostic-prev)
-" nmap <silent> <C-j> <Plug>(coc-diagnostic-next)
-" nnoremap <C-j> :cnext<CR>
-" nnoremap <C-k> :cprevious<CR>
-" nnoremap ]] :ll<CR>
-" nnoremap [[ :cc<CR>
 
 " Search
 nnoremap <silent> <leader>sc :nohlsearch<CR>
@@ -146,33 +119,6 @@ nnoremap <silent> <C-h> :bp<CR>
 nnoremap <silent> <C-t> :bn<CR>
 nnoremap <silent> <C-l> :bd<CR>
 nnoremap <silent> <C-b> :e#<CR>
-
-" ALE
-let g:ale_linters = {
-      \ 'javascript': ['eslint', 'xo'],
-      \ 'rust': ['cargo', 'rls'],
-      \ 'scss': ['stylelint'],
-      \ 'typescript': [],
-      \ 'haskell': [],
-      \ 'python': ['flake8'],
-      \}
-      " \ 'typescript': ['prettier', 'tslint', 'xo'],
-let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint'],
-      \ 'json': ['fixjson'],
-      \ 'typescript': ['prettier', 'tslint'],
-      \ 'rust': ['rustfmt'],
-      \ 'scss': ['stylelint'],
-      \ 'reason': ['refmt'],
-      \ 'haskell': ['hfmt'],
-      \ 'python': ['autopep8'],
-      \}
-" let g:ale_lint_on_text_changed = 0
-" highlight ALEError ctermbg=none cterm=underline
-" highlight ALEWarning ctermbg=none cterm=underline
-" nnoremap <C-p> :ALEFix<CR>
-" nnoremap <leader>ld :ALEDetail<CR>
-let g:ale_haskell_hie_executable = 'hie-wrapper'
 
 " Fzf
 nnoremap <leader><leader> :GFiles<CR>
@@ -208,73 +154,19 @@ if has("nvim")
   augroup END
 endif
 
-" let g:LanguageClient_diagnosticsSignsMax = 1
-" let g:LanguageClient_diagnosticsEnable = 1
-" let g:LanguageClient_settingsPath = '~/.vim/'
-" let g:LanguageClient_loggingFile = expand('~/.vim/LanguageClient.log')
-" let g:LanguageClient_serverCommands = {
-"       \ 'reason': ['~/.vim/plugged/vim-reason-plus/reason-language-server.exe'],
-"       \ 'ocaml': ['~/.node-bin/ocaml-language-server', '--stdio'],
-"       \ 'javascript': ['~/.node-bin/typescript-language-server', '--stdio'],
-"       \ 'javascript.jsx': ['~/.node-bin/typescript-language-server', '--stdio'],
-"       \ 'typescript': ['~/.node-bin/typescript-language-server', '--stdio'],
-"       \ 'typescript.tsx': ['~/.node-bin/typescript-language-server', '--stdio'],
-"       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
-"       \ 'haskell': ['hie-wrapper'],
-"       \ 'python': ['python-language-server'],
-"       \}
-" let g:LanguageClient_rootMarkers = {
-"       \ 'purescript': ['spago.dhall', 'psc-package.json']
-"       \ }
-
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" nnoremap K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-" nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-" nnoremap <leader>lb :call LanguageClient#textDocument_references()<CR>
-" nnoremap <leader>la :call LanguageClient#textDocument_codeAction()<CR>
-" nnoremap <leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-" nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-" nnoremap <leader>le :call LanguageClient#explainErrorAtPoint()<CR>
-
-" fixjson
-" let g:fixjson_fix_on_save = 0
-
 " import-js
 " nnoremap <leader>iw :ImportJSWord<CR>
 " nnoremap <Leader>if :ImportJSFix<CR>
 " nnoremap <Leader>ig :ImportJSGoto<CR>
 
-" devdocs
-augroup plugin-devdocs
-  autocmd!
-  autocmd FileType haskell,javascript,javascript.jsx,typescript,typescript.tsx]
-        \ nmap <leader>dd <Plug>(devdocs-under-cursor)
-augroup END
-
 if has("gui_running")
   set macligatures
   set guifont=PragmataPro\ Liga:h14
-  " set guifont=Hack
   " fixes highlights somehow
-  syntax on
-  highlight link ALEError SpellBad
-  highlight link ALEWarning SpellCap
+  " syntax on
+  " highlight link ALEError SpellBad
+  " highlight link ALEWarning SpellCap
 endif
-
-" NCM2
-" autocmd BufEnter * call ncm2#enable_for_buffer()
-" set completeopt=noinsert,menuone,noselect
-" au TextChangedI * call ncm2#auto_trigger()
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Ultisnips
-" let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-" let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-" let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-" let g:UltiSnipsRemoveSelectModeMappings = 0
 
 " Emmet
 let g:user_emmet_settings = {
@@ -288,23 +180,6 @@ let g:user_emmet_settings = {
 
 augroup pscbindings
   autocmd! pscbindings
-    " autocmd Filetype purescript set tabstop=2
-    " autocmd Filetype purescript set shiftwidth=2
-"     if executable("purescript-language-server")
-"       " See https://github.com/nwolverson/vscode-ide-purescript/blob/master/package.json#L80-L246 for list of properties to use
-"       let config =
-"             \ { 'purescript.autoStartPscIde': v:true
-"             \ , 'purescript.pscIdePort': v:null
-"             \ , 'purescript.autocompleteAddImport': v:true
-"             \ , 'purescript.pursExe': 'purs'
-"             \ }
-"
-"       let g:LanguageClient_serverCommands.purescript = ['purescript-language-server', '--stdio', '--config', json_encode(config)]
-"       " autocmd filetype purescript setlocal omnifunc=LanguageClient#complete
-"       " autocmd filetype purescript nm <buffer> <silent> <leader>pi :call LanguageClient_workspace_executeCommand(
-"             " \ 'purescript.addCompletionImport', [ expand('<cword>'), v:null, v:null, 'file://' . expand('%:p') ])<CR>
-"       autocmd filetype purescript nm <buffer> <silent> <leader>pl :call LanguageClient_workspace_executeCommand('purescript.build', [])<CR>
-"     endif
 "   " autocmd Filetype purescript nmap <buffer> <silent> <leader>pL :Plist<CR>
 "   " autocmd Filetype purescript nmap <buffer> <silent> <leader>pl :Pload!<CR>
 "   autocmd Filetype purescript nmap <buffer> <silent> <leader>pr :Prebuild!<CR>
@@ -402,6 +277,8 @@ augroup cocformat
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+nmap <C-p> <Plug>(coc-format)
+
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
@@ -417,7 +294,6 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-nmap <C-p> <Plug>(coc-format)
+" tsconfig.json is actually jsonc, help TypeScript set the correct filetype
+autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
-" let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-" let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
