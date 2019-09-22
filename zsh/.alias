@@ -6,6 +6,6 @@ alias glgb='git log --topo-order --pretty=short'
 # scw
 alias scw='scw --region=ams1'
 
-alias code='code-insiders'
+alias vscode='code-insiders'
 
 alias iphone-simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
