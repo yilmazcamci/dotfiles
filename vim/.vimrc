@@ -8,8 +8,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tomtom/tcomment_vim'
-Plug 'Raimondi/delimitMate'
-Plug 'mg979/vim-visual-multi', {'branch': 'test'}
+" Plug 'Raimondi/delimitMate'
+" Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 
 " Focus
 Plug 'junegunn/goyo.vim'
@@ -36,7 +36,7 @@ Plug 'chriskempson/base16-vim'
 
 " Completion
 " Install nightly build, replace ./install.sh with install.cmd on windows
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " JavaScript
 Plug 'othree/yajs.vim'
@@ -78,8 +78,6 @@ Plug 'hashivim/vim-terraform'
 call plug#end()
 
 " General Settings
-" set number
-" set relativenumber
 set undodir=~/.vimundo/
 set undofile
 set ignorecase
@@ -87,7 +85,7 @@ set smartcase
 set wrapscan
 set shortmess+=I
 set hidden
-set updatetime=200
+set updatetime=300
 set dictionary+=/usr/share/dict/words
 
 " Set colors
@@ -103,11 +101,10 @@ set listchars=tab:»·,trail:·
 set list
 
 " Mapping
-inoremap jk <Esc>
+inoremap jj <Esc>
 cmap w!! w !sudo tee > /dev/null %
 let mapleader=" "
 nnoremap <C-s> :w<CR>
-nnoremap <leader>jq :%!jq '.'<CR>
 noremap <leader>or :'<,'>sort<CR>
 
 " Search
@@ -129,11 +126,6 @@ nnoremap <leader>fl       :Lines<CR>
 nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
 nnoremap <leader>m        :History<CR>
 
-" delimitMate
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-let g:delimitMate_balance_matchpairs = 1
-
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gr :Gread<CR>
@@ -154,18 +146,9 @@ if has("nvim")
   augroup END
 endif
 
-" import-js
-" nnoremap <leader>iw :ImportJSWord<CR>
-" nnoremap <Leader>if :ImportJSFix<CR>
-" nnoremap <Leader>ig :ImportJSGoto<CR>
-
 if has("gui_running")
   set macligatures
   set guifont=PragmataPro\ Liga:h14
-  " fixes highlights somehow
-  " syntax on
-  " highlight link ALEError SpellBad
-  " highlight link ALEWarning SpellCap
 endif
 
 " Emmet
@@ -294,6 +277,23 @@ command! -nargs=0 Format :call CocAction('format')
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" Better display for messages
+set cmdheight=2
+
+" always show signcolumns
+set signcolumn=yes
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+
 " tsconfig.json is actually jsonc, help TypeScript set the correct filetype
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
-
