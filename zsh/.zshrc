@@ -5,9 +5,6 @@ export NVM_LAZY_LOAD=true
 export ZGEN_PREZTO_LOAD_DEFAULT=0
 export EDITOR=nvim
 
-# aliases
-source ~/.alias
-
 if command -v hub &>/dev/null; then
   # Extend git with hub
   eval "$(hub alias -s)"
@@ -91,3 +88,6 @@ bindkey '\eOB' history-substring-search-down # or ^[OB
 
 # Correction if completion is not possible
 zstyle ':completion:*' completer _complete _approximate
+
+# aliases
+source ~/.alias
