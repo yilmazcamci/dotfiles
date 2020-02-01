@@ -2,7 +2,7 @@
 call plug#begin('~/.vim/plugged')
 
 " General
-Plug 'tpope/vim-sensible'
+" Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -22,7 +22,7 @@ Plug 'junegunn/fzf.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 if &diff
     map <leader>1 :diffget LOCAL<CR>
     map <leader>2 :diffget BASE<CR>
@@ -43,13 +43,7 @@ Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 Plug 'mxw/vim-jsx'
 Plug 'mattn/emmet-vim'
-" Plug 'galooshi/vim-import-js'
-
-function! SynGroup()
-  let l:s = synID(line('.'), col('.'), 1)
-  echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
-endfun
-map <F10> :call SynGroup()<CR>
+Plug 'galooshi/vim-import-js'
 
 " TypeScript
 Plug 'HerringtonDarkholme/yats.vim'
@@ -73,6 +67,9 @@ Plug 'vmchale/dhall-vim'
 
 " Terraform
 Plug 'hashivim/vim-terraform'
+
+" Lisp
+Plug 'l04m33/vlime', { 'rtp': 'vim/' }
 
 " Initialize plugin system
 call plug#end()
@@ -223,8 +220,8 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent> <c-k> <Plug>(coc-diagnostic-prev)
+nmap <silent> <c-j> <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -293,7 +290,28 @@ omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
 " Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <space>di  :CocList diagnostics<cr>
 
 " tsconfig.json is actually jsonc, help TypeScript set the correct filetype
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
+
+" import-js
+nnoremap <leader>iw :ImportJSWord<CR>
+nnoremap <Leader>if :ImportJSFix<CR>
+nnoremap <Leader>ig :ImportJSGoto<CR>
+
+" git
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+" show commit contains current position
+nmap gc <Plug>(coc-git-commit)
+" create text object for git chunks
+omap ig <Plug>(coc-git-chunk-inner)
+xmap ig <Plug>(coc-git-chunk-inner)
+omap ag <Plug>(coc-git-chunk-outer)
+xmap ag <Plug>(coc-git-chunk-outer)
+nmap <silent> <leader>cs :CocCommand git.chunkStage<CR>
+nmap <silent> <leader>cu :CocCommand git.chunkUnstage<CR>

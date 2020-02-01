@@ -1,7 +1,4 @@
 export XDG_CONFIG_HOME="$HOME/.config"
-export HOMEBREW_GITHUB_API_TOKEN="f524ee63fcee2a137246c81909a1be02aae2f703"
-export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=true
 export ZGEN_PREZTO_LOAD_DEFAULT=0
 export EDITOR=nvim
 
@@ -23,7 +20,7 @@ source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
 
   # Auto update every seven days
-  zgen load unixorn/autoupdate-zgen
+  # zgen load unixorn/autoupdate-zgen
 
   # Oh My Zsh
   # zgen oh-my-zsh
@@ -53,9 +50,6 @@ if ! zgen saved; then
 
   zgen load zsh-users/zsh-completions src
 
-  # Load nvm manager plugin
-  zgen load lukechilds/zsh-nvm
-
   # Safe rm
   # zgen load MikeDacre/careful_rm
 
@@ -81,7 +75,7 @@ fi
 # Safe rm
 alias rm="$(command -v ~/.zgen/MikeDacre/careful_rm-master/careful_rm.py)"
 
-source ~/.nix-profile/etc/profile.d/nix.sh
+# source ~/.nix-profile/etc/profile.d/nix.sh
 
 bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
@@ -91,3 +85,6 @@ zstyle ':completion:*' completer _complete _approximate
 
 # aliases
 source ~/.alias
+
+# fnm
+eval "$(fnm env --multi)"

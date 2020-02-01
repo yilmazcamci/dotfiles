@@ -12,3 +12,5 @@ alias iphone-simulator='open /Applications/Xcode.app/Contents/Developer/Applicat
 
 alias ls=exa
 alias l='exa --oneline --all'
+alias start-metro='./node_modules/react-native/scripts/launchPackager.command'
+alias restart-touchbar='sudo pkill "Touch Bar agent"; sudo killall "ControlStrip";'
