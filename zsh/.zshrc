@@ -51,7 +51,7 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
 
   # Safe rm
-  # zgen load MikeDacre/careful_rm
+  zgen load MikeDacre/careful_rm
 
   # Neat ls alternative
   # zgen load supercrabtree/k
