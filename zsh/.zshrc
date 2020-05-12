@@ -48,6 +48,9 @@ if ! zgen saved; then
   zgen prezto prompt
   zgen prezto git
 
+  # Kubernetes aliases and complete
+  zgen load prezto-contributions/prezto-kubectl
+
   zgen load zsh-users/zsh-completions src
 
   # Safe rm
@@ -75,16 +78,19 @@ fi
 # Safe rm
 alias rm="$(command -v ~/.zgen/MikeDacre/careful_rm-master/careful_rm.py)"
 
-# source ~/.nix-profile/etc/profile.d/nix.sh
-
 bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
 
 # Correction if completion is not possible
 zstyle ':completion:*' completer _complete _approximate
 
+# fnm
+eval "$(fnm env --multi)"
+
 # aliases
 source ~/.alias
 
-# fnm
-eval "$(fnm env --multi)"
+# During devops some commands contain secrets and should not be stored in history
+setopt HIST_IGNORE_SPACE
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
