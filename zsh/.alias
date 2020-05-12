@@ -2,6 +2,7 @@
 # git
 alias glgg='git log --topo-order --all --graph --oneline'
 alias glgb='git log --topo-order --pretty=short'
+alias glgd='git log --topo-order --patch'
 
 # scw
 alias scw='scw --region=ams1'
