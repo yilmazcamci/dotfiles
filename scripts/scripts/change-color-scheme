@@ -1,8 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
 [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 eval "$("$BASE16_SHELL/profile_helper.sh")"
-BASE_16_SCHEME=$(cat ~/knowledge/base16-colors.md | grep \* | cut -d' ' -f2 | sort --random-sort | head -n 1)
+
+COLOR_SCHEMES=$(cat ~/knowledge/base16-colors.md | grep \* | cut -d' ' -f2)
+BASE_16_SCHEME=$(echo "$COLOR_SCHEMES" | sort --random-sort | head -n 1)
+
 . ~/.config/base16-shell/scripts/${BASE_16_SCHEME}.sh
