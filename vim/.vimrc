@@ -8,8 +8,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tomtom/tcomment_vim'
-" Plug 'Raimondi/delimitMate'
 " Plug 'mg979/vim-visual-multi', {'branch': 'test'}
+Plug 'tpope/vim-obsession'
 
 " Focus
 Plug 'junegunn/goyo.vim'
@@ -17,7 +17,7 @@ Plug 'junegunn/limelight.vim'
 
 " Explore
 Plug 'justinmk/vim-dirvish'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Git
@@ -37,19 +37,22 @@ Plug 'chriskempson/base16-vim'
 " Completion
 " Install nightly build, replace ./install.sh with install.cmd on windows
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets'
 
 " JavaScript
 Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
-Plug 'mxw/vim-jsx'
-Plug 'mattn/emmet-vim'
-Plug 'galooshi/vim-import-js'
+" Plug 'mxw/vim-jsx'
+" Plug 'mattn/emmet-vim'
+" Plug 'galooshi/vim-import-js'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
 
 " TypeScript
 Plug 'HerringtonDarkholme/yats.vim'
 
 " Reason
-Plug 'reasonml-editor/vim-reason-plus'
+" Plug 'reasonml-editor/vim-reason-plus'
 
 " JSON
 Plug 'elzr/vim-json'
@@ -57,6 +60,7 @@ Plug 'neoclide/jsonc.vim'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim'
+Plug 'sdiehl/vim-ormolu'
 
 " PureScript
 Plug 'purescript-contrib/purescript-vim'
@@ -65,11 +69,17 @@ Plug 'FrigoEU/psc-ide-vim'
 " Dhall
 Plug 'vmchale/dhall-vim'
 
-" Terraform
-Plug 'hashivim/vim-terraform'
-
 " Lisp
-Plug 'l04m33/vlime', { 'rtp': 'vim/' }
+" Plug 'l04m33/vlime', { 'rtp': 'vim/' }
+
+" Nix
+Plug 'LnL7/vim-nix'
+
+" CSV
+Plug 'chrisbra/csv.vim'
+
+" Helpful ({[ pair insertion
+Plug 'jiangmiao/auto-pairs'
 
 " Initialize plugin system
 call plug#end()
@@ -97,12 +107,26 @@ set tabstop=2 shiftwidth=2 expandtab
 set listchars=tab:»·,trail:·
 set list
 
-" Mapping
-inoremap jj <Esc>
-cmap w!! w !sudo tee > /dev/null %
 let mapleader=" "
-nnoremap <C-s> :w<CR>
+
+" Quick save
+nnoremap <c-s> :write<CR>
+
+" Quicker exit insert
+inoremap jj <Esc>
+
+" Write file as root
+cmap w!! w !sudo tee > /dev/null %
+
+" Sort visual selection alphabetically
 noremap <leader>or :'<,'>sort<CR>
+noremap <leader>ob vi{:'<,'>sort<CR>
+
+" Disable c-z to suspend
+nnoremap <c-z> <nop>
+
+" Ignore node_modules generally
+set wildignore+=node_modules/*
 
 " Search
 nnoremap <silent> <leader>sc :nohlsearch<CR>
@@ -115,13 +139,20 @@ nnoremap <silent> <C-l> :bd<CR>
 nnoremap <silent> <C-b> :e#<CR>
 
 " Fzf
-nnoremap <leader><leader> :GFiles<CR>
-nnoremap <leader>fi       :Files<CR>
-nnoremap <leader>C        :Colors<CR>
-nnoremap <leader><CR>     :Buffers<CR>
-nnoremap <leader>fl       :Lines<CR>
-nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
-nnoremap <leader>m        :History<CR>
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+nnoremap <leader>h :Files<CR>
+nnoremap <leader>t :Buffers<CR>
+nnoremap <leader>n :GFiles<CR>
+nnoremap <leader>s :GFiles?<CR>
+nnoremap <leader>c :Commits<CR>
+nnoremap <leader>r :BCommits<CR>
+nnoremap <leader>C :Colors<CR>
+nnoremap <leader>fl :Lines<CR>
+nnoremap <leader>ag :Ag <C-R><C-W><CR>
+nnoremap <leader>rg :Rg <C-R><C-W><CR>
+nnoremap <leader>m :History<CR>
 
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
@@ -203,6 +234,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 " inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 inoremap <silent><expr> <cr> pumvisible() ? "\<CR>"
       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
@@ -296,9 +328,9 @@ nnoremap <silent> <space>di  :CocList diagnostics<cr>
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
 " import-js
-nnoremap <leader>iw :ImportJSWord<CR>
-nnoremap <Leader>if :ImportJSFix<CR>
-nnoremap <Leader>ig :ImportJSGoto<CR>
+" nnoremap <leader>iw :ImportJSWord<CR>
+" nnoremap <Leader>if :ImportJSFix<CR>
+" nnoremap <Leader>ig :ImportJSGoto<CR>
 
 " git
 " navigate chunks of current buffer
@@ -314,4 +346,7 @@ xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
 nmap <silent> <leader>cs :CocCommand git.chunkStage<CR>
-nmap <silent> <leader>cu :CocCommand git.chunkUnstage<CR>
+nmap <silent> <leader>cu :CocCommand git.chunkUndo<CR>
+
+" Dirvish helper
+nmap <leader>mv y$:!mv %<C-R>" %
