@@ -3,6 +3,7 @@
   email = alex.tesfamichael@gmail.com
 [core]
   editor = nvim
+  excludesfile = ~/.gitignore
 [pull]
   rebase = true
 [pager]
