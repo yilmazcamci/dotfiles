@@ -51,8 +51,6 @@ if ! zgen saved; then
   # Kubernetes aliases and complete
   zgen load prezto-contributions/prezto-kubectl
 
-  zgen load zsh-users/zsh-completions src
-
   # Safe rm
   zgen load MikeDacre/careful_rm
 
@@ -70,6 +68,8 @@ if ! zgen saved; then
 
   # Alias tips
   zgen load djui/alias-tips
+
+  zgen load zsh-users/zsh-completions src
 
   # generate the init script from plugins above
   zgen save
