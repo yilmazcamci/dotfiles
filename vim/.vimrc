@@ -44,9 +44,9 @@ Plug 'othree/yajs.vim'
 Plug 'othree/es.next.syntax.vim'
 " Plug 'mxw/vim-jsx'
 " Plug 'mattn/emmet-vim'
-" Plug 'galooshi/vim-import-js'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
+Plug 'galooshi/vim-import-js'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
 
 " TypeScript
 Plug 'HerringtonDarkholme/yats.vim'
@@ -130,7 +130,7 @@ set wildignore+=node_modules/*
 
 " Search
 nnoremap <silent> <leader>sc :nohlsearch<CR>
-nnoremap <leader>sr :%s/\<<C-r><C-w>\>/
+nnoremap <leader>rw :%s/\<<C-r><C-w>\>/
 
 " Buffers
 nnoremap <silent> <C-h> :bp<CR>
@@ -145,14 +145,15 @@ command! -bang -nargs=? -complete=dir Files
 nnoremap <leader>h :Files<CR>
 nnoremap <leader>t :Buffers<CR>
 nnoremap <leader>n :GFiles<CR>
-nnoremap <leader>s :GFiles?<CR>
-nnoremap <leader>c :Commits<CR>
-nnoremap <leader>r :BCommits<CR>
+nnoremap <leader>u :GFiles?<CR>
+nnoremap <leader>cc :Commits<CR>
+nnoremap <leader>cb :BCommits<CR>
 nnoremap <leader>C :Colors<CR>
-nnoremap <leader>fl :Lines<CR>
-nnoremap <leader>ag :Ag <C-R><C-W><CR>
-nnoremap <leader>rg :Rg <C-R><C-W><CR>
-nnoremap <leader>m :History<CR>
+nnoremap <leader>sl :Lines<CR>
+" nnoremap <leader>ag :Ag <C-R><C-W><CR>
+nnoremap <leader>sr :Rg <CR>
+nnoremap <leader>sw :Rg <C-R><C-W><CR>
+nnoremap <leader>sh :History<CR>
 
 " Fugitive
 nnoremap <leader>gs :Gstatus<CR>
@@ -292,13 +293,11 @@ augroup end
 nmap <C-p> <Plug>(coc-format)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+xmap <leader>aa  <Plug>(coc-codeaction-selected)
+nmap <leader>aa  <Plug>(coc-codeaction-selected)
+nmap <leader>aa  <Plug>(coc-codeaction)
+nmap <leader>ac <Plug>(coc-codeaction-line)
+nmap <leader>af  <Plug>(coc-fix-current)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -328,8 +327,8 @@ nnoremap <silent> <space>di  :CocList diagnostics<cr>
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
 " import-js
-" nnoremap <leader>iw :ImportJSWord<CR>
-" nnoremap <Leader>if :ImportJSFix<CR>
+nnoremap <leader>if :ImportJSWord<CR>
+nnoremap <Leader>ic :ImportJSFix<CR>
 " nnoremap <Leader>ig :ImportJSGoto<CR>
 
 " git
@@ -350,3 +349,16 @@ nmap <silent> <leader>cu :CocCommand git.chunkUndo<CR>
 
 " Dirvish helper
 nmap <leader>mv y$:!mv %<C-R>" %
+
+" Deno fmt
+nmap <c-f>:!deno fmt
+
+" PureScript bindings
+imap <c-f> ∀
+
+" Remove trailing whitespace
+nnoremap <silent> <leader>wi :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+" coc-sql format selection
+xmap <leader>pf  <Plug>(coc-format-selected)
+nmap <leader>pf  <Plug>(coc-format-selected)
