@@ -17,6 +17,7 @@ Plug 'junegunn/limelight.vim'
 
 " Explore
 Plug 'justinmk/vim-dirvish'
+" Plug 'cocopon/vaffle.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -35,53 +36,58 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
 
 " Completion
-" Install nightly build, replace ./install.sh with install.cmd on windows
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 
 " JavaScript
-Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim'
+" Plug 'othree/yajs.vim'
+" Plug 'othree/es.next.syntax.vim'
 " Plug 'mxw/vim-jsx'
 " Plug 'mattn/emmet-vim'
-Plug 'galooshi/vim-import-js'
+" Plug 'galooshi/vim-import-js'
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
 
 " TypeScript
-Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'HerringtonDarkholme/yats.vim'
 
 " Reason
 " Plug 'reasonml-editor/vim-reason-plus'
 
 " JSON
-Plug 'elzr/vim-json'
+" Plug 'elzr/vim-json'
 Plug 'neoclide/jsonc.vim'
 
 " Haskell
-Plug 'neovimhaskell/haskell-vim'
-Plug 'sdiehl/vim-ormolu'
+" Plug 'neovimhaskell/haskell-vim'
+" Plug 'sdiehl/vim-ormolu'
 
 " PureScript
-Plug 'purescript-contrib/purescript-vim'
-Plug 'FrigoEU/psc-ide-vim'
+" Plug 'purescript-contrib/purescript-vim'
+" Plug 'FrigoEU/psc-ide-vim'
 
 " Dhall
-Plug 'vmchale/dhall-vim'
+" Plug 'vmchale/dhall-vim'
 
 " Lisp
 " Plug 'l04m33/vlime', { 'rtp': 'vim/' }
 
 " Nix
-Plug 'LnL7/vim-nix'
+" Plug 'LnL7/vim-nix'
 
 " CSV
 Plug 'chrisbra/csv.vim'
 
 " Helpful ({[ pair insertion
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 
-" Initialize plugin system
+" Postgres
+" Plug 'lifepillar/pgsql.vim'
+
+" Nunjucks
+" Plug 'Glench/Vim-Jinja2-Syntax'
+
+"Initialize plugin system
 call plug#end()
 
 " General Settings
@@ -175,20 +181,15 @@ if has("nvim")
   augroup END
 endif
 
-if has("gui_running")
-  set macligatures
-  set guifont=PragmataPro\ Liga:h14
-endif
-
 " Emmet
-let g:user_emmet_settings = {
-\  'javascript.jsx' : {
-\      'extends' : 'jsx',
-\  },
-\  'typescript.tsx' : {
-\      'extends' : 'jsx',
-\  },
-\}
+" let g:user_emmet_settings = {
+" \  'javascript.jsx' : {
+" \      'extends' : 'jsx',
+" \  },
+" \  'typescript.tsx' : {
+" \      'extends' : 'jsx',
+" \  },
+" \}
 
 augroup pscbindings
   autocmd! pscbindings
@@ -215,29 +216,44 @@ augroup haskellbindings
 augroup end
 
 " CoC
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <silent><expr> <cr> pumvisible() ? "\<CR>"
 "       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-inoremap <silent><expr> <cr> pumvisible() ? "\<CR>"
-      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Map <tab> for trigger completion, completion confirm, snippet expand and jump like VSCode.
 inoremap <silent><expr> <TAB>
@@ -246,12 +262,13 @@ inoremap <silent><expr> <TAB>
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
-let g:coc_snippet_next = '<tab>'
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
+" let g:coc_snippet_next = '<tab>'
 
 nmap <silent> <c-k> <Plug>(coc-diagnostic-prev)
 nmap <silent> <c-j> <Plug>(coc-diagnostic-next)
@@ -262,8 +279,9 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window
+" Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -273,7 +291,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
@@ -311,8 +329,14 @@ set shortmess+=c
 " Better display for messages
 set cmdheight=2
 
-" always show signcolumns
-set signcolumn=yes
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " Create mappings for function text object, requires document symbols feature of languageserver.
 xmap if <Plug>(coc-funcobj-i)
@@ -362,3 +386,8 @@ nnoremap <silent> <leader>wi :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar
 " coc-sql format selection
 xmap <leader>pf  <Plug>(coc-format-selected)
 nmap <leader>pf  <Plug>(coc-format-selected)
+
+" Vaffle
+" nmap - :Vaffle %<CR>
+" nmap , <Plug>(vaffle-toggle-current)
+" xmap , <Plug>(vaffle-toggle-current)
