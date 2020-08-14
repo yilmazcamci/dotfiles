@@ -4,9 +4,6 @@ alias glgg='git log --topo-order --all --graph --oneline'
 alias glgb='git log --topo-order --pretty=short'
 alias glgd='git log --topo-order --patch'
 
-# scw
-alias scw='scw --region=ams1'
-
 alias vscode='code-insiders'
 
 alias iphone-simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
@@ -18,4 +15,4 @@ alias restart-touchbar='sudo pkill "Touch Bar agent"; sudo killall "ControlStrip
 
 alias it-grafana="kubectl port-forward --namespace monitoring service/grafana 3000:3000"
 
-alias dc="docker-compose"
+alias dc="COMPOSE_DOCKER_CLI_BUILD=1 docker-compose"
