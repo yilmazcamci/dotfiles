@@ -63,8 +63,8 @@ Plug 'neoclide/jsonc.vim'
 " Plug 'sdiehl/vim-ormolu'
 
 " PureScript
-" Plug 'purescript-contrib/purescript-vim'
-" Plug 'FrigoEU/psc-ide-vim'
+Plug 'purescript-contrib/purescript-vim'
+Plug 'FrigoEU/psc-ide-vim'
 
 " Dhall
 " Plug 'vmchale/dhall-vim'
