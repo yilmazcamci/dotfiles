@@ -1,0 +1,58 @@
+{
+  "diagnostic.virtualText": true,
+  "deno.enable": false,
+  "tsserver.formatOnType": true,
+  "coc.preferences.formatOnSaveFiletypes": ["yaml", "javascript", "typescript", "html","css"],
+  /* "coc.preferences.formatOnInsertLeave": true, */
+  "codeLens.enable": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "languageserver": {
+    "haskell-hie": {
+      "command": "hie-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        "*.cabal",
+        "stack.yaml",
+        "cabal.project",
+        "package.yaml"
+      ],
+      "filetypes": ["hs", "lhs", "haskell"],
+      "initializationOptions": {
+        "languageServerHaskell": {}
+      }
+    },
+    "haskell": {
+      "command": "ghcide",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        ".stack.yaml",
+        ".hie-bios",
+        "BUILD.bazel",
+        "cabal.config",
+        "package.yaml"
+      ],
+      "filetypes": ["hs", "lhs", "haskell"]
+    },
+    "purescript": {
+      "command": "purescript-language-server",
+      "args": ["--stdio"],
+      "filetypes": ["purescript"],
+      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+    },
+    "reason": {
+      "command": "reason-language-server",
+      "filetypes": ["reason"]
+    },
+    "terraform": {
+      "command": "terraform-lsp",
+      "filetypes": ["terraform"],
+      "initializationOptions": {}
+    }
+  },
+  "typescript.referencesCodeLens.enable": false,
+  "javascript.referencesCodeLens.enable": false,
+  "diagnostic.maxWindowHeight": 24,
+  "eslint.autoFixOnSave": true,
+  "css.lint.unknownAtRules": "ignore",
+  "tsserver.log": "verbose"
+}
