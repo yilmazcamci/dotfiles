@@ -14,3 +14,5 @@ alias start-metro='./node_modules/react-native/scripts/launchPackager.command'
 alias restart-touchbar='sudo pkill "Touch Bar agent"; sudo killall "ControlStrip";'
 
 alias dc="docker compose"
+
+alias v="nvim"
