@@ -48,9 +48,6 @@ if ! zgen saved; then
   zgen prezto prompt
   zgen prezto git
 
-  # Kubernetes aliases and complete
-  zgen load prezto-contributions/prezto-kubectl
-
   # Safe rm
   zgen load MikeDacre/careful_rm
 
