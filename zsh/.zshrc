@@ -51,9 +51,6 @@ if ! zgen saved; then
   # Safe rm
   zgen load MikeDacre/careful_rm
 
-  # Neat ls alternative
-  # zgen load supercrabtree/k
-
   # As you type auto suggestions
   zgen load zsh-users/zsh-autosuggestions
 
@@ -62,9 +59,6 @@ if ! zgen saved; then
 
   # History substring search (needs syntax highlighting)
   zgen load zsh-users/zsh-history-substring-search
-
-  # Alias tips
-  zgen load djui/alias-tips
 
   zgen load zsh-users/zsh-completions src
 
