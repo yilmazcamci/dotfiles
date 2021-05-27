@@ -82,7 +82,7 @@ bindkey '\eOB' history-substring-search-down # or ^[OB
 zstyle ':completion:*' completer _complete _approximate
 
 # fnm
-eval "$(fnm env --multi)"
+eval "$(fnm env)"
 
 # aliases
 source ~/.alias
