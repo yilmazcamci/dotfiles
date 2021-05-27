@@ -71,7 +71,7 @@ Plug 'leafgarland/typescript-vim'
 " Plug 'jiangmiao/auto-pairs'
 
 " Postgres
-" Plug 'lifepillar/pgsql.vim'
+Plug 'lifepillar/pgsql.vim'
 
 " Ethereum
 Plug 'tomlion/vim-solidity'
@@ -157,16 +157,17 @@ nnoremap <leader>sw :Rg <C-R><C-W><CR>
 nnoremap <leader>sh :History<CR>
 
 " Fugitive
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gr :Gread<CR>
-nnoremap <leader>gw :Gwrite<CR>
-nnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gd :Gdiff<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gs :Git<CR>
+nnoremap <leader>gr :Git read<CR>
+nnoremap <leader>gw :Git write<CR>
+nnoremap <leader>gb :Git blame<CR>
+nnoremap <leader>gd :Git diff<CR>
+nnoremap <leader>gc :Git commit<CR>
+nnoremap <leader>ge :Git edit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gl :Git log<CR>
+nnoremap <leader>gp :Git push<CR>
 
 if has("nvim")
   augroup nvim_term
@@ -247,8 +248,7 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Map <tab> for trigger completion, completion confirm, snippet expand and jump like VSCode.
 inoremap <silent><expr> <TAB>
@@ -321,9 +321,6 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" Better display for messages
-set cmdheight=2
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -384,5 +381,10 @@ nmap <leader>pf  <Plug>(coc-format-selected)
 
 " Vaffle
 " nmap - :Vaffle %<CR>
-" nmap , <Plug>(vaffle-toggle-current)
-" xmap , <Plug>(vaffle-toggle-current)
+" Open the parent directory, or the current directory if empty
+nnoremap <silent> - :<C-u>call vaffle#init(expand('%'))<CR>
+nmap , <Plug>(vaffle-toggle-current)
+xmap , <Plug>(vaffle-toggle-current)
+
+" Postgres
+let g:sql_type_default = 'pgsql'
