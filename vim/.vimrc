@@ -141,7 +141,7 @@ nnoremap <silent> <C-b> :e#<CR>
 
 " Fzf
 command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+    \ call fzf#vim#files(<q-args>, <bang>0)
 
 nnoremap <leader>h :Files<CR>
 nnoremap <leader>t :Buffers<CR>
