@@ -16,8 +16,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " Explore
-Plug 'justinmk/vim-dirvish'
-" Plug 'cocopon/vaffle.vim'
+" Plug 'justinmk/vim-dirvish'
+Plug 'cocopon/vaffle.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
@@ -40,31 +40,23 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 
 " JavaScript
-" Plug 'othree/yajs.vim'
-" Plug 'othree/es.next.syntax.vim'
-" Plug 'mxw/vim-jsx'
-" Plug 'mattn/emmet-vim'
-" Plug 'galooshi/vim-import-js'
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'kristijanhusak/vim-js-file-import', {'do': 'npm install'}
+Plug 'mvolkmann/vim-js-arrow-function'
 
 " TypeScript
+Plug 'leafgarland/typescript-vim'
 " Plug 'HerringtonDarkholme/yats.vim'
-
-" Reason
-" Plug 'reasonml-editor/vim-reason-plus'
 
 " JSON
 " Plug 'elzr/vim-json'
-Plug 'neoclide/jsonc.vim'
+" Plug 'neoclide/jsonc.vim'
 
 " Haskell
 " Plug 'neovimhaskell/haskell-vim'
 " Plug 'sdiehl/vim-ormolu'
 
 " PureScript
-Plug 'purescript-contrib/purescript-vim'
-Plug 'FrigoEU/psc-ide-vim'
+" Plug 'purescript-contrib/purescript-vim'
+" Plug 'FrigoEU/psc-ide-vim'
 
 " Dhall
 " Plug 'vmchale/dhall-vim'
@@ -75,17 +67,20 @@ Plug 'FrigoEU/psc-ide-vim'
 " Nix
 " Plug 'LnL7/vim-nix'
 
-" CSV
-Plug 'chrisbra/csv.vim'
-
 " Helpful ({[ pair insertion
 " Plug 'jiangmiao/auto-pairs'
 
 " Postgres
 " Plug 'lifepillar/pgsql.vim'
 
-" Nunjucks
-" Plug 'Glench/Vim-Jinja2-Syntax'
+" Ethereum
+Plug 'tomlion/vim-solidity'
+
+" Rust
+" Plug 'cespare/vim-toml'
+
+" Svelte
+" Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 "Initialize plugin system
 call plug#end()
