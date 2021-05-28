@@ -110,6 +110,9 @@ set list
 
 let mapleader=" "
 
+" Edit this file.. again
+nnoremap <leader>ve :e ~/.vimrc<CR>
+
 " Quick save
 nnoremap <c-s> :write<CR>
 
