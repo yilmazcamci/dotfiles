@@ -1,3 +1,10 @@
 Session.vim
 .DS_Store
 .vim
+set-env-dev.sh
+set-env-prod.sh
+set-env-ropsten-dev.sh
+set-env-ropsten-prod.sh
+.env.local
+set-doge-scout-auth.sh
+set-usm-auth.sh
