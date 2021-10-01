@@ -1,18 +1,28 @@
 #!/bin/zsh
-# git
-alias glgg='git log --topo-order --all --graph --oneline'
-alias glgb='git log --topo-order --pretty=short'
-alias glgd='git log --topo-order --patch'
 
-alias vscode='code-insiders'
+alias glgg="git log --topo-order --all --graph --oneline"
+alias glgb="git log --topo-order --pretty=short"
+alias glgd="git log --topo-order --patch"
 
-alias iphone-simulator='open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
+alias vscode="code-insiders"
+
+alias iphone-simulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 
 alias ls=exa
-alias l='exa --oneline --all'
-alias start-metro='./node_modules/react-native/scripts/launchPackager.command'
-alias restart-touchbar='sudo pkill "Touch Bar agent"; sudo killall "ControlStrip";'
+alias l="exa --oneline --all"
+alias start-metro="./node_modules/react-native/scripts/launchPackager.command"
+alias restart-touchbar="sudo pkill "Touch Bar agent"; sudo killall "ControlStrip";"
 
 alias dc="docker compose"
 
 alias v="nvim"
+alias vs="nvim -S"
+
+alias connect-coco="ssh ubuntu@3.15.217.72"
+alias connect-abby="ssh root@142.93.237.183"
+alias connect-solomon="ssh root@64.227.73.122"
+
+alias k=kubectl
+
+alias rm='safe-rm'
+alias vim=nvim
