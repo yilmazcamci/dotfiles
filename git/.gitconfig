@@ -1,28 +1,54 @@
 [user]
   name = Alexander Tesfamichael
   email = alex.tesfamichael@gmail.com
+
 [core]
   editor = nvim
   excludesfile = ~/.gitignore
+
 [pull]
   rebase = true
-[pager]
-  log = diff-so-fancy | less
-  show = diff-so-fancy | less
-  diff = diff-so-fancy | less
+
 [diff]
   indentHeuristic = true
+
 [merge]
   tool = vimdiff
+
 [mergetool]
   prompt = false
   keepBackup = false
+
 [mergetool "vimdiff"]
   cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+
 [init]
   defaultBranch = main
+
+; [pager]
+;   log = diff-so-fancy | less
+;   show = diff-so-fancy | less
+;   diff = diff-so-fancy | less
+
+[pager]
+    diff = delta --diff-so-fancy --side-by-side
+    log = delta --diff-so-fancy --side-by-side
+    reflog = delta --diff-so-fancy --side-by-side
+    show = delta --diff-so-fancy --side-by-side
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+  file-style = omit
+  line-numbers = false
+  hunk-header-style = file line-number syntax
+  hunk-header-decoration-style = bold black omit
+  syntax-theme = base16
+  zero-style = dim syntax
