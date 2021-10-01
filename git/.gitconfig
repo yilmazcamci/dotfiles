@@ -11,6 +11,7 @@
 
 [diff]
   indentHeuristic = true
+  algorithm = histogram
 
 [merge]
   tool = vimdiff
