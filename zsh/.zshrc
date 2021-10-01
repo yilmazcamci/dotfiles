@@ -1,73 +1,86 @@
-export XDG_CONFIG_HOME="$HOME/.config"
-export ZGEN_PREZTO_LOAD_DEFAULT=0
-export EDITOR=nvim
+# load zgenom
+source "${HOME}/.zgenom/zgenom.zsh"
 
-if command -v hub &>/dev/null; then
-  # Extend git with hub
-  eval "$(hub alias -s)"
+# Check for plugin and zgenom updates every 7 days
+# This does not increase the startup time.
+zgenom autoupdate --background
+
+# if the init scipt doesn't exist
+if ! zgenom saved; then
+
+  # Auto update every seven days
+  # zgenom load unixorn/autoupdate-zgen
+
+  # Oh My Zsh
+  zgenom ohmyzsh
+  zgenom ohmyzsh plugins/kubectl
+
+  # Prezto
+  zgenom prezto gnu-utility prefix 'g'
+  zgenom prezto utility safe-ops 'no'
+  # zgenom prezto prompt theme 'pure'
+  zgenom prezto '*' color 'yes'
+
+  zgenom prezto
+  zgenom prezto environment
+  zgenom prezto terminal
+  zgenom prezto editor
+  zgenom prezto history
+  zgenom prezto directory
+  zgenom prezto spectrum
+  zgenom prezto gnu-utility
+  zgenom prezto utility
+  zgenom prezto completion
+  zgenom prezto prompt
+  zgenom prezto git
+  zgenom prezto command-not-found
+
+  # Safe rm
+  # zgenom load MikeDacre/careful_rm
+  zgenom load mattmc3/zsh-safe-rm
+
+  # As you type auto suggestions
+  zgenom load zsh-users/zsh-autosuggestions
+
+  # Syntax highlighting
+  zgenom load zsh-users/zsh-syntax-highlighting
+
+  # History substring search (needs syntax highlighting)
+  zgenom load zsh-users/zsh-history-substring-search
+
+  zgenom load zsh-users/zsh-completions src
+
+  # fzf history search
+  # zgenom load unixorn/fzf-zsh-plugin
+
+  # alias tips
+  zgenom load djui/alias-tips
+
+  # colored man pages
+  zgenom load ael-code/zsh-colored-man-pages
+
+  # powerlevel theme
+  zgenom load romkatv/powerlevel10k powerlevel10k
+
+  # generate the init script from plugins above
+  zgenom save
+
+  # Compile your zsh files
+  zgenom compile "$HOME/dotfiles/zsh/.zshrc"
 fi
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# aliases
+source ~/.alias
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
 [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-# load zgen
-source "${HOME}/.zgen/zgen.zsh"
-
-# if the init scipt doesn't exist
-if ! zgen saved; then
-
-  # Auto update every seven days
-  # zgen load unixorn/autoupdate-zgen
-
-  # Oh My Zsh
-  # zgen oh-my-zsh
-  # zgen oh-my-zsh plugins/git
-  # zgen oh-my-zsh plugins/github
-  # zgen load mafredri/zsh-async
-  # zgen load sindresorhus/pure
-
-  # Prezto
-  zgen prezto gnu-utility prefix 'g'
-  zgen prezto utility safe-ops 'no'
-  zgen prezto prompt theme 'pure'
-  zgen prezto '*' color 'yes'
-
-  zgen prezto
-  zgen prezto environment
-  zgen prezto terminal
-  zgen prezto editor
-  zgen prezto history
-  zgen prezto directory
-  zgen prezto spectrum
-  zgen prezto gnu-utility
-  zgen prezto utility
-  zgen prezto completion
-  zgen prezto prompt
-  zgen prezto git
-
-  # Safe rm
-  zgen load MikeDacre/careful_rm
-
-  # As you type auto suggestions
-  zgen load zsh-users/zsh-autosuggestions
-
-  # Syntax highlighting
-  zgen load zsh-users/zsh-syntax-highlighting
-
-  # History substring search (needs syntax highlighting)
-  zgen load zsh-users/zsh-history-substring-search
-
-  zgen load zsh-users/zsh-completions src
-
-  # generate the init script from plugins above
-  zgen save
-fi
-
-# Safe rm
-alias rm="$(command -v ~/.zgen/MikeDacre/careful_rm-master/careful_rm.py)"
 
 bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
@@ -78,10 +91,17 @@ zstyle ':completion:*' completer _complete _approximate
 # fnm
 eval "$(fnm env)"
 
-# aliases
-source ~/.alias
-
 # During devops some commands contain secrets and should not be stored in history
 setopt HIST_IGNORE_SPACE
 
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+
+if command -v hub &>/dev/null; then
+  # Extend git with hub
+  eval "$(hub alias -s)"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
