@@ -7,9 +7,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
-Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-commentary'
 " Plug 'mg979/vim-visual-multi', {'branch': 'test'}
 Plug 'tpope/vim-obsession'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Focus
 Plug 'junegunn/goyo.vim'
@@ -39,12 +40,13 @@ Plug 'chriskempson/base16-vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
 
-" JavaScript
-Plug 'mvolkmann/vim-js-arrow-function'
-
 " TypeScript
 Plug 'leafgarland/typescript-vim'
 " Plug 'HerringtonDarkholme/yats.vim'
+
+" JSX comments
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'JoosepAlviste/nvim-ts-context-commentstring', {'branch': 'main'}
 
 " JSON
 " Plug 'elzr/vim-json'
@@ -81,6 +83,17 @@ Plug 'tomlion/vim-solidity'
 
 " Svelte
 " Plug 'evanleck/vim-svelte', {'branch': 'main'}
+
+" Notes
+" Plug 'vimwiki/vimwiki'
+Plug 'lervag/wiki.vim'
+Plug 'lervag/wiki-ft.vim'
+
+" React
+Plug 'mattn/emmet-vim'
+
+" CSV
+Plug 'chrisbra/csv.vim'
 
 "Initialize plugin system
 call plug#end()
@@ -137,8 +150,6 @@ nnoremap <silent> <leader>sc :nohlsearch<CR>
 nnoremap <leader>rw :%s/\<<C-r><C-w>\>/
 
 " Buffers
-nnoremap <silent> <C-h> :bp<CR>
-nnoremap <silent> <C-t> :bn<CR>
 nnoremap <silent> <C-l> :bd<CR>
 nnoremap <silent> <C-b> :e#<CR>
 
@@ -164,13 +175,13 @@ nnoremap <leader>gs :Git<CR>
 nnoremap <leader>gr :Git read<CR>
 nnoremap <leader>gw :Git write<CR>
 nnoremap <leader>gb :Git blame<CR>
-nnoremap <leader>gd :Git diff<CR>
+nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gc :Git commit<CR>
-nnoremap <leader>ge :Git edit<CR>
+nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
-nnoremap <leader>gl :Git log<CR>
-nnoremap <leader>gp :Git push<CR>
+nnoremap <leader>gl :Gclog<CR>
+nnoremap <silent> <leader>gp :silent Git push<CR>
 
 if has("nvim")
   augroup nvim_term
@@ -354,10 +365,13 @@ nnoremap <Leader>ic :ImportJSFix<CR>
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
 nmap ]g <Plug>(coc-git-nextchunk)
+" navigate conflicts of current buffer
+nmap [c <Plug>(coc-git-prevconflict)
+nmap ]c <Plug>(coc-git-nextconflict)
 " show chunk diff at current position
 nmap gs <Plug>(coc-git-chunkinfo)
 " show commit contains current position
-nmap gc <Plug>(coc-git-commit)
+" nmap gsc <Plug>(coc-git-commit)
 " create text object for git chunks
 omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
@@ -386,8 +400,96 @@ nmap <leader>pf  <Plug>(coc-format-selected)
 " nmap - :Vaffle %<CR>
 " Open the parent directory, or the current directory if empty
 nnoremap <silent> - :<C-u>call vaffle#init(expand('%'))<CR>
-nmap , <Plug>(vaffle-toggle-current)
-xmap , <Plug>(vaffle-toggle-current)
+nmap <leader>, <Plug>(vaffle-toggle-current)
+xmap <leader>, <Plug>(vaffle-toggle-current)
 
 " Postgres
 let g:sql_type_default = 'pgsql'
+
+" Notes
+" let g:vimwiki_list = [{'path': '~/wiki/'}]
+" let g:vimwiki_key_mappings = {
+"     \ 'headers': 0
+"     \ }
+let g:wiki_root = '~/wiki'
+let g:wiki_journal = {
+    \ 'name': 'journal',
+    \ 'frequency': 'weekly',
+    \ 'date_format': {
+    \   'daily' : '%Y-%m-%d',
+    \   'weekly' : '%Y_w%V',
+    \   'monthly' : '%Y_m%m',
+    \ },
+    \}
+au BufWinEnter * set wrap linebreak
+
+" JavaScript arrow shorthand macro
+nmap <leader>sht dw<Plug>Dsurround{<CR>f(%$x%
+nmap <leader>shf <Plug>YSurround%{jireturn<ESC>
+
+" treesitter setup
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = {}, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = {"vim"},  -- list of language that will be disabled
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+  context_commentstring = {
+    enable = true
+  }
+}
+EOF
+
+" Coc plugins
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ 'coc-snippets',
+  \ 'coc-prettier',
+  \ 'coc-pairs',
+  \ 'coc-lists',
+  \ 'coc-html',
+  \ 'coc-highlight',
+  \ 'coc-git',
+  \ 'coc-emoji',
+  \ 'coc-deno',
+  \ 'coc-yaml',
+  \ 'coc-svelte',
+  \ 'coc-rust-analyzer',
+  \ 'coc-json',
+  \ 'coc-docker',
+  \ 'coc-css'
+  \ ]
+
+lua <<EOF
+vim.g.indent_blankline_char = "│"
+vim.g.indent_blankline_show_first_indent_level = true
+vim.g.indent_blankline_filetype_exclude = {
+    "startify", "dashboard", "dotooagenda", "log", "fugitive", "gitcommit",
+    "packer", "vimwiki", "markdown", "json", "txt", "vista", "help",
+    "todoist", "NvimTree", "peekaboo", "git", "TelescopePrompt", "undotree",
+    "flutterToolsOutline", "" -- for all buffers without a file type
+}
+vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
+vim.g.indent_blankline_show_trailing_blankline_indent = false
+vim.g.indent_blankline_show_current_context = true
+vim.g.indent_blankline_context_patterns = {
+    "class", "function", "method", "block", "list_literal", "selector",
+    "^if", "^table", "if_statement", "while", "for"
+}
+-- because lazy load indent-blankline so need readd this autocmd
+-- vim.cmd('autocmd CursorMoved * IndentBlanklineRefresh')
+
+EOF
+
+highlight IndentBlanklineChar ctermfg=18 cterm=nocombine
+highlight IndentBlanklineContextChar ctermfg=8 cterm=nocombine
+
+" Coc highlight
+highlight FgCocErrorFloatBgCocFloating ctermfg=9 guifg=#ff0000
