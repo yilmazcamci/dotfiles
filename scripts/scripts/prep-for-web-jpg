@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -xe
+
+ffmpeg -i "$1" -vframes 1 -vf scale=$3:-2 -q:v 1 "$2.jpg"

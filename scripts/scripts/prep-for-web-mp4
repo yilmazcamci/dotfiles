@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ffmpeg -i "$1" -an -vf scale=$3:-2 -vcodec libx264 -pix_fmt yuv420p -profile:v baseline -level 3.0 -movflags +faststart -threads 0 -preset veryslow "$2.mp4"
