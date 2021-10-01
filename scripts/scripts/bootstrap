@@ -21,7 +21,7 @@ fi
 git clone https://github.com/tarjoilija/zgen.git "${HOME}/.zgen"
 
 # Clone dotfiles
-git clone https://github.com/AlexTes/dotfiles.git
+git clone https://github.com/alextes/dotfiles.git
 
 # Setup tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -47,16 +47,6 @@ cp ~/.vim/colors/base16/colors/*.vim ~/.vim/colors
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 mkdir ${HOME}/.vimundo
-
-# YouCompleteMe
-# if [ $(which pacman) -eq 0 ]; then
-#  pacman -S --noconfirm build-essentials
-# elif [ $(which yum) -eq 0 ]; then
-#   yum install -y cmake gcc gcc-c++ make openssl-devel python-devel
-# fi
-# cd ~/.vim/bundle/YouCompleteMe
-# ./install.py
-# cd ${HOME}
 
 # Set shell
 chsh -s $(which zsh)
