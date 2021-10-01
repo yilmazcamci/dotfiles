@@ -1,0 +1,10 @@
+#!/bin/bash
+
+apt install unzip
+curl -Lo geth-1.10.8.tar.gz https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.10.8-26675454.tar.gz
+tar -xf geth-1.10.8.tar.gz
+mv geth-linux-amd64-1.10.8-26675454 geth-1.10.8
+mkdir ~/geth-data
+mount /dev/sda ~/geth-data
+cd geth-1.10.8
+./geth --datadir ~/geth-data/ --cache 12288 --ws --ws.addr "0.0.0.0"

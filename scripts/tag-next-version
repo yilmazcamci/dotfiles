@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+ENV=$1
+
+if [[ $ENV == "staging" || $ENV == "stag" ]]; then
+    PREFIX="stag"
+elif [[ $ENV == "prod" || $ENV == "production" ]]; then
+    PREFIX="prod"
+else
+    PREFIX="stag"
+fi
+
+LAST_VERSION=$(git tag | grep "$PREFIX-v" | cut -c 7- | sort -n -r | head -n 1)
+NEXT_VERSION=$(( $LAST_VERSION + 1))
+CURRENT_COMMIT=$(git rev-parse --head)
+TAG="$PREFIX-v$NEXT_VERSION"
+git tag "$TAG"
+echo "tagged commit $CURRENT_COMMIT, as $TAG"
