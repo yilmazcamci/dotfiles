@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+doctl registry repository list-tags gas-analysis | tail -n +2 | cut -d ' ' -f 1 | xargs doctl registry repository delete-tag -f gas-analysis
+
+doctl registry repository list-tags fam-service | tail -n +2 | cut -d ' ' -f 1 | xargs doctl registry repository delete-tag -f fam-service
