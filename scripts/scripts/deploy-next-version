@@ -18,3 +18,19 @@ CURRENT_COMMIT=$(git rev-parse --short HEAD)
 TAG="$PREFIX-v$NEXT_VERSION"
 git tag "$TAG"
 echo "tagged commit $CURRENT_COMMIT, as $TAG"
+
+git push
+sleep 4
+git push --tags
+sleep 10
+
+echo $(hub ci-status)
+
+while [[ $(hub ci-status) == "pending" ]]; do
+    clear
+    hub ci-status --verbose || :
+    sleep 10
+done
+
+echo "done deploying $TAG"
+osascript -e "display notification \"done deploying $TAG\""
