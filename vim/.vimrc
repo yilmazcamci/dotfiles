@@ -353,6 +353,9 @@ omap af <Plug>(coc-funcobj-a)
 " Show all diagnostics
 nnoremap <silent> <space>di  :CocList diagnostics<cr>
 
+" TypeScript organize imports
+nnoremap <leader>oi :CocCommand tsserver.organizeImports<CR>
+
 " tsconfig.json is actually jsonc, help TypeScript set the correct filetype
 autocmd BufRead,BufNewFile tsconfig.json set filetype=jsonc
 
