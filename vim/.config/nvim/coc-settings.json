@@ -2,7 +2,16 @@
   "diagnostic.virtualText": true,
   "deno.enable": false,
   "tsserver.formatOnType": true,
-  "coc.preferences.formatOnSaveFiletypes": ["yaml", "javascript", "typescript", "html","css"],
+  "codeLens.position": "eol",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "yaml",
+    "javascript",
+    "typescript",
+    "html",
+    "css",
+    "typescriptreact",
+    "json"
+  ],
   /* "coc.preferences.formatOnInsertLeave": true, */
   "codeLens.enable": true,
   "diagnostic.virtualTextCurrentLineOnly": false,
@@ -37,7 +46,14 @@
       "command": "purescript-language-server",
       "args": ["--stdio"],
       "filetypes": ["purescript"],
-      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"]
+      "trace.server": "off",
+      "rootPatterns": ["bower.json", "psc-package.json", "spago.dhall"],
+      "settings": {
+        "purescript": {
+          "addSpagoSources": true,
+          "addNpmPath": false
+        }
+      }
     },
     "reason": {
       "command": "reason-language-server",
@@ -49,10 +65,9 @@
       "initializationOptions": {}
     }
   },
-  "typescript.referencesCodeLens.enable": false,
-  "javascript.referencesCodeLens.enable": false,
-  "diagnostic.maxWindowHeight": 24,
-  "eslint.autoFixOnSave": true,
+  "typescript.referencesCodeLens.enable": true,
+  "javascript.referencesCodeLens.enable": true,
   "css.lint.unknownAtRules": "ignore",
-  "tsserver.log": "verbose"
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
 }
