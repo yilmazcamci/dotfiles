@@ -10,3 +10,5 @@ set-env-ropsten-prod.sh
 set-doge-scout-auth.sh
 set-usm-auth.sh
 set-backup-auth.sh
+sync-prod-db-to-staging.sh
+sync-staging-to-dev.sh
