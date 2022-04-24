@@ -39,4 +39,16 @@ yabai -m config left_padding                 20
 yabai -m config right_padding                20
 yabai -m config window_gap                   10
 
+# float all Safari windows by default
+yabai -m rule --add app='Chrome' manage=off
+yabai -m rule --add app='Brave' manage=off
+yabai -m rule --add app='MetaMask' manage=off
+yabai -m rule --add app='1Password' manage=off
+yabai -m rule --add app='DBeaver' manage=off
+yabai -m rule --add app='sim' manage=off
+
+# float all windows by default whose title ends in `' Preferences'`
+yabai -m rule --add title=' Preferences$' manage=off
+
 echo "yabai configuration loaded.."
+
