@@ -1,10 +1,11 @@
 #!/bin/bash
 
 apt install unzip
-curl -Lo geth-1.10.8.tar.gz https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.10.8-26675454.tar.gz
-tar -xf geth-1.10.8.tar.gz
-mv geth-linux-amd64-1.10.8-26675454 geth-1.10.8
+curl -Lo geth-latest.tar.gz https://gethstore.blob.core.windows.net/builds/geth-linux-amd64-1.10.17-25c9b49f.tar.gz
+tar -xf geth-latest.tar.gz
+mv geth-linux-amd64-1.10.17-8be800ff geth-1.10.17
 mkdir ~/geth-data
 mount /dev/sda ~/geth-data
-cd geth-1.10.8
-./geth --datadir ~/geth-data/ --cache 12288 --ws --ws.addr "0.0.0.0"
+rm geth-latest.tar.gz
+cd geth-1.10.17
+./geth --datadir ~/geth-data/ --cache 12288 --ws --ws.addr "0.0.0.0" --maxpeers 200
