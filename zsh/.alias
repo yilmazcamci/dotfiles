@@ -4,8 +4,6 @@ alias glgg="git log --topo-order --all --graph --oneline"
 alias glgb="git log --topo-order --pretty=short"
 alias glgd="git log --topo-order --patch"
 
-alias vscode="code-insiders"
-
 alias iphone-simulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 
 alias ls=exa
@@ -19,8 +17,9 @@ alias v="nvim"
 alias vs="nvim -S"
 
 alias connect-coco="ssh ubuntu@3.15.217.72"
-alias connect-abby="ssh root@142.93.237.183"
 alias connect-solomon="ssh root@64.227.73.122"
+alias connect-abby="ssh root@161.35.149.212"
+alias connect-huxley="ssh root@164.92.159.144"
 
 alias k=kubectl
 

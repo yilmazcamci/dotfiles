@@ -105,3 +105,9 @@ fi
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# fnm
+export PATH=/Users/alextes/.fnm:$PATH
+eval "`fnm env`"
+
+export PATH="$PATH:/Users/alextes/.foundry/bin"
