@@ -39,6 +39,7 @@ Plug 'chriskempson/base16-vim'
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
+Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
@@ -57,8 +58,8 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring', {'branch': 'main'}
 " Plug 'sdiehl/vim-ormolu'
 
 " PureScript
-" Plug 'purescript-contrib/purescript-vim'
-" Plug 'FrigoEU/psc-ide-vim'
+Plug 'purescript-contrib/purescript-vim'
+Plug 'FrigoEU/psc-ide-vim'
 
 " Dhall
 " Plug 'vmchale/dhall-vim'
@@ -115,6 +116,7 @@ if filereadable(expand("~/.vimrc_background"))
   let base16colorspace=256
   source ~/.vimrc_background
 endif
+let g:airline_theme='base16'
 
 " Tab settings
 set tabstop=2 shiftwidth=2 expandtab
@@ -127,7 +129,7 @@ let mapleader=" "
 nnoremap <leader>ve :e ~/.vimrc<CR>
 
 " Quick save
-nnoremap <c-s> :write<CR>
+nnoremap <silent> <c-s> :write<CR>
 
 " Quicker exit insert
 inoremap jj <Esc>
@@ -152,6 +154,9 @@ nnoremap <leader>rw :%s/\<<C-r><C-w>\>/
 " Buffers
 nnoremap <silent> <C-l> :bd<CR>
 nnoremap <silent> <C-b> :e#<CR>
+
+" Append comma
+nnoremap <silent> <leader>a, msA,<esc>`s
 
 " Fzf
 command! -bang -nargs=? -complete=dir Files
@@ -320,17 +325,17 @@ augroup end
 nmap <C-p> <Plug>(coc-format)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>aa  <Plug>(coc-codeaction-selected)
-nmap <leader>aa  <Plug>(coc-codeaction-selected)
-nmap <leader>aa  <Plug>(coc-codeaction)
+xmap <leader>aa <Plug>(coc-codeaction-selected)
+nmap <leader>aa <Plug>(coc-codeaction-selected)
+nmap <leader>aa <Plug>(coc-codeaction)
 nmap <leader>ac <Plug>(coc-codeaction-line)
-nmap <leader>af  <Plug>(coc-fix-current)
+nmap <leader>af <Plug>(coc-fix-current)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
 " Use `:Fold` to fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -403,8 +408,8 @@ nmap <leader>pf  <Plug>(coc-format-selected)
 " nmap - :Vaffle %<CR>
 " Open the parent directory, or the current directory if empty
 nnoremap <silent> - :<C-u>call vaffle#init(expand('%'))<CR>
-nmap <leader>, <Plug>(vaffle-toggle-current)
-xmap <leader>, <Plug>(vaffle-toggle-current)
+nmap <leader>se <Plug>(vaffle-toggle-current)
+xmap <leader>se <Plug>(vaffle-toggle-current)
 
 " Postgres
 let g:sql_type_default = 'pgsql'
@@ -414,7 +419,7 @@ let g:sql_type_default = 'pgsql'
 " let g:vimwiki_key_mappings = {
 "     \ 'headers': 0
 "     \ }
-let g:wiki_root = '~/wiki'
+let g:wiki_root = '~/knowledge'
 let g:wiki_journal = {
     \ 'name': 'journal',
     \ 'frequency': 'weekly',
@@ -427,13 +432,13 @@ let g:wiki_journal = {
 au BufWinEnter * set wrap linebreak
 
 " JavaScript arrow shorthand macro
-nmap <leader>sht dw<Plug>Dsurround{<CR>f(%$x%
+nmap <leader>sht dwb<Plug>CSurround{(<CR>%$x
 nmap <leader>shf <Plug>YSurround%{jireturn<ESC>
 
 " treesitter setup
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {'bash','commonlisp','css','dockerfile','go','graphql','haskell','html','javascript','jsdoc','json','lua','markdown','python','rust','scss','solidity','toml','typescript','vim','yaml'}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = {}, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
@@ -496,3 +501,6 @@ highlight IndentBlanklineContextChar ctermfg=8 cterm=nocombine
 
 " Coc highlight
 highlight FgCocErrorFloatBgCocFloating ctermfg=9 guifg=#ff0000
+
+" Turn on spell checking while writting commits
+autocmd FileType gitcommit setlocal spell
