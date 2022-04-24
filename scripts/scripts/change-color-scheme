@@ -5,8 +5,11 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-COLOR_SCHEMES=$(cat ~/knowledge/base16-colors.md | grep \* | cut -d' ' -f2)
-BASE_16_SCHEME=$(echo "$COLOR_SCHEMES" | sort --random-sort | head -n 1)
+COLOR_SCHEMES=(base16-3024 base16-black-metal-bathory base16-eighties base16-icy base16-pop base16-apathy base16-black-metal-burzum base16-embers base16-irblack base16-porple base16-black-metal-dark-funeral base16-flat base16-isotope base16-railscasts base16-black-metal-gorgoroth base16-fruit-soda base16-macintosh base16-rebecca base16-black-metal-immortal base16-github base16-marrakesh base16-seti base16-black-metal-khold base16-google-dark base16-materia base16-shapeshifter base16-black-metal-marduk base16-google-light base16-material base16-snazzy base16-black-metal-mayhem base16-grayscale-dark base16-material-darker base16-solarflare base16-black-metal-nile base16-grayscale-light base16-material-lighter base16-solarized-dark base16-black-metal-venom base16-greenscreen base16-material-palenight base16-solarized-light base16-brewer base16-gruvbox-dark-hard base16-material-vivid base16-spacemacs base16-bright base16-gruvbox-dark-medium base16-mellow-purple base16-summerfruit-dark base16-brogrammer base16-gruvbox-dark-pale base16-mexico-light base16-summerfruit-light base16-brushtrees base16-gruvbox-dark-soft base16-mocha base16-synth-midnight-dark base16-brushtrees-dark base16-gruvbox-light-hard base16-monokai base16-tomorrow base16-chalk base16-gruvbox-light-medium base16-nord base16-tomorrow-night base16-circus base16-gruvbox-light-soft base16-ocean base16-tomorrow-night-eighties base16-classic-dark base16-harmonic-dark base16-oceanicnext base16-tube base16-classic-light base16-harmonic-light base16-one-light base16-twilight base16-codeschool base16-heetch base16-onedark base16-unikitty-dark base16-cupcake base16-heetch-light base16-outrun-dark base16-unikitty-light base16-cupertino base16-helios base16-papercolor-dark base16-woodland base16-darktooth base16-hopscotch base16-papercolor-light base16-xcode-dusk base16-default-dark base16-horizon-dark base16-paraiso base16-zenburn bespin base16-default-light base16-ia-dark base16-phd black-metal base16-dracula base16-ia-light base16-pico)
 
+RANDOM=$$$(date +%s)
+
+BASE_16_SCHEME=${COLOR_SCHEMES[ $RANDOM % ${#COLOR_SCHEMES[@]} ]}
 ln -sf ~/.config/base16-shell/scripts/${BASE_16_SCHEME}.sh ~/.base16_theme
 source ~/.config/base16-shell/scripts/${BASE_16_SCHEME}.sh
+
