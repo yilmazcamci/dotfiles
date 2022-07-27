@@ -4,13 +4,14 @@
   "tsserver.formatOnType": true,
   "codeLens.position": "eol",
   "coc.preferences.formatOnSaveFiletypes": [
-    "yaml",
-    "javascript",
-    "typescript",
-    "html",
     "css",
+    "html",
+    "javascript",
+    "json",
+    "rust",
+    "typescript",
     "typescriptreact",
-    "json"
+    "yaml"
   ],
   /* "coc.preferences.formatOnInsertLeave": true, */
   "codeLens.enable": true,
