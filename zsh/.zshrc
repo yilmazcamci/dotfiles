@@ -9,7 +9,7 @@ zgenom autoupdate --background
 if ! zgenom saved; then
 
   # Auto update every seven days
-  # zgenom load unixorn/autoupdate-zgen
+  zgenom load unixorn/autoupdate-zgen
 
   # Oh My Zsh
   zgenom ohmyzsh
@@ -22,18 +22,18 @@ if ! zgenom saved; then
   zgenom prezto '*' color 'yes'
 
   zgenom prezto
-  zgenom prezto environment
-  zgenom prezto terminal
-  zgenom prezto editor
+  # zgenom prezto environment
+  # zgenom prezto terminal
+  # zgenom prezto editor
   zgenom prezto history
-  zgenom prezto directory
-  zgenom prezto spectrum
-  zgenom prezto gnu-utility
-  zgenom prezto utility
-  zgenom prezto completion
-  zgenom prezto prompt
+  # zgenom prezto directory
+  # zgenom prezto spectrum
+  # zgenom prezto gnu-utility
+  # zgenom prezto utility
+  # zgenom prezto completion
+  # zgenom prezto prompt
   zgenom prezto git
-  zgenom prezto command-not-found
+  # zgenom prezto command-not-found
 
   # Safe rm
   # zgenom load MikeDacre/careful_rm
@@ -48,10 +48,7 @@ if ! zgenom saved; then
   # History substring search (needs syntax highlighting)
   zgenom load zsh-users/zsh-history-substring-search
 
-  zgenom load zsh-users/zsh-completions src
-
-  # fzf history search
-  # zgenom load unixorn/fzf-zsh-plugin
+  # zgenom load zsh-users/zsh-completions src
 
   # alias tips
   zgenom load djui/alias-tips
@@ -61,6 +58,8 @@ if ! zgenom saved; then
 
   # powerlevel theme
   zgenom load romkatv/powerlevel10k powerlevel10k
+
+  zgenom load unixorn/fzf-zsh-plugin
 
   # generate the init script from plugins above
   zgenom save
@@ -88,26 +87,27 @@ bindkey '\eOB' history-substring-search-down # or ^[OB
 # Correction if completion is not possible
 zstyle ':completion:*' completer _complete _approximate
 
-# fnm
-eval "$(fnm env)"
-
 # During devops some commands contain secrets and should not be stored in history
 setopt HIST_IGNORE_SPACE
 
-# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+# export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git"'
 
+# GitHub hub
 if command -v hub &>/dev/null; then
   # Extend git with hub
   eval "$(hub alias -s)"
 fi
 
+# fnm
+export PATH=/Users/alextes/.fnm:$PATH
+eval "$(fnm env --use-on-cd)"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=16"
 
-# fnm
-export PATH=/Users/alextes/.fnm:$PATH
-eval "`fnm env`"
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="$PATH:/Users/alextes/.foundry/bin"
+# Scaleway CLI autocomplete initialization.
+eval "$(scw autocomplete script shell=zsh)"
