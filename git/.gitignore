@@ -1,4 +1,4 @@
-Session.vim
+Session.vim*
 .DS_Store
 .vim
 set-env-dev.sh
@@ -12,3 +12,5 @@ set-usm-auth.sh
 set-backup-auth.sh
 sync-prod-db-to-staging.sh
 sync-staging-to-dev.sh
+set-db-envs.sh
+set-env-test.sh
