@@ -19,8 +19,9 @@ Plug 'junegunn/limelight.vim'
 " Explore
 " Plug 'justinmk/vim-dirvish'
 Plug 'cocopon/vaffle.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -159,21 +160,32 @@ nnoremap <silent> <C-b> :e#<CR>
 nnoremap <silent> <leader>a, msA,<esc>`s
 
 " Fzf
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, <bang>0)
+" command! -bang -nargs=? -complete=dir Files
+"     \ call fzf#vim#files(<q-args>, <bang>0)
 
-nnoremap <leader>h :Files<CR>
-nnoremap <leader>t :Buffers<CR>
-nnoremap <leader>n :GFiles<CR>
-nnoremap <leader>u :GFiles?<CR>
-nnoremap <leader>cc :Commits<CR>
-nnoremap <leader>cb :BCommits<CR>
-nnoremap <leader>C :Colors<CR>
-nnoremap <leader>sl :Lines<CR>
-" nnoremap <leader>ag :Ag <C-R><C-W><CR>
-nnoremap <leader>sr :Rg <CR>
-nnoremap <leader>sw :Rg <C-R><C-W><CR>
-nnoremap <leader>sh :History<CR>
+" fzf.vim
+" nnoremap <leader>h :Files<CR>
+" nnoremap <leader>t :Buffers<CR>
+" nnoremap <leader>n :GFiles<CR>
+" nnoremap <leader>u :GFiles?<CR>
+" nnoremap <leader>cc :Commits<CR>
+" nnoremap <leader>cb :BCommits<CR>
+" nnoremap <leader>C :Colors<CR>
+" nnoremap <leader>sl :Lines<CR>
+" " nnoremap <leader>ag :Ag <C-R><C-W><CR>
+" nnoremap <leader>sr :Rg <CR>
+" nnoremap <leader>sw :Rg <C-R><C-W><CR>
+" nnoremap <leader>sh :History<CR>
+
+" fzf-lua
+nnoremap <leader>ff :FzfLua <CR>
+nnoremap <leader>h :FzfLua files<CR>
+nnoremap <leader>t :FzfLua buffers<CR>
+nnoremap <leader>n :FzfLua git_files<CR>
+nnoremap <leader>u :FzfLua git_status<CR>
+nnoremap <leader>b :FzfLua git_bcommits<CR>
+nnoremap <leader>sr :FzfLua live_grep_glob<CR>
+nnoremap <leader>sw :FzfLua grep_cword<CR>
 
 " Fugitive
 nnoremap <leader>gs :Git<CR>
@@ -231,19 +243,16 @@ augroup haskellbindings
 augroup end
 
 " CoC
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 " function! s:check_back_space() abort
 "   let col = col('.') - 1
 "   return !col || getline('.')[col - 1]  =~# '\s'
 " endfunction
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -252,11 +261,6 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <silent><expr> <cr> pumvisible() ? "\<CR>"
-"       \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -293,16 +297,16 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    call feedkeys('K', 'in')
   endif
 endfunction
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
 " Highlight symbol under cursor on CursorHold
 " autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -330,6 +334,7 @@ nmap <leader>aa <Plug>(coc-codeaction-selected)
 nmap <leader>aa <Plug>(coc-codeaction)
 nmap <leader>ac <Plug>(coc-codeaction-line)
 nmap <leader>af <Plug>(coc-fix-current)
+nmap <leader>al <Plug>(coc-codelens-action)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -342,7 +347,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
+if has("nvim-0.5.0") || has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
@@ -388,6 +393,12 @@ xmap ag <Plug>(coc-git-chunk-outer)
 nmap <silent> <leader>cs :CocCommand git.chunkStage<CR>
 nmap <silent> <leader>cu :CocCommand git.chunkUndo<CR>
 
+" scroll floating window
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
 " Dirvish helper
 nmap <leader>mv y$:!mv %<C-R>" %
 
@@ -403,6 +414,16 @@ nnoremap <silent> <leader>wi :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar
 " coc-sql format selection
 xmap <leader>pf  <Plug>(coc-format-selected)
 nmap <leader>pf  <Plug>(coc-format-selected)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+"   nnoremap <silent><nowait><expr> <C-t> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-t>"
+"   nnoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-n>"
+"   inoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"   inoremap <silent><nowait><expr> <C-n> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"   vnoremap <silent><nowait><expr> <C-t> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-t>"
+"   vnoremap <silent><nowait><expr> <C-t> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-n>"
+" endif
 
 " Vaffle
 " nmap - :Vaffle %<CR>
