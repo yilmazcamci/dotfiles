@@ -24,11 +24,11 @@ sleep 4
 git push --tags
 sleep 10
 
-echo $(hub ci-status)
+echo $(hub ci-status $CURRENT_COMMIT)
 
 while [[ $(hub ci-status) == "pending" ]]; do
     clear
-    hub ci-status --verbose || :
+    hub ci-status --verbose $CURRENT_COMMIT || :
     sleep 10
 done
 
