@@ -105,9 +105,9 @@ eval "$(fnm env --use-on-cd)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=16"
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=16"
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Scaleway CLI autocomplete initialization.
 eval "$(scw autocomplete script shell=zsh)"
