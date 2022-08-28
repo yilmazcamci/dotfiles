@@ -92,9 +92,9 @@ kubectl set image deploy/crawl-followers crawl-followers=rg.nl-ams.scw.cloud/ult
 kubectl set image deploy/crawl-friendships crawl-friendships=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
 kubectl set image deploy/greet-close-to-fam greet-close-to-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
 kubectl set image deploy/serve-fam serve-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/crawl-profiles crawl-profiles=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/sync-lists sync-lists=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl set image cronjob/crawl-profiles crawl-profiles=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
+kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
+kubectl set image cronjob/sync-lists sync-lists=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
 
 echo "resetting fam-analysis-ts prod to $LAST_PRODUCTION_TAG_COMMIT"
 
@@ -105,9 +105,9 @@ kubectl set image deploy/crawl-followers crawl-followers=rg.nl-ams.scw.cloud/ult
 kubectl set image deploy/crawl-friendships crawl-friendships=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image deploy/greet-close-to-fam greet-close-to-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image deploy/serve-fam serve-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/crawl-profiles crawl-profiles=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/sync-lists sync-lists=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image cronjob/crawl-profiles crawl-profiles=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image cronjob/sync-lists sync-lists=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
 
 cd ~/code/usm/fam-analysis-rs
 LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
