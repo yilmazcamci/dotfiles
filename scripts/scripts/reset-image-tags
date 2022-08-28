@@ -22,24 +22,30 @@ kubectl -n dev set image deploy/sync-execution-blocks sync-execution-blocks=rg.f
 kubectl -n dev set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 
 # staging
+kubectl set image deploy/phoenix phoenix=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/serve-fees-rs serve-fees-rs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 kubectl set image deploy/sync-beacon-states sync-beacon-states=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 kubectl set image deploy/sync-execution-blocks sync-execution-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 kubectl set image cronjob/update-effective-balance-sum update-effective-balance-sum=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 kubectl set image cronjob/update-issuance-breakdown update-issuance-breakdown=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 kubectl set image cronjob/update-supply-projection-inputs update-supply-projection-inputs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+kubectl set image cronjob/update-total-difficulty-progress update-total-difficulty-progress=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
 
 echo "resetting eth-analysis-rs prod to $LAST_PRODUCTION_TAG_COMMIT"
 
 kubectx admin@kevin
 
+kubectl set image deploy/phoenix phoenix=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/serve-fees-rs serve-fees-rs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image deploy/sync-beacon-states sync-beacon-states=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image deploy/sync-execution-blocks sync-execution-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image cronjob/update-effective-balance-sum update-effective-balance-sum=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image cronjob/update-issuance-breakdown update-issuance-breakdown=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image cronjob/update-supply-projection-inputs update-supply-projection-inputs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image cronjob/update-total-difficulty-progress update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
 
 
@@ -78,6 +84,7 @@ kubectl set image deploy/serve-fees serve-fees=rg.fr-par.scw.cloud/ultrasoundmon
 kubectl set image deploy/store-eth-price store-eth-price=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image deploy/store-market-caps store-market-caps=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
 kubectl set image cronjob/store-pe-ratios store-pe-ratios=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/canary canary=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
 
 cd ~/code/usm/fam-analysis-ts
 LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
