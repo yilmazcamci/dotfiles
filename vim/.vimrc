@@ -9,7 +9,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
 " Plug 'mg979/vim-visual-multi', {'branch': 'test'}
-Plug 'tpope/vim-obsession'
+Plug 'folke/persistence.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Focus
@@ -18,10 +18,12 @@ Plug 'junegunn/limelight.vim'
 
 " Explore
 " Plug 'justinmk/vim-dirvish'
-Plug 'cocopon/vaffle.vim'
+" Plug 'cocopon/vaffle.vim'
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 " Plug 'junegunn/fzf.vim'
+Plug 'lambdalisue/fern.vim'
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
+Plug 'mihaifm/bufstop'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -40,7 +42,7 @@ Plug 'chriskempson/base16-vim'
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
-Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+" Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
@@ -157,7 +159,7 @@ nnoremap <silent> <C-l> :bd<CR>
 nnoremap <silent> <C-b> :e#<CR>
 
 " Append comma
-nnoremap <silent> <leader>a, msA,<esc>`s
+nnoremap <silent> <leader>c, msA,<esc>`s
 
 " Fzf
 " command! -bang -nargs=? -complete=dir Files
@@ -183,7 +185,7 @@ nnoremap <leader>h :FzfLua files<CR>
 nnoremap <leader>t :FzfLua buffers<CR>
 nnoremap <leader>n :FzfLua git_files<CR>
 nnoremap <leader>u :FzfLua git_status<CR>
-nnoremap <leader>b :FzfLua git_bcommits<CR>
+nnoremap <leader>gb :FzfLua git_bcommits<CR>
 nnoremap <leader>sr :FzfLua live_grep_glob<CR>
 nnoremap <leader>sw :FzfLua grep_cword<CR>
 
@@ -247,17 +249,7 @@ augroup end
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -265,28 +257,38 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
 
-inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" if exists('*complete_info')
+"   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" else
+"   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" endif
+
+" inoremap <silent><expr> <cr> "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+      \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Map <tab> for trigger completion, completion confirm, snippet expand and jump like VSCode.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  \ coc#pum#visible() ? coc#_select_confirm() :
+  \ coc#expandableOrJumpable() ?
+  \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 
-
-" function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-" let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_next = '<tab>'
 
 nmap <silent> <c-k> <Plug>(coc-diagnostic-prev)
 nmap <silent> <c-j> <Plug>(coc-diagnostic-next)
@@ -329,12 +331,10 @@ augroup end
 nmap <C-p> <Plug>(coc-format)
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-xmap <leader>aa <Plug>(coc-codeaction-selected)
-nmap <leader>aa <Plug>(coc-codeaction-selected)
-nmap <leader>aa <Plug>(coc-codeaction)
-nmap <leader>ac <Plug>(coc-codeaction-line)
-nmap <leader>af <Plug>(coc-fix-current)
-nmap <leader>al <Plug>(coc-codelens-action)
+nmap <leader>ca <Plug>(coc-codeaction)
+nmap <leader>cc <Plug>(coc-codeaction-line)
+nmap <leader>cf <Plug>(coc-fix-current)
+nmap <leader>cl <Plug>(coc-codelens-action)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
@@ -399,14 +399,11 @@ nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<
 inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
 inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
-" Dirvish helper
-nmap <leader>mv y$:!mv %<C-R>" %
-
-" Deno fmt
-nmap <c-f>:!deno fmt
+" Use a more neutral gray for completion menu highlights.
+highlight CocMenuSel ctermbg=19 guibg=#222222
 
 " PureScript bindings
-imap <c-f> ∀
+" imap <c-f> ∀
 
 " Remove trailing whitespace
 nnoremap <silent> <leader>wi :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
@@ -428,9 +425,21 @@ nmap <leader>pf  <Plug>(coc-format-selected)
 " Vaffle
 " nmap - :Vaffle %<CR>
 " Open the parent directory, or the current directory if empty
-nnoremap <silent> - :<C-u>call vaffle#init(expand('%'))<CR>
-nmap <leader>se <Plug>(vaffle-toggle-current)
-xmap <leader>se <Plug>(vaffle-toggle-current)
+" nnoremap <silent> - :<C-u>call vaffle#init(expand('%'))<CR>
+" nmap <leader>se <Plug>(vaffle-toggle-current)
+" xmap <leader>se <Plug>(vaffle-toggle-current)
+
+" Fern
+nnoremap <silent> - :Fern . -reveal=%<CR>
+function! s:init_fern() abort
+  " Use 'select' instead of 'edit' for default 'open' action
+  nmap <buffer> <silent> <C-l> :bd<CR>
+endfunction
+augroup fern-custom
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
+let g:fern#renderer = "nerdfont"
 
 " Postgres
 let g:sql_type_default = 'pgsql'
@@ -521,7 +530,27 @@ highlight IndentBlanklineChar ctermfg=18 cterm=nocombine
 highlight IndentBlanklineContextChar ctermfg=8 cterm=nocombine
 
 " Coc highlight
-highlight FgCocErrorFloatBgCocFloating ctermfg=9 guifg=#ff0000
+" highlight FgCocErrorFloatBgCocFloating ctermfg=9 guifg=#ff0000
 
 " Turn on spell checking while writting commits
 autocmd FileType gitcommit setlocal spell
+
+" Bufstop
+map <leader>b :Bufstop<CR>             " get a visual on the buffers
+map <leader>w :BufstopPreview<CR>      " switch files by moving inside the window
+map <leader>a :BufstopModeFast<CR>     " a command for quick switching
+let g:BufstopAutoSpeedToggle = 1
+let g:BufstopSorting = 1
+
+" persistence.nvim
+lua << EOF
+  require("persistence").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+lua << EOF
+vim.api.nvim_set_keymap("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
+EOF
