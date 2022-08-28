@@ -1,0 +1,128 @@
+#!/bin/bash
+
+set -e
+
+last_env_tag() {
+    local LAST_ENV_TAG=$(git tag | grep $1 | cut -d '-' -f 2 | cut -c 2- | sort -n -r | head -n 1)
+    local LAST_ENV_TAG_COMMIT=$(git rev-list -n 1 "$1-v$LAST_ENV_TAG" | head -c 7)
+    echo $LAST_ENV_TAG_COMMIT
+}
+
+cd ~/code/usm/eth-analysis-rs
+LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
+LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+
+echo "resetting eth-analysis-rs staging to $LAST_STAGING_TAG_COMMIT"
+
+kubectx admin@smith
+
+# dev
+kubectl -n dev set image deploy/sync-beacon-states sync-beacon-states=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+kubectl -n dev set image deploy/sync-execution-blocks sync-execution-blocks=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+kubectl -n dev set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+
+# staging
+kubectl set image deploy/sync-beacon-states sync-beacon-states=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/sync-execution-blocks sync-execution-blocks=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
+
+echo "resetting eth-analysis-rs prod to $LAST_PRODUCTION_TAG_COMMIT"
+
+kubectx admin@kevin
+
+kubectl set image deploy/sync-beacon-states sync-beacon-states=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/sync-execution-blocks sync-execution-blocks=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
+
+
+cd ~/code/usm/eth-analysis-ts
+LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
+LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+
+echo "resetting eth-analysis-ts staging to $LAST_STAGING_TAG_COMMIT"
+
+kubectx admin@smith
+
+# dev
+kubectl -n dev set image deploy/analyze-blocks analyze-blocks=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl -n dev set image deploy/store-eth-price store-eth-price=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl -n dev set image deploy/store-market-caps store-market-caps=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+
+# staging
+kubectl set image deploy/analyze-blocks analyze-blocks=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/analyze-burn-categories analyze-burn-categories=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/analyze-total-value-secured analyze-total-value-secured=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/contract-metadata contract-metadata=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/serve-fees serve-fees=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/store-eth-price store-eth-price=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/store-market-caps store-market-caps=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
+
+echo "resetting eth-analysis-ts prod to $LAST_PRODUCTION_TAG_COMMIT"
+
+kubectx admin@kevin
+
+kubectl set image deploy/analyze-blocks analyze-blocks=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/analyze-burn-categories analyze-burn-categories=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/analyze-total-value-secured analyze-total-value-secured=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/contract-metadata contract-metadata=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/serve-fees serve-fees=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/store-eth-price store-eth-price=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/store-market-caps store-market-caps=rg.nl-ams.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
+
+cd ~/code/usm/fam-analysis-ts
+LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
+LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+
+echo "resetting fam-analysis-ts staging to $LAST_STAGING_TAG_COMMIT"
+
+kubectx admin@smith
+
+kubectl set image deploy/crawl-followees crawl-followees=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/crawl-followers crawl-followers=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/crawl-friendships crawl-friendships=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/greet-close-to-fam greet-close-to-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
+kubectl set image deploy/serve-fam serve-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
+
+echo "resetting fam-analysis-ts prod to $LAST_PRODUCTION_TAG_COMMIT"
+
+kubectx admin@kevin
+
+kubectl set image deploy/crawl-followees crawl-followees=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/crawl-followers crawl-followers=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/crawl-friendships crawl-friendships=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/greet-close-to-fam greet-close-to-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/serve-fam serve-fam=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
+
+cd ~/code/usm/fam-analysis-rs
+LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
+LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+
+echo "resetting fam-analysis-rs staging to $LAST_STAGING_TAG_COMMIT"
+
+kubectx admin@smith
+
+kubectl set image deploy/serve-fam-rs serve-fam-rs=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-rs:$LAST_STAGING_TAG_COMMIT
+
+echo "resetting fam-analysis-rs prod to $LAST_PRODUCTION_TAG_COMMIT"
+
+kubectx admin@kevin
+
+kubectl set image deploy/serve-fam-rs serve-fam-rs=rg.nl-ams.scw.cloud/ultrasoundmoney/fam-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
+
+cd ~/code/usm/frontend
+LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
+LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+
+echo "resetting frontend staging to $LAST_STAGING_TAG_COMMIT"
+
+kubectx admin@smith
+
+kubectl set image deploy/serve-frontend serve-frontend=rg.nl-ams.scw.cloud/ultrasoundmoney/serve-frontend:$LAST_STAGING_TAG_COMMIT
+
+echo "resetting frontend prod to $LAST_PRODUCTION_TAG_COMMIT"
+
+kubectx admin@kevin
+
+kubectl set image deploy/serve-frontend serve-frontend=rg.nl-ams.scw.cloud/ultrasoundmoney/serve-frontend:$LAST_PRODUCTION_TAG_COMMIT
+
+echo "done"
