@@ -53,3 +53,5 @@
   hunk-header-decoration-style = bold black omit
   syntax-theme = base16
   zero-style = dim syntax
+[hub]
+	protocol = https
