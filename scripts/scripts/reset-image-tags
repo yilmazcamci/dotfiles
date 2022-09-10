@@ -8,144 +8,87 @@ last_env_tag() {
     echo $LAST_ENV_TAG_COMMIT
 }
 
+RAWENV=$1
+
+if [[ $RAWENV == "staging" || $RAWENV == "stag" ]]; then
+    ENV="stag"
+elif [[ $RAWENV == "prod" || $RAWENV == "production" ]]; then
+    ENV="prod"
+else
+    ENV="stag"
+fi
+
+
+if [[ $ENV == "stag" ]]; then
+    kubectx admin@smith
+elif [[ $ENV == "prod" ]]; then
+    kubectx admin@kevin
+fi
+
+echo "resetting eth-analysis-rs $ENV to $LAST_TAG"
 cd ~/code/usm/eth-analysis-rs
-LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
-LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+LAST_TAG=$(last_env_tag $ENV)
 
-echo "resetting eth-analysis-rs staging to $LAST_STAGING_TAG_COMMIT"
+if [[ $ENV == "stag" ]]; then
+    # dev
+    kubectl -n dev set image deploy/record-eth-price record-eth-price=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+    kubectl -n dev set image deploy/sync-beacon-states sync-beacon-states=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+    kubectl -n dev set image deploy/sync-execution-blocks sync-execution-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+    kubectl -n dev set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+fi
 
-kubectx admin@smith
+kubectl set image deploy/serve-fees-rs serve-fees-rs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image deploy/sync-beacon-states sync-beacon-states=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image deploy/record-eth-price record-eth-price=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image deploy/sync-execution-blocks sync-execution-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image cronjob/update-effective-balance-sum update-effective-balance-sum=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image cronjob/update-issuance-breakdown update-issuance-breakdown=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image cronjob/update-supply-projection-inputs update-supply-projection-inputs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image cronjob/update-total-difficulty-progress update-total-difficulty-progress=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
 
-# dev
-kubectl -n dev set image deploy/sync-beacon-states sync-beacon-states=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl -n dev set image deploy/sync-execution-blocks sync-execution-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl -n dev set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-
-# staging
-kubectl set image deploy/phoenix phoenix=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/serve-fees-rs serve-fees-rs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/sync-beacon-states sync-beacon-states=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/sync-execution-blocks sync-execution-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/update-effective-balance-sum update-effective-balance-sum=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/update-issuance-breakdown update-issuance-breakdown=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/update-supply-projection-inputs update-supply-projection-inputs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/update-total-difficulty-progress update-total-difficulty-progress=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_STAGING_TAG_COMMIT
-
-echo "resetting eth-analysis-rs prod to $LAST_PRODUCTION_TAG_COMMIT"
-
-kubectx admin@kevin
-
-kubectl set image deploy/phoenix phoenix=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/serve-fees-rs serve-fees-rs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/sync-beacon-states sync-beacon-states=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/sync-execution-blocks sync-execution-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-deltas=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/update-effective-balance-sum update-effective-balance-sum=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/update-issuance-breakdown update-issuance-breakdown=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/update-supply-projection-inputs update-supply-projection-inputs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/update-total-difficulty-progress update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
-
-
+echo "resetting eth-analysis-ts staging to $LAST_TAG"
 cd ~/code/usm/eth-analysis-ts
-LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
-LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+LAST_TAG=$(last_env_tag $ENV)
 
-echo "resetting eth-analysis-ts staging to $LAST_STAGING_TAG_COMMIT"
+if [[ $ENV == "stag" ]]; then
+    # dev
+    kubectl -n dev set image deploy/analyze-blocks analyze-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+    kubectl -n dev set image deploy/store-market-caps store-market-caps=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+fi
 
-kubectx admin@smith
+kubectl set image deploy/analyze-blocks analyze-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+kubectl set image deploy/analyze-burn-categories analyze-burn-categories=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+kubectl set image deploy/analyze-total-value-secured analyze-total-value-secured=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+kubectl set image deploy/contract-metadata contract-metadata=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+kubectl set image deploy/serve-fees serve-fees=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+kubectl set image deploy/store-market-caps store-market-caps=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
+kubectl set image cronjob/store-pe-ratios store-pe-ratios=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
 
-# dev
-kubectl -n dev set image deploy/analyze-blocks analyze-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl -n dev set image deploy/store-eth-price store-eth-price=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl -n dev set image deploy/store-market-caps store-market-caps=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-
-# staging
-kubectl set image deploy/analyze-blocks analyze-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/analyze-burn-categories analyze-burn-categories=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/analyze-total-value-secured analyze-total-value-secured=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/contract-metadata contract-metadata=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/serve-fees serve-fees=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/store-eth-price store-eth-price=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/store-market-caps store-market-caps=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/store-pe-ratios store-pe-ratios=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_STAGING_TAG_COMMIT
-
-echo "resetting eth-analysis-ts prod to $LAST_PRODUCTION_TAG_COMMIT"
-
-kubectx admin@kevin
-
-kubectl set image deploy/analyze-blocks analyze-blocks=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/analyze-burn-categories analyze-burn-categories=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/analyze-total-value-secured analyze-total-value-secured=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/contract-metadata contract-metadata=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/serve-fees serve-fees=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/store-eth-price store-eth-price=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/store-market-caps store-market-caps=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/store-pe-ratios store-pe-ratios=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/canary canary=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_PRODUCTION_TAG_COMMIT
-
+echo "resetting fam-analysis-ts staging to $LAST_TAG"
 cd ~/code/usm/fam-analysis-ts
-LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
-LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+LAST_TAG=$(last_env_tag $ENV)
 
-echo "resetting fam-analysis-ts staging to $LAST_STAGING_TAG_COMMIT"
+kubectl set image deploy/crawl-followees crawl-followees=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
+kubectl set image deploy/crawl-followers crawl-followers=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
+kubectl set image deploy/crawl-friendships crawl-friendships=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
+kubectl set image deploy/greet-close-to-fam greet-close-to-fam=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
+kubectl set image deploy/serve-fam serve-fam=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
+kubectl set image cronjob/crawl-profiles crawl-profiles=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
+kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
+kubectl set image cronjob/sync-lists sync-lists=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
 
-kubectx admin@smith
-
-kubectl set image deploy/crawl-followees crawl-followees=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/crawl-followers crawl-followers=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/crawl-friendships crawl-friendships=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/greet-close-to-fam greet-close-to-fam=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image deploy/serve-fam serve-fam=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/crawl-profiles crawl-profiles=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-kubectl set image cronjob/sync-lists sync-lists=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_STAGING_TAG_COMMIT
-
-echo "resetting fam-analysis-ts prod to $LAST_PRODUCTION_TAG_COMMIT"
-
-kubectx admin@kevin
-
-kubectl set image deploy/crawl-followees crawl-followees=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/crawl-followers crawl-followers=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/crawl-friendships crawl-friendships=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/greet-close-to-fam greet-close-to-fam=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image deploy/serve-fam serve-fam=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/crawl-profiles crawl-profiles=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-kubectl set image cronjob/sync-lists sync-lists=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_PRODUCTION_TAG_COMMIT
-
+echo "resetting fam-analysis-rs staging to $LAST_TAG"
 cd ~/code/usm/fam-analysis-rs
-LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
-LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+LAST_TAG=$(last_env_tag $ENV)
 
-echo "resetting fam-analysis-rs staging to $LAST_STAGING_TAG_COMMIT"
-
-kubectx admin@smith
-
-kubectl set image deploy/serve-fam-rs serve-fam-rs=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis-rs:$LAST_STAGING_TAG_COMMIT
-
-echo "resetting fam-analysis-rs prod to $LAST_PRODUCTION_TAG_COMMIT"
-
-kubectx admin@kevin
-
-kubectl set image deploy/serve-fam-rs serve-fam-rs=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis-rs:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/serve-fam-rs serve-fam-rs=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis-rs:$LAST_TAG
 
 cd ~/code/usm/frontend
-LAST_STAGING_TAG_COMMIT=$(last_env_tag "stag")
-LAST_PRODUCTION_TAG_COMMIT=$(last_env_tag "prod")
+LAST_TAG=$(last_env_tag $ENV)
+echo "resetting frontend staging to $LAST_TAG"
 
-echo "resetting frontend staging to $LAST_STAGING_TAG_COMMIT"
-
-kubectx admin@smith
-
-kubectl set image deploy/serve-frontend serve-frontend=rg.fr-par.scw.cloud/ultrasoundmoney/serve-frontend:$LAST_STAGING_TAG_COMMIT
-
-echo "resetting frontend prod to $LAST_PRODUCTION_TAG_COMMIT"
-
-kubectx admin@kevin
-
-kubectl set image deploy/serve-frontend serve-frontend=rg.fr-par.scw.cloud/ultrasoundmoney/serve-frontend:$LAST_PRODUCTION_TAG_COMMIT
+kubectl set image deploy/serve-frontend serve-frontend=rg.fr-par.scw.cloud/ultrasoundmoney/serve-frontend:$LAST_TAG
 
 echo "done"
