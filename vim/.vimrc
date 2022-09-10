@@ -2,13 +2,13 @@
 call plug#begin('~/.vim/plugged')
 
 " General
-" Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-commentary'
-" Plug 'mg979/vim-visual-multi', {'branch': 'test'}
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'folke/persistence.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 
@@ -17,22 +17,12 @@ Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
 
 " Explore
-" Plug 'justinmk/vim-dirvish'
-" Plug 'cocopon/vaffle.vim'
-" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 Plug 'mihaifm/bufstop'
 
 " Git
 Plug 'tpope/vim-fugitive'
-" Plug 'airblade/vim-gitgutter'
-if &diff
-    map <leader>1 :diffget LOCAL<CR>
-    map <leader>2 :diffget BASE<CR>
-    map <leader>3 :diffget REMOTE<CR>
-endif
 
 " Visual
 Plug 'vim-airline/vim-airline'
@@ -42,11 +32,9 @@ Plug 'chriskempson/base16-vim'
 " Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'honza/vim-snippets'
-" Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 
 " TypeScript
 Plug 'leafgarland/typescript-vim'
-" Plug 'HerringtonDarkholme/yats.vim'
 
 " JSX comments
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -61,8 +49,8 @@ Plug 'JoosepAlviste/nvim-ts-context-commentstring', {'branch': 'main'}
 " Plug 'sdiehl/vim-ormolu'
 
 " PureScript
-Plug 'purescript-contrib/purescript-vim'
-Plug 'FrigoEU/psc-ide-vim'
+" Plug 'purescript-contrib/purescript-vim'
+" Plug 'FrigoEU/psc-ide-vim'
 
 " Dhall
 " Plug 'vmchale/dhall-vim'
@@ -70,26 +58,16 @@ Plug 'FrigoEU/psc-ide-vim'
 " Lisp
 " Plug 'l04m33/vlime', { 'rtp': 'vim/' }
 
-" Nix
-" Plug 'LnL7/vim-nix'
-
 " Helpful ({[ pair insertion
-" Plug 'jiangmiao/auto-pairs'
+Plug 'windwp/nvim-autopairs'
 
 " Postgres
 Plug 'lifepillar/pgsql.vim'
 
 " Ethereum
-Plug 'tomlion/vim-solidity'
-
-" Rust
-" Plug 'cespare/vim-toml'
-
-" Svelte
-" Plug 'evanleck/vim-svelte', {'branch': 'main'}
+" Plug 'tomlion/vim-solidity'
 
 " Notes
-" Plug 'vimwiki/vimwiki'
 Plug 'lervag/wiki.vim'
 Plug 'lervag/wiki-ft.vim'
 
@@ -97,7 +75,7 @@ Plug 'lervag/wiki-ft.vim'
 Plug 'mattn/emmet-vim'
 
 " CSV
-Plug 'chrisbra/csv.vim'
+" Plug 'chrisbra/csv.vim'
 
 "Initialize plugin system
 call plug#end()
@@ -160,6 +138,7 @@ nnoremap <silent> <C-b> :e#<CR>
 
 " Append comma
 nnoremap <silent> <leader>c, msA,<esc>`s
+nnoremap <silent> <leader>c; msA;<esc>`s
 
 " Fzf
 " command! -bang -nargs=? -complete=dir Files
@@ -188,6 +167,9 @@ nnoremap <leader>u :FzfLua git_status<CR>
 nnoremap <leader>gb :FzfLua git_bcommits<CR>
 nnoremap <leader>sr :FzfLua live_grep_glob<CR>
 nnoremap <leader>sw :FzfLua grep_cword<CR>
+" Search Maps
+" command Maps :FzfLua keymaps
+
 
 " Fugitive
 nnoremap <leader>gs :Git<CR>
@@ -201,6 +183,12 @@ nnoremap <leader>dg :diffget<CR>
 nnoremap <leader>dp :diffput<CR>
 nnoremap <leader>gl :Gclog<CR>
 nnoremap <silent> <leader>gp :silent Git push<CR>
+
+if &diff
+    map <leader>1 :diffget LOCAL<CR>
+    map <leader>2 :diffget BASE<CR>
+    map <leader>3 :diffget REMOTE<CR>
+endif
 
 if has("nvim")
   augroup nvim_term
@@ -432,14 +420,44 @@ nmap <leader>pf  <Plug>(coc-format-selected)
 " Fern
 nnoremap <silent> - :Fern . -reveal=%<CR>
 function! s:init_fern() abort
-  " Use 'select' instead of 'edit' for default 'open' action
   nmap <buffer> <silent> <C-l> :bd<CR>
+  nmap <buffer> D <Plug>(fern-action-remove=)y<CR>
 endfunction
 augroup fern-custom
   autocmd! *
   autocmd FileType fern call s:init_fern()
 augroup END
-let g:fern#renderer = "nerdfont"
+" let g:fern#renderer = "nerdfont"
+
+" Coc explorer
+" nmap <leader>e <Cmd>CocCommand explorer<CR>
+
+" Dirvish
+" nmap - <Plug>(dirvish_up)
+" let g:dirvish_mode = ':sort | sort ,^.*[^/]$, r'
+
+" function! g:DirvishDoMove() abort
+"   let target = trim(getline('.'))
+"   let filename = fnamemodify(target, ':t')
+"   let newname = input('Move to: ')
+"   let cmd = 'mv ' . shellescape(target) . ' ' . shellescape(expand("%") . newname . '/' . filename)
+"   let output = system(cmd)
+"   if v:shell_error
+"     call s:logError(output)
+"   endif
+
+"   " Reload the buffer
+"   Dirvish %
+" endfunction
+
+" augroup dirvish_config
+"   autocmd!
+
+"   " autocmd FileType dirvish nnoremap <silent><buffer> m :!mv <c-r>" %<CR>
+"   autocmd FileType dirvish nnoremap <silent><buffer> m :call DirvishDoMove()<CR>
+
+"   autocmd FileType dirvish nnoremap <silent><buffer> M :Shdo! {} %<CR>
+" augroup END
 
 " Postgres
 let g:sql_type_default = 'pgsql'
@@ -487,22 +505,25 @@ EOF
 
 " Coc plugins
 let g:coc_global_extensions = [
-  \ 'coc-tsserver',
-  \ 'coc-snippets',
-  \ 'coc-prettier',
-  \ 'coc-pairs',
-  \ 'coc-lists',
-  \ 'coc-html',
-  \ 'coc-highlight',
-  \ 'coc-git',
-  \ 'coc-emoji',
+  \ 'coc-css',
   \ 'coc-deno',
-  \ 'coc-yaml',
-  \ 'coc-svelte',
-  \ 'coc-rust-analyzer',
-  \ 'coc-json',
   \ 'coc-docker',
-  \ 'coc-css'
+  \ 'coc-emoji',
+  \ 'coc-eslint',
+  \ 'coc-git',
+  \ 'coc-go',
+  \ 'coc-highlight',
+  \ 'coc-html',
+  \ 'coc-json',
+  \ 'coc-lists',
+  \ 'coc-prettier',
+  \ 'coc-rust-analyzer',
+  \ 'coc-snippets',
+  \ 'coc-sql',
+  \ 'coc-svelte',
+  \ 'coc-tsserver',
+  \ 'coc-yaml',
+  \ 'coc-toml'
   \ ]
 
 lua <<EOF
@@ -553,4 +574,8 @@ EOF
 
 lua << EOF
 vim.api.nvim_set_keymap("n", "<leader>qs", [[<cmd>lua require("persistence").load()<cr>]], {})
+EOF
+
+lua << EOF
+require("nvim-autopairs").setup {}
 EOF

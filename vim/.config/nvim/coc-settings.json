@@ -5,6 +5,7 @@
   "codeLens.position": "eol",
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
+    "go",
     "html",
     "javascript",
     "json",
@@ -66,8 +67,6 @@
       "initializationOptions": {}
     }
   },
-  "typescript.referencesCodeLens.enable": true,
-  "javascript.referencesCodeLens.enable": true,
   "css.lint.unknownAtRules": "ignore",
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": true
