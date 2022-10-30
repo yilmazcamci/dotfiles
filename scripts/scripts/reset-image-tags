@@ -45,7 +45,6 @@ kubectl set image deploy/sync-execution-supply-deltas sync-execution-supply-delt
 kubectl set image cronjob/update-effective-balance-sum update-effective-balance-sum=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
 kubectl set image cronjob/update-issuance-breakdown update-issuance-breakdown=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
 kubectl set image cronjob/update-supply-projection-inputs update-supply-projection-inputs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
-kubectl set image cronjob/update-total-difficulty-progress update-total-difficulty-progress=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
 kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
 
 echo "resetting eth-analysis-ts staging to $LAST_TAG"
