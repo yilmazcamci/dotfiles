@@ -47,7 +47,14 @@ kubectl set image cronjob/update-issuance-breakdown update-issuance-breakdown=rg
 kubectl set image cronjob/update-supply-projection-inputs update-supply-projection-inputs=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
 kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
 
-echo "resetting eth-analysis-ts staging to $LAST_TAG"
+if [[ $ENV == "prod" ]]; then
+    # prod-only
+    kubectl set image deploy/phoenix phoenix=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+fi
+
+kubectl set image cronjob/update-validator-rewards update-validator-rewards=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-rs:$LAST_TAG
+
+echo "resetting eth-analysis-ts to $LAST_TAG"
 cd ~/code/usm/eth-analysis-ts
 LAST_TAG=$(last_env_tag $ENV)
 
@@ -65,7 +72,7 @@ kubectl set image deploy/serve-fees serve-fees=rg.fr-par.scw.cloud/ultrasoundmon
 kubectl set image deploy/store-market-caps store-market-caps=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
 kubectl set image cronjob/store-pe-ratios store-pe-ratios=rg.fr-par.scw.cloud/ultrasoundmoney/eth-analysis-ts:$LAST_TAG
 
-echo "resetting fam-analysis-ts staging to $LAST_TAG"
+echo "resetting fam-analysis-ts to $LAST_TAG"
 cd ~/code/usm/fam-analysis-ts
 LAST_TAG=$(last_env_tag $ENV)
 
@@ -78,7 +85,7 @@ kubectl set image cronjob/crawl-profiles crawl-profiles=rg.fr-par.scw.cloud/ultr
 kubectl set image cronjob/refresh-fam-followers refresh-fam-followers=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
 kubectl set image cronjob/sync-lists sync-lists=rg.fr-par.scw.cloud/ultrasoundmoney/fam-analysis:$LAST_TAG
 
-echo "resetting fam-analysis-rs staging to $LAST_TAG"
+echo "resetting fam-analysis-rs to $LAST_TAG"
 cd ~/code/usm/fam-analysis-rs
 LAST_TAG=$(last_env_tag $ENV)
 
@@ -86,7 +93,7 @@ kubectl set image deploy/serve-fam-rs serve-fam-rs=rg.fr-par.scw.cloud/ultrasoun
 
 cd ~/code/usm/frontend
 LAST_TAG=$(last_env_tag $ENV)
-echo "resetting frontend staging to $LAST_TAG"
+echo "resetting frontend to $LAST_TAG"
 
 kubectl set image deploy/serve-frontend serve-frontend=rg.fr-par.scw.cloud/ultrasoundmoney/serve-frontend:$LAST_TAG
 
