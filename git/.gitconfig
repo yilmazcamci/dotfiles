@@ -1,6 +1,7 @@
 [user]
   name = Alexander Tesfamichael
   email = alex.tesfamichael@gmail.com
+  signingkey = 438CF8E7DDB8BB4B06EE3BECE9D94AFFE8998FBA
 
 [core]
   editor = nvim
@@ -55,3 +56,5 @@
   zero-style = dim syntax
 [hub]
 	protocol = https
+[commit]
+	gpgsign = true
