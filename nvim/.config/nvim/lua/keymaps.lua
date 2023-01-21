@@ -1,18 +1,19 @@
-local opts = { noremap = true, silent = true }
-
+local default_options = { noremap = true, silent = true }
 local keyset = vim.keymap.set
 
 -- Config the config.
-keyset("n", "<space>ve", ":e ~/.config/nvim/init.lua<cr>", opts)
+keyset("n", "<space>ve", ":e ~/.config/nvim/init.lua<cr>", default_options)
 
 -- Reload the config.
-keyset("n", "<space>vr", ":source ~/.config/nvim/init.lua<cr>", opts)
+keyset("n", "<space>vr", ":source ~/.config/nvim/init.lua<cr>", default_options)
 
 -- Quicker exit insert, jk is nice too but not when you write Dutch.
-keyset("i", "jj", "<esc>", opts)
+-- Use <c-c>/<c-s>!
+-- keyset("i", "jj", "<esc>", opts)
 
 -- Quick save
-keyset("n", "<c-s>", ":w<cr>", opts)
+keyset("n", "<c-s>", ":w<cr>", default_options)
+keyset("i", "<c-s>", "<esc>:w<cr>", default_options)
 
 -- fzf-lua
 -- keyset('n', '<space>ff', ':FzfLua <CR>', opts)
@@ -29,25 +30,30 @@ keyset("n", "<c-s>", ":w<cr>", opts)
 -- vim.command(Maps :FzfLua keymaps
 
 -- Clear search highlight.
-keyset("n", "<space>sc", ":noh<cr>", opts)
+keyset("n", "<space>sc", ":noh<cr>", default_options)
+vim.keymap.set("n", "<leader>sa", ":Telescope live_grep<cr>", default_options)
+vim.keymap.set("n", "<leader>sw", ":Telescope grep_string<cr>", default_options)
 
 -- Fast close buffer.
-keyset("n", "<space>bd", ":bdelete<cr>", opts)
-keyset("n", "<space>bD", ":%bd|e#|bd#<cr>|'\"", opts)
+keyset("n", "<space>bd", ":bdelete<cr>", default_options)
+keyset("n", "<space>bD", ":%bd|e#|bd#<cr>|'\"", default_options)
 
 -- Buffer navigation.
-keyset("n", "<c-l>", "<c-w>l", opts)
-keyset("n", "<c-h>", "<c-w>h", opts)
-keyset("n", "<c-j>", "<c-w>j", opts)
-keyset("n", "<c-k>", "<c-w>k", opts)
-keyset("n", "<c-x>", ":bdelete<cr>", opts)
+keyset("n", "<c-l>", "<c-w>l", default_options)
+keyset("n", "<c-h>", "<c-w>h", default_options)
+-- keyset("n", "<c-j>", "<c-w>j", default_options)
+-- keyset("n", "<c-k>", "<c-w>k", default_options)
+keyset("n", "<c-x>", ":bdelete<cr>", default_options)
 
 -- Append common line ending.
-keyset("n", "<space>a,", "mzA,`z", opts)
-keyset("n", "<space>a.", "mzA.`z", opts)
-keyset("n", "<space>a;", "mzA;`z", opts)
+keyset("n", "<space>a,", "mzA,<esc>`z", default_options)
+keyset("n", "<space>a.", "mzA.<esc>`z", default_options)
+keyset("n", "<space>a;", "mzA;<esc>`z", default_options)
 
--- Check key mappings.
-keyset("n", "<space>sm", ":FzfLua keymaps<cr>", opts)
+keyset("v", "<leader>co", ":sort<cr>", default_options)
+keyset("n", "<leader>cb", "mzvi{:'<,'>sort<cr>`z", default_options)
 
-keyset("v", "<leader>cs", ":sort<cr>", opts)
+-- Paste without overwriting register.
+keyset("x", "<space>p", '"_dP', default_options)
+
+keyset("n", "<leader>ps", ":PackerSync<cr>", default_options)

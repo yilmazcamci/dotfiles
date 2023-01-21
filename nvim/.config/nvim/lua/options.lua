@@ -1,6 +1,8 @@
 local set_option = vim.api.nvim_set_option
 
-vim.cmd("colorscheme base16-tomorrow-night")
+-- vim.api.nvim_set_option("termguicolors", true)
+
+vim.cmd.colorscheme("catppuccin-macchiato")
 
 vim.api.nvim_set_option("updatetime", 300)
 
@@ -22,3 +24,5 @@ set_option("tabstop", 4)
 
 -- ???
 set_option("completeopt", "menu,menuone,noselect")
+
+-- set_option("cmdheight", 0)

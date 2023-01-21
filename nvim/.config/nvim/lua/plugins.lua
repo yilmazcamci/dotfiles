@@ -1,8 +1,8 @@
 -- Auto run Packer after plugins update.
 vim.cmd([[
   augroup packer_user_config
-	autocmd!
-	autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
   augroup end
 ]])
 
@@ -18,30 +18,30 @@ return require("packer").startup(function(use)
 	})
 
 	-- Language
-	use("williamboman/mason.nvim") -- Manage language server plugins?
-	use("williamboman/mason-lspconfig.nvim") -- ??
-	use("neovim/nvim-lspconfig")
+	-- use("williamboman/mason.nvim") -- Manage language server plugins?
+	-- use("williamboman/mason-lspconfig.nvim") -- ??
+	-- use("neovim/nvim-lspconfig")
 
 	-- Autocompletion.
-	use("hrsh7th/nvim-cmp")
+	-- use("hrsh7th/nvim-cmp")
 	-- LSP source for nvim-cmp.
-	use("hrsh7th/cmp-nvim-lsp")
+	-- use("hrsh7th/cmp-nvim-lsp")
 
 	-- Useful completion sources:
-	use("hrsh7th/cmp-nvim-lua")
-	use("hrsh7th/cmp-nvim-lsp-signature-help")
-	use("hrsh7th/cmp-vsnip")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/vim-vsnip")
-	use("saadparwaiz1/cmp_luasnip")
+	-- use("hrsh7th/cmp-nvim-lua")
+	-- use("hrsh7th/cmp-nvim-lsp-signature-help")
+	-- use("hrsh7th/cmp-vsnip")
+	-- use("hrsh7th/cmp-path")
+	-- use("hrsh7th/cmp-buffer")
+	-- use("hrsh7th/vim-vsnip")
+	-- use("saadparwaiz1/cmp_luasnip")
 
 	-- Kind symbol in LSP pop-over menu.
-	use("onsails/lspkind.nvim")
+	-- use("onsails/lspkind.nvim")
 
 	-- Snippets
-	use("L3MON4D3/LuaSnip")
-	use("rafamadriz/friendly-snippets")
+	-- use("L3MON4D3/LuaSnip")
+	-- use("rafamadriz/friendly-snippets")
 
 	-- Hint codeactions are available.
 	use({
@@ -50,12 +50,15 @@ return require("packer").startup(function(use)
 	})
 
 	-- Rust
-	use("simrat39/rust-tools.nvim")
+	-- use("simrat39/rust-tools.nvim")
 	-- Debugging
 	use("nvim-lua/plenary.nvim")
 	use("mfussenegger/nvim-dap")
 
-	use("jose-elias-alvarez/null-ls.nvim")
+	-- use({
+	-- 	"jose-elias-alvarez/null-ls.nvim",
+	-- 	requires = { "nvim-lua/plenary.nvim" },
+	-- })
 
 	-- use({
 	--   'glepnir/galaxyline.nvim',
@@ -72,7 +75,10 @@ return require("packer").startup(function(use)
 
 	use({
 		"nvim-telescope/telescope.nvim",
-		requires = { { "nvim-lua/plenary.nvim" } },
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+		},
 	})
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
 
@@ -98,6 +104,9 @@ return require("packer").startup(function(use)
 	-- shortcuts for common vim actions that come in a pair.
 	use("tpope/vim-unimpaired")
 
+	-- make more commands repeatable
+	use("tpope/vim-repeat")
+
 	-- use({
 	--   'francoiscabrol/ranger.vim',
 	--   requires = 'rbgrouleff/bclose.vim'
@@ -117,18 +126,21 @@ return require("packer").startup(function(use)
 
 	use("lukas-reineke/indent-blankline.nvim")
 
-	use("kyazdani42/nvim-tree.lua")
+	use({
+		"kyazdani42/nvim-tree.lua",
+		tag = "nightly", -- optional, updated every week. (see issue #1193)
+	})
 
 	use("lewis6991/gitsigns.nvim") -- easily spot which changes you've made in a git-tracked buffer.
 
 	-- use 'psliwka/vim-smoothie' -- smooth scrolling
 
-	use({
-		"windwp/nvim-autopairs",
-		config = function()
-			require("nvim-autopairs").setup({})
-		end,
-	})
+	-- use({
+	-- 	"windwp/nvim-autopairs",
+	-- 	config = function()
+	-- 		require("nvim-autopairs").setup({})
+	-- 	end,
+	-- })
 
 	-- Rust crates.io
 	use({
@@ -157,4 +169,61 @@ return require("packer").startup(function(use)
 			})
 		end,
 	})
+
+	use { "catppuccin/nvim", as = "catppuccin" }
+
+	use({
+		"sudormrfbin/cheatsheet.nvim",
+
+		requires = {
+			{ "nvim-telescope/telescope.nvim" },
+			{ "nvim-lua/popup.nvim" },
+			{ "nvim-lua/plenary.nvim" },
+		},
+	})
+
+	-- use({
+	-- 	"akinsho/bufferline.nvim",
+	-- 	tag = "v2.*",
+	-- 	config = function()
+	-- 		require("bufferline").setup({
+	-- 			options = {
+	-- 				diagnostics = "nvim_lsp",
+	-- 				show_close_icon = false,
+	-- 				show_buffer_close_icons = false,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- })
+
+	use("jose-elias-alvarez/typescript.nvim")
+
+	use("mattn/emmet-vim")
+
+	use({
+			"neoclide/coc.nvim",
+			branch = "release",
+			config = function()
+				vim.cmd("source ~/dotfiles/nvim/.config/nvim/coc.vim")
+			end
+	})
+
+	use("honza/vim-snippets")
+
+	use("chrisbra/csv.vim")
+
+	use {
+		"folke/zen-mode.nvim",
+		config = function()
+			require("zen-mode").setup {
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			}
+		end
+	}
+
+	use("purescript-contrib/purescript-vim")
+
+	use("github/copilot.vim")
 end)
