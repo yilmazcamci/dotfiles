@@ -2,6 +2,8 @@ Session.vim*
 .DS_Store
 .vim
 set-env-dev.sh
+set-env-local.sh
+set-env-local-test.sh
 set-env-staging.sh
 set-env-prod.sh
 set-env-ropsten-dev.sh
