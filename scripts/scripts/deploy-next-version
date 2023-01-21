@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
@@ -16,12 +16,18 @@ LAST_VERSION=$(git tag | grep "$PREFIX-v" | cut -c 7- | sort -n -r | head -n 1)
 NEXT_VERSION=$(( $LAST_VERSION + 1))
 CURRENT_COMMIT=$(git rev-parse --short HEAD)
 TAG="$PREFIX-v$NEXT_VERSION"
+
 git tag "$TAG"
 echo "tagged commit $CURRENT_COMMIT, as $TAG"
 
 git push
 sleep 4
 git push --tags
+
+if [[ $ENV == "prod" || $ENV == "production" ]]; then
+    update-infra-image-tags
+fi
+
 sleep 10
 
 echo $(hub ci-status $CURRENT_COMMIT)
