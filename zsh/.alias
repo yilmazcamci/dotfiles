@@ -15,14 +15,13 @@ alias dc="docker compose"
 
 alias v="nvim"
 
-alias connect-coco="ssh ubuntu@3.15.217.72"
-alias connect-solomon="ssh root@64.227.73.122"
-alias connect-abby="ssh root@161.35.149.212"
-alias connect-huxley="ssh root@164.92.159.144"
+alias ssh="TERM=xterm-color ssh"
+
+alias gcloud="TERM=xterm-color gcloud"
 
 alias k=kubectl
 
-alias rm='safe-rm'
+alias rm="safe-rm"
 alias vim=nvim
 
 alias unsafe-rm="command rm"
