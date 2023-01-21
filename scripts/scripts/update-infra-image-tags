@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+SHORT_SHA=$(git rev-parse --short HEAD)
+CURRENT_DIR=$(pwd)
+CURRENT_PROJECT=$(pwd | cut -d '/' -f 6)
+OLD_IMAGE="rg.fr-par.scw.cloud\/ultrasoundmoney\/$CURRENT_PROJECT.*"
+NEW_IMAGE="rg.fr-par.scw.cloud\/ultrasoundmoney\/$CURRENT_PROJECT:$SHORT_SHA"
+
+cd ~/code/usm/infra/base
+
+sed -i '' "s/$OLD_IMAGE/$NEW_IMAGE/g" ./*.yaml
+
+cd ~/code/usm/infra/overlays/dev
+
+sed -i '' "s/$OLD_IMAGE/$NEW_IMAGE/g" ./*.yaml
+
+cd ~/code/usm/infra/overlays/prod
+
+sed -i '' "s/$OLD_IMAGE/$NEW_IMAGE/g" ./*.yaml
+
+cd $CURRENT_DIR
