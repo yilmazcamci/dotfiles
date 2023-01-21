@@ -1,1 +1,0 @@
--- rebelot/kanagawa.nvim
