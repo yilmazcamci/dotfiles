@@ -76,10 +76,10 @@ fi
 source ~/.alias
 
 # Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-eval "$("$BASE16_SHELL/profile_helper.sh")"
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+# [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+# eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 bindkey '\eOA' history-substring-search-up # or ^[OA
 bindkey '\eOB' history-substring-search-down # or ^[OB
