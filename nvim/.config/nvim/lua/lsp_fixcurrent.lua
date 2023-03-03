@@ -13,10 +13,10 @@ end
 
 local function do_action(action, client)
 	if
-		not action.edit
-		and client
-		and type(client.server_capabilities) == "table"
-		and client.server_capabilities.resolveProvider
+	    not action.edit
+	    and client
+	    and type(client.server_capabilities) == "table"
+	    and client.server_capabilities.resolveProvider
 	then
 		client.request("codeAction/resolve", action, function(err, real)
 			if err then
@@ -41,7 +41,7 @@ return function()
 	}
 
 	local results, err = vim.lsp.buf_request_sync(
-		0, -- current buffer
+		0,           -- current buffer
 		"textDocument/codeAction", -- get code actions
 		params,
 		900

@@ -52,8 +52,8 @@ return require("packer").startup(function(use)
 	-- Rust
 	-- use("simrat39/rust-tools.nvim")
 	-- Debugging
-	use("nvim-lua/plenary.nvim")
-	use("mfussenegger/nvim-dap")
+	-- use("nvim-lua/plenary.nvim")
+	-- use("mfussenegger/nvim-dap")
 
 	-- use({
 	-- 	"jose-elias-alvarez/null-ls.nvim",
@@ -71,7 +71,7 @@ return require("packer").startup(function(use)
 	--   -- requires = { 'kyazdani42/nvim-web-devicons', opt = true },
 	-- })
 
-	use("nvim-lualine/lualine.nvim")
+	use('nvim-lualine/lualine.nvim')
 
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -81,6 +81,7 @@ return require("packer").startup(function(use)
 		},
 	})
 	use({ "nvim-telescope/telescope-ui-select.nvim" })
+	use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
 	-- use({
 	-- 	"ibhagwan/fzf-lua",
@@ -93,7 +94,10 @@ return require("packer").startup(function(use)
 	-- 	-- requires = { 'kyazdani42/nvim-web-devicons' }
 	-- })
 
-	use("tpope/vim-surround")
+	use({
+		"kylechui/nvim-surround",
+		tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+	})
 
 	-- git in editor
 	use("tpope/vim-fugitive")
@@ -112,9 +116,6 @@ return require("packer").startup(function(use)
 	--   requires = 'rbgrouleff/bclose.vim'
 	-- })
 
-	-- Base16 colorschemes. Would be nice to replace with "just use the terminal colors".
-	use("RRethy/nvim-base16")
-
 	-- Better %
 	-- use 'andymass/vim-matchup'
 
@@ -126,10 +127,10 @@ return require("packer").startup(function(use)
 
 	use("lukas-reineke/indent-blankline.nvim")
 
-	use({
-		"kyazdani42/nvim-tree.lua",
-		tag = "nightly", -- optional, updated every week. (see issue #1193)
-	})
+	use {
+		'nvim-tree/nvim-tree.lua',
+		tag = 'nightly' -- optional, updated every week. (see issue #1193)
+	}
 
 	use("lewis6991/gitsigns.nvim") -- easily spot which changes you've made in a git-tracked buffer.
 
@@ -170,42 +171,20 @@ return require("packer").startup(function(use)
 		end,
 	})
 
+	-- colorschemes
 	use { "catppuccin/nvim", as = "catppuccin" }
-
-	use({
-		"sudormrfbin/cheatsheet.nvim",
-
-		requires = {
-			{ "nvim-telescope/telescope.nvim" },
-			{ "nvim-lua/popup.nvim" },
-			{ "nvim-lua/plenary.nvim" },
-		},
-	})
-
-	-- use({
-	-- 	"akinsho/bufferline.nvim",
-	-- 	tag = "v2.*",
-	-- 	config = function()
-	-- 		require("bufferline").setup({
-	-- 			options = {
-	-- 				diagnostics = "nvim_lsp",
-	-- 				show_close_icon = false,
-	-- 				show_buffer_close_icons = false,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- })
+	use 'folke/tokyonight.nvim'
 
 	use("jose-elias-alvarez/typescript.nvim")
 
 	use("mattn/emmet-vim")
 
 	use({
-			"neoclide/coc.nvim",
-			branch = "release",
-			config = function()
-				vim.cmd("source ~/dotfiles/nvim/.config/nvim/coc.vim")
-			end
+		"neoclide/coc.nvim",
+		branch = "release",
+		config = function()
+			vim.cmd("source ~/dotfiles/nvim/.config/nvim/coc.vim")
+		end
 	})
 
 	use("honza/vim-snippets")
