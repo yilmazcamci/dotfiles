@@ -57,7 +57,7 @@ require('lazy').setup({
   {
     -- Autocompletion
     'hrsh7th/nvim-cmp',
-    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
+    dependencies = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip', 'hrsh7th/cmp-buffer' },
   },
 
   -- Useful plugin to show you pending keybinds.
@@ -172,6 +172,8 @@ require('lazy').setup({
   { 'windwp/nvim-autopairs', opts = {} },
 
   -- { "lukas-reineke/lsp-format.nvim", opts = {} }
+
+  "github/copilot.vim"
 }, {})
 
 -- [[ Setting options ]]
@@ -415,9 +417,8 @@ local servers = {
   -- clangd = {},
   -- gopls = {},
   -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
-
+  rust_analyzer = {},
+  tsserver = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -495,6 +496,7 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' }
   },
 }
 
@@ -552,8 +554,8 @@ vim.keymap.set("n", "<space>sc", ":noh<cr>", default_options)
 -- vim.keymap.set("n", "<space>a.", "mzA.<esc>`z", default_options)
 -- vim.keymap.set("n", "<space>a;", "mzA;<esc>`z", default_options)
 --
--- vim.keymap.set("v", "<leader>co", ":sort<cr>", default_options)
--- vim.keymap.set("n", "<leader>cb", "mzvi{:'<,'>sort<cr>`z", default_options)
+vim.keymap.set("v", "<leader>co", ":sort<cr>", default_options)
+vim.keymap.set("n", "<leader>cb", "mzvi{:'<,'>sort<cr>`z", default_options)
 --
 -- -- Paste without overwriting register.
 -- vim.keymap.set("x", "<space>p", '"_dP', default_options)
@@ -608,3 +610,6 @@ local current_buffer = 0
 vim.api.nvim_buf_set_keymap(current_buffer, "n", "cc", "<cmd>Git commit --quiet<CR>", default_options)
 vim.api.nvim_buf_set_keymap(current_buffer, "n", "ca", "<cmd>Git commit --quiet --amend<CR>", default_options)
 vim.api.nvim_buf_set_keymap(current_buffer, "n", "ce", "<cmd>Git commit --quiet --amend --no-edit<CR>", default_options)
+
+-- More sensible default tabstop
+vim.api.nvim_set_option("tabstop", 4)
