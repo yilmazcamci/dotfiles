@@ -39,13 +39,13 @@
 ;   diff = diff-so-fancy | less
 
 [pager]
-    diff = delta --diff-so-fancy --side-by-side
-    log = delta --diff-so-fancy --side-by-side
-    reflog = delta --diff-so-fancy --side-by-side
-    show = delta --diff-so-fancy --side-by-side
+  diff = delta --diff-so-fancy --side-by-side
+  log = delta --diff-so-fancy --side-by-side
+  reflog = delta --diff-so-fancy --side-by-side
+  show = delta --diff-so-fancy --side-by-side
 
 [interactive]
-    diffFilter = delta --color-only --features=interactive
+  diffFilter = delta --color-only --features=interactive
 
 [delta]
   file-style = omit
@@ -55,6 +55,6 @@
   syntax-theme = base16
   zero-style = dim syntax
 [hub]
-	protocol = https
+  protocol = https
 [commit]
-	gpgsign = true
+  gpgsign = true
