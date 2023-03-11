@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Get the most recent staging tag
+MOST_RECENT_STAGING_TAG=$(git tag -l --sort=-v:refname | grep stag | head -n 1)
+
+# Get the commit hash of the most recent staging tag, MOST_RECENT_STAGING_TAG
+MOST_RECENT_STAGING_TAG_COMMIT_HASH=$(git rev-list -n 1 $MOST_RECENT_STAGING_TAG)
+
+# Extract the version number from the most recent staging tag
+LAST_VERSION_NUMBER=$(echo $MOST_RECENT_STAGING_TAG | sed 's/stag-v//')
+NEXT_VERSION=$(( $LAST_VERSION_NUMBER + 1))
+TAG="stag-v$NEXT_VERSION"
+
+git tag $TAG $MOST_RECENT_STAGING_TAG_COMMIT_HASH
+echo "tagged commit $MOST_RECENT_STAGING_TAG_COMMIT_HASH, as $TAG"
+
+git push
+sleep 4
+git push --tags
