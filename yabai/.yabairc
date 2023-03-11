@@ -48,6 +48,8 @@ yabai -m rule --add app='DBeaver' manage=off
 yabai -m rule --add app='sim' manage=off
 yabai -m rule --add app='dwarf*' manage=off
 yabai -m rule --add app="Frame" manage=off
+yabai -m rule --add app="Calendar" manage=off
+yabai -m rule --add app="System Settings" manage=off
 
 # float all windows by default whose title ends in `' Preferences'`
 yabai -m rule --add title=' Preferences$' manage=off
