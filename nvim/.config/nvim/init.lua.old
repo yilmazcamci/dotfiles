@@ -1,6 +1,7 @@
 lua <<EOF
 require("plugins")
 require("options")
+vim.cmd.colorscheme("catppuccin-macchiato")
 require("keymaps")
 require("nvim-tree").setup({
 	view = {

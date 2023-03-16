@@ -6,5 +6,5 @@ return {
   config = function()
     -- Enable <leader><num> bindings where <num> is one of the number keys.
     vim.api.nvim_command("BufstopSpeedToggle")
-  end
+  end,
 }

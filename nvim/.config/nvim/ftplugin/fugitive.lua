@@ -5,4 +5,4 @@ vim.api.nvim_buf_set_keymap(current_buffer, "n", "ca", "<cmd>Git commit --quiet 
 vim.api.nvim_buf_set_keymap(current_buffer, "n", "ce", "<cmd>Git commit --quiet --amend --no-edit<CR>", default_options)
 
 local autocmd = vim.api.nvim_create_autocmd
-autocmd('FileType' , { pattern = { 'gitcommit' }, command =  'setlocal spell' })
+autocmd("FileType", { pattern = { "gitcommit" }, command = "setlocal spell" })

@@ -1,8 +1,4 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+require("options")
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -26,12 +22,6 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require("lazy").setup({
-	-- NOTE: First, some plugins that don't require any configuration
-
-	-- Git related plugins
-	"tpope/vim-fugitive",
-	"tpope/vim-rhubarb",
-
 	-- Detect tabstop and shiftwidth automatically
 	"tpope/vim-sleuth",
 
@@ -67,46 +57,13 @@ require("lazy").setup({
 	},
 
 	-- Copilot lsp integration
-	{
-		"zbirenbaum/copilot.lua",
-		cmd = "Copilot",
-		event = "InsertEnter",
-		opts = {
-			panel = { enabled = false },
-			suggestion = {
-				enabled = true,
-				auto_trigger = true,
-				keymap = {
-					accept = "<TAB>",
-					accept_word = false,
-					accept_line = false,
-					next = "<M-]>",
-					prev = "<M-[>",
-					dismiss = "<C-]>",
-				},
-			},
-		},
-	},
-
-	-- {
-	-- 	"zbirenbaum/copilot-cmp",
-	-- 	dependencies = "zbirenbaum/copilot.lua",
-	-- 	opts = {},
-	-- },
+	require("plugins.copilot"),
 
 	-- Useful plugin to show you pending keybinds.
-	{ "folke/which-key.nvim",          opts = {} },
+	{ "folke/which-key.nvim",            opts = {} },
 
-	require("plugins.gitsigns"),
-
-	{
-		"catppuccin/nvim",
-		name = "catppuccin",
-		priority = 1000,
-		config = function()
-			vim.cmd.colorscheme("catppuccin-macchiato")
-		end,
-	},
+	-- colorschemes
+	require("colorschemes"),
 
 	{
 		-- Set lualine as statusline
@@ -135,34 +92,13 @@ require("lazy").setup({
 	},
 
 	-- "gc" to comment visual regions/lines
-	{ "numToStr/Comment.nvim",         opts = {} },
+	-- { "numToStr/Comment.nvim",         opts = {} },
 
-	-- Fuzzy Finder (files, lsp, etc)
-	{ "nvim-telescope/telescope.nvim", version = "*", dependencies = { "nvim-lua/plenary.nvim" } },
+	require("plugins.telescope"),
 
-	-- Fuzzy Finder Algorithm which requires local dependencies to be built.
-	-- Only load if `make` is available. Make sure you have the system
-	-- requirements installed.
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		-- NOTE: If you are having trouble with this installation,
-		--       refer to the README for telescope-fzf-native for more instructions.
-		build = "make",
-		cond = function()
-			return vim.fn.executable("make") == 1
-		end,
-	},
+	require("plugins.notify"),
 
-	{
-		-- Highlight, edit, and navigate code
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
-		config = function()
-			pcall(require("nvim-treesitter.install").update({ with_sync = true }))
-		end,
-	},
+	require("plugins.treesitter"),
 
 	-- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
 	--       These are some example plugins that I've included in the kickstart repository.
@@ -182,32 +118,90 @@ require("lazy").setup({
 
 	require("plugins.files"),
 
+	-- Automatic session management.
 	{
 		"rmagatti/auto-session",
 		opts = {
 			log_level = "error",
 		},
 	},
-	-- shortcuts for common vim actions that come in a pair.
+
+	-- Shortcuts for common vim actions that come in a pair.
 	"tpope/vim-unimpaired",
 
-	-- add, change, remove surrounding pairs
+	-- Add, change, remove surrounding pairs
 	{
 		"kylechui/nvim-surround",
 		version = "*", -- Use for stability; omit to use `main` branch for the latest features
 		opts = {},
 	},
 
-	-- visual multi cursor editing
+	-- Visual multi cursor editing.
 	"mg979/vim-visual-multi",
 
-	require("plugins.bufstop"),
+	-- require("plugins.bufstop"),
 
-	-- pair, paired characters automatically
+	-- Pair, paired characters automatically.
 	{ "windwp/nvim-autopairs",           opts = {} },
+	{ "windwp/nvim-ts-autotag" },
+
+	-- null-ls extends lsp with additional capabilities.
 	{ "jose-elias-alvarez/null-ls.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
 
-	-- { "lukas-reineke/lsp-format.nvim", opts = {} }
+	-- {
+	-- 	"glepnir/lspsaga.nvim",
+	-- 	event = "BufRead",
+	-- 	config = function()
+	-- 		require("lspsaga").setup({})
+	-- 	end,
+	-- 	dependencies = {
+	-- 		{ "nvim-tree/nvim-web-devicons" },
+	-- 		--Please make sure you install markdown and markdown_inline parser
+	-- 		{ "nvim-treesitter/nvim-treesitter" },
+	-- 	},
+	-- },
+
+	-- crates
+	{
+		"saecki/crates.nvim",
+		opts = {},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+
+	-- enhance rust LSP
+	{
+		"simrat39/rust-tools.nvim",
+		opts = {},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+
+	-- minimap bar on right side
+	-- { "lewis6991/satellite.nvim",                   opts = {} },
+
+	-- emmet for efficient html-like markup creation
+	"mattn/emmet-vim",
+
+	-- support tsx comments
+	{ "JoosepAlviste/nvim-ts-context-commentstring" },
+
+	{
+		"echasnovski/mini.nvim",
+		---@diagnostic disable-next-line: assign-type-mismatch
+		version = false,
+		config = function()
+			require("mini.bufremove").setup()
+			require("mini.comment").setup()
+		end,
+	},
+
+	-- require("plugins.conjure"),
+	-- require("plugins.fennel.vim"),
+
+	require("plugin-sets.git"),
 }, {})
 
 -- [[ Setting options ]]
@@ -317,13 +311,17 @@ vim.keymap.set("n", "<space>n", require("telescope.builtin").git_status, { desc 
 vim.keymap.set("n", "<space>fg", require("telescope.builtin").git_files, { desc = "find git files" })
 vim.keymap.set("n", "<space>fm", require("telescope.builtin").keymaps, { desc = "[f]ind key[m]aps" })
 
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
 require("nvim-treesitter.configs").setup({
 	-- Add languages to be installed here that you want installed for treesitter
-	ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "typescript", "help", "vim" },
+	ensure_installed = {
+		"lua",
+		"rust",
+		"tsx",
+		"typescript",
+		"help",
+	},
 	-- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-	auto_install = false,
+	auto_install = true,
 	highlight = { enable = true },
 	indent = { enable = true, disable = { "python" } },
 	incremental_selection = {
@@ -379,6 +377,13 @@ require("nvim-treesitter.configs").setup({
 			},
 		},
 	},
+	-- tsx commenting
+	context_commentstring = {
+		enable = true,
+	},
+	autotag = {
+		enable = true,
+	},
 })
 
 -- Diagnostic keymaps
@@ -404,7 +409,6 @@ local on_attach = function(client, bufnr)
 
 	nmap("<leader>lr", vim.lsp.buf.rename, "[L]SP [R]ename")
 	nmap("<leader>la", vim.lsp.buf.code_action, "[L]SP [C]ode Action")
-	-- nmap('gq', vim.lsp.buf.code_action, '[G] [Q]uickfix')
 	nmap("<leader>lf", vim.lsp.buf.format, "[L]SP [f]ormat")
 
 	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
@@ -416,7 +420,7 @@ local on_attach = function(client, bufnr)
 
 	-- See `:help K` for why this keymap
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-	nmap("<c-q>", vim.lsp.buf.signature_help, "Signature Documentation")
+	-- nmap("<c-K>", vim.lsp.buf.signature_help, "Signature Documentation")
 	-- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
 	-- Lesser used LSP functionality
@@ -438,7 +442,7 @@ local on_attach = function(client, bufnr)
 	-- vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
 
 	-- fix problem under the cursor when possible
-	nmap("gq", require("lsp_fixcurrent"))
+	nmap("gq", require("lsp_fixcurrent"), "[G]o [Q]uickfix")
 
 	-- null-ls format on save
 	if client.supports_method("textDocument/formatting") then
@@ -465,6 +469,8 @@ null_ls.setup({
 		null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.rustywind,
 		null_ls.builtins.formatting.stylua,
+		null_ls.builtins.formatting.gofmt,
+		null_ls.builtins.formatting.fnlfmt,
 	},
 	on_attach = on_attach,
 })
@@ -515,6 +521,14 @@ mason_lspconfig.setup_handlers({
 	end,
 })
 
+-- setup rust-tools
+local rt = require("rust-tools")
+rt.setup({
+	server = {
+		on_attach = on_attach,
+	},
+})
+
 -- nvim-cmp setup
 local cmp = require("cmp")
 local luasnip = require("luasnip")
@@ -540,6 +554,11 @@ cmp.setup({
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
 			else
+				-- HACK: insert tab
+				-- Find out why its broken and fix.
+				local pos = vim.api.nvim_win_get_cursor(0)
+				vim.api.nvim_buf_set_text(0, pos[1] - 1, pos[2], pos[1] - 1, pos[2], { "  " })
+				vim.api.nvim_win_set_cursor(0, { pos[1], pos[2] + 2 })
 				fallback()
 			end
 		end, { "i", "s" }),
@@ -561,6 +580,8 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
+		{ name = "crates" },
+		{ name = "emmet_vim" },
 	},
 })
 
@@ -612,6 +633,7 @@ vim.keymap.set("n", "<space>sc", ":noh<cr>", default_options)
 -- -- vim.keymap.set("n", "<c-j>", "<c-w>j", default_options)
 -- -- vim.keymap.set("n", "<c-k>", "<c-w>k", default_options)
 -- vim.keymap.set("n", "<c-x>", ":bdelete<cr>", default_options)
+vim.keymap.set("n", "<leader>2", ":e #<CR>", default_options)
 --
 -- -- Append common line ending.
 -- vim.keymap.set("n", "<space>a,", "mzA,<esc>`z", default_options)
@@ -649,31 +671,12 @@ end
 
 vim.keymap.set("n", "-", toggle_replace)
 
--- advised by nvim-tree
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 -- Append common line ending.
 vim.keymap.set("n", "<space>a,", "mzA,<esc>`z", default_options)
 vim.keymap.set("n", "<space>a.", "mzA.<esc>`z", default_options)
 vim.keymap.set("n", "<space>a;", "mzA;<esc>`z", default_options)
 
-vim.api.nvim_set_option("cmdheight", 0)
-
-vim.api.nvim_set_option("scrolloff", 8)
-
 -- Buffer navigation.
 vim.keymap.set("n", "<c-l>", "<c-w>l", default_options)
 vim.keymap.set("n", "<c-h>", "<c-w>h", default_options)
 vim.keymap.set("n", "<c-x>", ":bdelete<cr>", default_options)
-
--- Git
-vim.keymap.set("n", "<space>gs", "<cmd>Git<cr>", default_options)
-vim.keymap.set("n", "<space>gc", "<cmd>Git commit --quiet<cr>", default_options)
-local current_buffer = 0
-vim.api.nvim_buf_set_keymap(current_buffer, "n", "cc", "<cmd>Git commit --quiet<CR>", default_options)
-vim.api.nvim_buf_set_keymap(current_buffer, "n", "ca", "<cmd>Git commit --quiet --amend<CR>", default_options)
-vim.api.nvim_buf_set_keymap(current_buffer, "n", "ce", "<cmd>Git commit --quiet --amend --no-edit<CR>", default_options)
-
--- More sensible tabstop
-vim.o.tabstop = 4
