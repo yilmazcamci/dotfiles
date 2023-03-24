@@ -16,3 +16,4 @@ sync-prod-db-to-staging.sh
 sync-staging-to-dev.sh
 set-db-envs.sh
 set-env-test.sh
+cleanup-dbs.sh
