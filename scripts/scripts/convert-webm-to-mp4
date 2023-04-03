@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Check if a folder path is provided
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 folder_path"
+    exit 1
+fi
+
+folder_path="$1"
+
+# Check if the folder exists
+if [ ! -d "$folder_path" ]; then
+    echo "Invalid folder path"
+    exit 1
+fi
+
+# Convert all .webm files to .mp4
+for file in "$folder_path"/*.webm; do
+    if [ -f "$file" ]; then
+        output_file="${file%.webm}.mp4"
+        ffmpeg -i "$file" -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -c:a aac "$output_file"
+    fi
+done
+
+echo "Conversion completed."
