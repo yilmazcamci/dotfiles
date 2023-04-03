@@ -15,6 +15,10 @@ vim.opt.termguicolors = true
 vim.g.BufstopAutoSpeedToggle = 1
 vim.g.BufstopSorting = 1
 
+-- Indent defaults
+vim.g.tabstop = 2
+vim.g.shiftwidth = 2
+
 -- Ignore case during search.
 vim.api.nvim_set_option("ignorecase", true)
 -- Unless user used uppercase.

@@ -3,7 +3,7 @@ return {
 	{
 		"tpope/vim-fugitive",
 		keys = {
-			{ "<leader>gs",  "<cmd>Git <cr>",               desc = "[G]it [s]tatus" },
+			{ "<leader>gs",  "<cmd>vertical Git <cr>",      desc = "[G]it [s]tatus" },
 			{ "<leader>gc",  "<cmd>Git commit --quiet<cr>", desc = "[G]it [s]tatus" },
 			{ "<leader>gfp", "<cmd>Git push<cr>",           desc = "[G]it [p]ush" },
 			{ "<leader>gfP", "<cmd>Git pull<cr>",           desc = "[G]it [P]ull" },

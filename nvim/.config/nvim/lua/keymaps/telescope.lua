@@ -1,0 +1,8 @@
+-- local telescope_builtin = require("telescope.builtin")
+--
+-- -- vim.keymap.set("n", "<space>th", telescope_builtin.find_files)
+-- vim.keymap.set("n", "<space>h", telescope_builtin.find_files)
+-- vim.keymap.set("n", "<space>n", telescope_builtin.buffers)
+-- vim.keymap.set("n", "<space>fs", telescope_builtin.git_status)
+-- vim.keymap.set("n", "<space>fg", telescope_builtin.git_files)
+-- vim.keymap.set("n", "<space>fm", telescope_builtin.keymaps)
