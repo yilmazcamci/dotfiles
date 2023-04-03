@@ -2,7 +2,8 @@
 
 set -e
 
-SHORT_SHA=$(git rev-parse --short HEAD)
+# For some reason our github build step outputs frontend images with a docker tag with seven characters even if the commits have eight.
+SHORT_SHA=$(git rev-parse --short HEAD | cut -c-7)
 CURRENT_DIR=$(pwd)
 CURRENT_PROJECT=$(pwd | cut -d '/' -f 6)
 OLD_IMAGE="rg.fr-par.scw.cloud\/ultrasoundmoney\/$CURRENT_PROJECT.*"
