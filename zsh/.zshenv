@@ -13,5 +13,4 @@ source ~/.zshenv_secret
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export EDITOR=nvim
-# export NODE_OPTIONS=--openssl-legacy-provider
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
