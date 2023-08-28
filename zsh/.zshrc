@@ -8,9 +8,6 @@ zgenom autoupdate --background
 # if the init scipt doesn't exist
 if ! zgenom saved; then
 
-  # Auto update every seven days
-  zgenom load unixorn/autoupdate-zgen
-
   # Oh My Zsh
   zgenom ohmyzsh
   zgenom ohmyzsh plugins/kubectl
