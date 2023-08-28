@@ -6,8 +6,8 @@ nmap("<leader>2", ":e #<CR>", "edit alternate file")
 -- Quicker hopping between windows.
 nmap("<c-l>", "<c-w>l", "[l] right window")
 nmap("<c-h>", "<c-w>h", "[h] left window")
--- vim.keymap.set("n", "<c-j>", "<c-w>j", default_options)
--- vim.keymap.set("n", "<c-k>", "<c-w>k", default_options)
+nmap("<c-j>", "<c-w>j", "[j] down window")
+nmap("<c-k>", "<c-w>k", "[k] up window")
 
 -- Close the current buffer.
 -- nmap("<c-x>", ":bdelete<cr>", "[x] close buffer")

@@ -59,14 +59,16 @@ return function()
 	-- Collect the available actions
 	local actions = {}
 	for cid, resp in pairs(actions_per_client) do
-		for _, result in pairs(resp.result) do
-			-- add the actions with a cid to the table
-			local action = {}
-			action["cid"] = cid
-			for k, v in pairs(result) do
-				action[k] = v
+		if resp.result ~= nil then
+			for _, result in pairs(resp.result) do
+				-- add the actions with a cid to the table
+				local action = {}
+				action["cid"] = cid
+				for k, v in pairs(result) do
+					action[k] = v
+				end
+				table.insert(actions, action)
 			end
-			table.insert(actions, action)
 		end
 	end
 

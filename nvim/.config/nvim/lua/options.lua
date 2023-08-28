@@ -39,6 +39,10 @@ vim.api.nvim_set_option("tabstop", 4)
 -- Notably when using fugitive to make a commit.
 -- As soon as a workaround is found, set it back to 0.
 -- folke/noice manages to alleviate this issue.
-vim.api.nvim_set_option("cmdheight", 1)
+vim.api.nvim_set_option("cmdheight", 0)
 
 vim.api.nvim_set_option("scrolloff", 8)
+
+vim.api.nvim_set_option("cursorline", false)
+vim.api.nvim_set_option("number", false)
+vim.api.nvim_set_option("wrap", true)

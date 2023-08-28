@@ -91,31 +91,13 @@ require("lazy").setup({
 		},
 	},
 
-	-- "gc" to comment visual regions/lines
-	-- { "numToStr/Comment.nvim",         opts = {} },
-
 	-- require("plugins.telescope"),
 	require("plugins.fzf-lua"),
 
 	require("plugins.notify"),
 
 	require("plugins.treesitter"),
-
-	-- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
-	--       These are some example plugins that I've included in the kickstart repository.
-	--       Uncomment any of the lines below to enable them.
-	-- require 'plugins.autoformat',
-	-- require 'kickstart.plugins.debug',
-
-	-- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
-	--    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
-	--    up-to-date with whatever is in the kickstart repo.
-	--
-	--    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-	--
-	--    An additional note is that if you only copied in the `init.lua`, you can just comment this line
-	--    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
-	-- { import = 'custom.plugins' },
+	require("plugins.treesitter-textobjects"),
 
 	require("plugins.nvim-tree"),
 
@@ -187,42 +169,20 @@ require("lazy").setup({
 	"mattn/emmet-vim",
 
 	-- support tsx comments
-	{ "JoosepAlviste/nvim-ts-context-commentstring" },
+	-- { "JoosepAlviste/nvim-ts-context-commentstring" },
 
-	{
-		"echasnovski/mini.nvim",
-		---@diagnostic disable-next-line: assign-type-mismatch
-		version = false,
-		config = function()
-			require("mini.ai").setup()
-			require("mini.bracketed").setup()
-			require("mini.bufremove").setup()
-			-- require("mini.comment").setup()
-			require("mini.move").setup({
-				mappings = {
-					-- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-					left = "<leader>mh",
-					right = "<leader>ml",
-					down = "<leader>mj",
-					up = "<leader>mk",
-					-- Move current line in Normal mode
-					line_left = "<leader>mh",
-					line_right = "<leader>ml",
-					line_down = "<leader>mj",
-					line_up = "<leader>mk",
-				},
-			})
-		end,
-	},
+	require("plugins.mini"),
 
-	-- require("plugins.conjure"),
-	-- require("plugins.fennel.vim"),
+	require("plugins.conjure"),
+	require("plugins.fennel-vim"),
 
 	require("plugin-sets.git"),
 
 	require("plugin-sets.purescript"),
 
 	"tpope/vim-commentary",
+
+	require("plugins.rainbow_csv"),
 }, {})
 
 -- [[ Setting options ]]
@@ -291,8 +251,8 @@ require("configs.treesitter")
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<c-k>", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "<c-j>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+vim.keymap.set("n", "<c-[>", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+vim.keymap.set("n", "<c-]>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
@@ -428,6 +388,15 @@ local rt = require("rust-tools")
 rt.setup({
 	server = {
 		on_attach = on_attach,
+		-- Use clippy
+		-- settings = {
+		-- 	["rust-analyzer"] = {
+		-- 		check = {
+		-- 			command = "clippy",
+		-- 			extraArgs = { "--all", "--", "-W", "clippy::all" },
+		-- 		},
+		-- 	},
+		-- },
 	},
 })
 

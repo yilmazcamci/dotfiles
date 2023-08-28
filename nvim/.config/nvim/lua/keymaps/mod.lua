@@ -10,6 +10,9 @@ vim.keymap.set("n", "<space>sc", ":noh<cr>", default_options)
 vim.keymap.set("n", "<c-s>", ":w<cr>", default_options)
 vim.keymap.set("i", "<c-s>", "<esc>:w<cr>", default_options)
 
+-- Disable suspend
+-- vim.keymap.set("n", "<c-z>", "<nop>", default_options)
+
 require("keymaps.buffers")
 require("keymaps.commonedits")
 require("keymaps.sorting")
