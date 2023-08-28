@@ -6,14 +6,11 @@ set-env-local.sh
 set-env-local-test.sh
 set-env-staging.sh
 set-env-prod.sh
-set-env-ropsten-dev.sh
-set-env-ropsten-prod.sh
 .env.local
-set-doge-scout-auth.sh
-set-usm-auth.sh
-set-backup-auth.sh
 sync-prod-db-to-staging.sh
 sync-staging-to-dev.sh
 set-db-envs.sh
 set-env-test.sh
 cleanup-dbs.sh
+set-usm-auth-aurora.sh
+set-usm-auth-rex.sh
