@@ -1,6 +1,7 @@
 export PATH="$HOME/Library/Python/3.8/bin:$PATH"
 export PATH="$PATH:$HOME/scripts"
 export PATH="$PATH:$HOME/.ghcup/bin"
+export PATH="$PATH:$HOME/go/bin"
 export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib:/opt/homebrew/lib"
 
 export WEB3_INFURA_PROJECT_ID=0436a547cc1149dd9e499603863658c5
