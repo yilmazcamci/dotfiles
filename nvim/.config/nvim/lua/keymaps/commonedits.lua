@@ -1,4 +1,4 @@
-local nmap = require("keymaps.nmap")
+local nmap = require("keymaps.mapping").nmap
 
 -- Append common line ending.
 nmap("<space>a,", "mzA,<esc>`z", "[a]ppend [,]")

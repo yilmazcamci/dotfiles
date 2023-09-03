@@ -1,4 +1,4 @@
-local nmap = require("keymaps.nmap")
+local nmap = require("keymaps.mapping").nmap
 
 return {
 	"tpope/vim-fugitive",

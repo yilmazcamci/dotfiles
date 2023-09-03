@@ -1,4 +1,4 @@
-local nmap = require("keymaps.nmap")
+local nmap = require("keymaps.mapping").nmap
 
 -- Easier to reach alternate buffer switch.
 nmap("<leader>2", ":e #<CR>", "edit alternate file")
