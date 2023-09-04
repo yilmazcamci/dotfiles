@@ -322,14 +322,14 @@ rt.setup({
 	server = {
 		on_attach = on_attach,
 		-- Use clippy
-		-- settings = {
-		-- 	["rust-analyzer"] = {
-		-- 		check = {
-		-- 			command = "clippy",
-		-- 			extraArgs = { "--all", "--", "-W", "clippy::all" },
-		-- 		},
-		-- 	},
-		-- },
+		settings = {
+			["rust-analyzer"] = {
+				check = {
+					command = "clippy",
+					extraArgs = { "--all", "--", "-W", "clippy::all" },
+				},
+			},
+		},
 	},
 })
 
