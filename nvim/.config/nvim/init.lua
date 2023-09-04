@@ -60,9 +60,9 @@ require("lazy").setup({
 	require("plugin-sets.ai"),
 
 	-- Useful plugin to show you pending keybinds.
-	{ "folke/which-key.nvim", opts = {} },
+	{ "folke/which-key.nvim",            opts = {} },
 
-	-- colorschemes
+	-- Add colorschemes.
 	require("colorschemes"),
 
 	{
@@ -125,7 +125,7 @@ require("lazy").setup({
 	-- require("plugins.bufstop"),
 
 	-- Pair, paired characters automatically.
-	{ "windwp/nvim-autopairs", opts = {} },
+	{ "windwp/nvim-autopairs",           opts = {} },
 	{ "windwp/nvim-ts-autotag" },
 
 	-- null-ls extends lsp with additional capabilities.
@@ -185,76 +185,9 @@ require("lazy").setup({
 	require("plugins.rainbow_csv"),
 }, {})
 
--- [[ Setting options ]]
--- See `:help vim.o`
-
--- Set highlight on search
-vim.o.hlsearch = true
-
--- Make line numbers default
--- vim.wo.number = true
-
--- Enable mouse mode
--- vim.o.mouse = 'a'
-
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.o.clipboard = 'unnamedplus'
-
--- Enable break indent
-vim.o.breakindent = true
-
--- Save undo history
-vim.o.undofile = true
-
--- Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
--- Keep signcolumn on by default
-vim.wo.signcolumn = "yes"
-
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeout = true
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noselect"
-
--- NOTE: You should make sure your terminal supports this
-vim.o.termguicolors = true
-
--- [[ Basic Keymaps ]]
-
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
--- vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-
--- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- [[ Highlight on yank ]]
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = "*",
-})
+vim.cmd("colorscheme kanagawa")
 
 require("configs.treesitter")
-
--- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<c-[>", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
-vim.keymap.set("n", "<c-]>", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
@@ -410,7 +343,7 @@ null_ls.setup({
 		null_ls.builtins.formatting.gofmt,
 		null_ls.builtins.formatting.prettierd,
 		null_ls.builtins.formatting.rustywind,
-		null_ls.builtins.formatting.stylua,
+		-- null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.sqlfluff.with({
 			extra_args = { "--dialect", "postgres" },
 		}),
@@ -419,79 +352,6 @@ null_ls.setup({
 	on_attach = on_attach,
 })
 
--- nvim-cmp setup
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-
-luasnip.config.setup({})
-
-cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	mapping = cmp.mapping.preset.insert({
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete({}),
-		["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if require("copilot.suggestion").is_visible() then
-				require("copilot.suggestion").accept()
-			elseif cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			else
-				-- HACK: insert tab
-				-- Find out why its broken and fix.
-				local pos = vim.api.nvim_win_get_cursor(0)
-				vim.api.nvim_buf_set_text(0, pos[1] - 1, pos[2], pos[1] - 1, pos[2], { "  " })
-				vim.api.nvim_win_set_cursor(0, { pos[1], pos[2] + 2 })
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-	}),
-	sources = {
-		-- Copilot
-		{ name = "copilot" },
-		-- Path completion
-		{ name = "path" },
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "crates" },
-		{ name = "emmet_vim" },
-	},
-})
-
--- Config the config.
-vim.keymap.set("n", "<space>ve", ":e ~/.config/nvim/init.lua<cr>", { noremap = true, silent = true })
-
--- Reload the config.
-vim.keymap.set("n", "<space>vr", ":source ~/.config/nvim/init.lua<cr>", { noremap = true, silent = true })
+require("configs.cmp")
 
 require("keymaps.mod")
-
--- This somehow does not work in the lazy config fn
-local function toggle_replace()
-	local view = require("nvim-tree.view")
-	local api = require("nvim-tree.api")
-	if view.is_visible() then
-		api.tree.close()
-	else
-		require("nvim-tree").open_replacing_current_buffer()
-	end
-end
-
-vim.keymap.set("n", "-", toggle_replace)
