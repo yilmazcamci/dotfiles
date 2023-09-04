@@ -14,7 +14,6 @@ alias restart-touchbar="sudo pkill "Touch Bar agent"; sudo killall "ControlStrip
 alias dc="docker compose"
 
 alias v="nvim"
-alias vo="nvim -u ~/.config/nvim/init.lua.old"
 
 alias ssh="TERM=xterm-color ssh"
 
