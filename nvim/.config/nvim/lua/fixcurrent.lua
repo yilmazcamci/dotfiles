@@ -1,38 +1,3 @@
-local function run_action(action, offse)
-	if action.edit or type(action.command) == "table" then
-		if action.edit then
-			vim.lsp.util.apply_workspace_edit(action.edit, offse)
-		end
-		if type(action.command) == "table" then
-			vim.lsp.buf.execute_command(action.command)
-		end
-	else
-		vim.lsp.buf.execute_command(action)
-	end
-end
-
-local function do_action(action, client)
-	if
-		not action.edit
-		and client
-		and type(client.server_capabilities) == "table"
-		and client.server_capabilities.resolveProvider
-	then
-		client.request("codeAction/resolve", action, function(err, real)
-			if err then
-				return
-			end
-			if real then
-				run_action(real, client.offset_encoding)
-			else
-				run_action(action, client.offset_encoding)
-			end
-		end)
-	else
-		run_action(action, client.offset_encoding)
-	end
-end
-
 return function()
 	local params = vim.lsp.util.make_range_params() -- get params for current position
 	params.context = {
@@ -41,8 +6,8 @@ return function()
 	}
 
 	local actions_per_client, err = vim.lsp.buf_request_sync(
-		0,                   -- current buffer
-		"textDocument/codeAction", -- get code actions
+		0,
+		"textDocument/codeAction",
 		params,
 		900
 	)
@@ -72,23 +37,53 @@ return function()
 		end
 	end
 
-	-- Find the top action
-	local top_action = nil
-
-	-- Using null-ls a lot of quickfixes are returned but all tend to be
-	-- worse than what the real LSP is offering, we try to use other
-	-- actions first, then only fall back to whatever null-ls is offering.
+	-- Try to find a preferred action.
+	local preferred_action = nil
 	for _, action in ipairs(actions) do
-		print(vim.inspect(action))
-		if action.command ~= "NULL_LS_CODE_ACTION" then
-			top_action = action
+		if action.isPreferred then
+			preferred_action = action
 			break
 		end
 	end
 
-	if top_action == nil then
-		top_action = actions[1]
+	-- If we failed to find a preferred action, try to find a non-null-ls action.
+	local non_null_ls_action = nil
+	for _, action in ipairs(actions) do
+		if action.command ~= "NULL_LS_CODE_ACTION" then
+			non_null_ls_action = action
+			break
+		end
 	end
 
-	do_action(top_action, vim.lsp.get_client_by_id(top_action.cid))
+	-- If we failed to find a non-null-ls action, use the first one.
+	local first_action = nil
+	if #actions > 0 then
+		first_action = actions[1]
+	end
+
+	-- Using null-ls a lot of quickfixes are returned but all tend to be
+	-- worse than what the real LSP is offering, we try to use other
+	-- actions first, then only fall back to whatever null-ls is offering.
+	local top_action = preferred_action or non_null_ls_action or first_action
+
+	-- print(vim.inspect(top_action))
+
+	local picked_one = false
+
+	vim.lsp.buf.code_action({
+		context = {
+			only = { "quickfix" },
+		},
+		filter = function(action, ctx)
+			if picked_one then
+				return true
+			elseif top_action ~= nil and action.title == top_action.title then
+				picked_one = true
+				return false
+			else
+				return true
+			end
+		end,
+		apply = true,
+	})
 end
