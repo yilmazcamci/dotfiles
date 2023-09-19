@@ -244,7 +244,9 @@ local on_attach = function(client, bufnr)
 	nmap("gq", require("fixcurrent"), "[G]o [Q]uickfix")
 
 	-- null-ls format on save
-	if client.supports_method("textDocument/formatting") then
+	-- formatting with lua lsp scrolls the buffer, we skip it
+	local lua_buffer = vim.bo.filetype == "lua"
+	if client.supports_method("textDocument/formatting") and (not lua_buffer) then
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = augroup,
