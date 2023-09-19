@@ -156,7 +156,6 @@ require("lazy").setup({
 	-- enhance rust LSP
 	{
 		"simrat39/rust-tools.nvim",
-		opts = {},
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},
