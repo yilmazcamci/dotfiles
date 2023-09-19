@@ -271,14 +271,11 @@ local on_attach = function(client, bufnr)
 	end, "[O]rganize [I]mports")
 end
 
--- Enable the following language servers
---  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
---
---  Add any additional override configuration in the following tables. They will be passed to
---  the `settings` field of the server config. You must look up that documentation yourself.
+-- Setup neovim lua configuration
+require("neodev").setup()
+
 local servers = {
-	-- clangd = {},
-	-- gopls = {},
+	gopls = {},
 	-- pyright = {},
 	rust_analyzer = {},
 	tsserver = {},
@@ -289,9 +286,6 @@ local servers = {
 		},
 	},
 }
-
--- Setup neovim lua configuration
-require("neodev").setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
