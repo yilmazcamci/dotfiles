@@ -17,3 +17,5 @@ set-usm-auth-rex.sh
 .env.dev
 .env.stag
 .env.prod
+.env.localtest
+.env.test
