@@ -54,7 +54,7 @@ if ! zgenom saved; then
   zgenom load ael-code/zsh-colored-man-pages
 
   # powerlevel theme
-  zgenom load romkatv/powerlevel10k powerlevel10k
+  # zgenom load romkatv/powerlevel10k powerlevel10k
 
   zgenom load unixorn/fzf-zsh-plugin
 
@@ -108,3 +108,4 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=16"
 
 # Scaleway CLI autocomplete initialization.
 eval "$(scw autocomplete script shell=zsh)"
+eval "$(starship init zsh)"
