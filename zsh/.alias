@@ -6,8 +6,6 @@ alias glgd="git log --topo-order --patch"
 
 alias iphone-simulator="open /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app"
 
-alias start-metro="./node_modules/react-native/scripts/launchPackager.command"
-alias restart-touchbar="sudo pkill "Touch Bar agent"; sudo killall "ControlStrip";"
 alias ls=eza
 alias l="eza --oneline --all"
 
@@ -16,10 +14,6 @@ alias dc="docker compose"
 alias v="nvim"
 
 alias ssh="TERM=xterm-color ssh"
-
-alias gcloud="TERM=xterm-color gcloud"
-
-alias k=kubectl
 
 alias rm="safe-rm"
 alias vim=nvim
