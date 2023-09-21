@@ -11,15 +11,13 @@ alias l="eza --oneline --all"
 
 alias dc="docker compose"
 
-alias v="nvim"
-
-alias ssh="TERM=xterm-color ssh"
-
 alias rm="safe-rm"
+alias v="nvim"
 alias vim=nvim
 
 alias unsafe-rm="command rm"
 
+alias ssh="TERM=xterm-256color ssh"
 alias ssh-bradley="ssh root@51.159.130.17"
 alias ssh-jovial="ssh root@51.159.136.244"
 alias ssh-soter="ssh root@51.159.168.91"
