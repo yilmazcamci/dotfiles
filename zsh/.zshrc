@@ -108,6 +108,4 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=16"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Scaleway CLI autocomplete initialization.
-eval "$(scw autocomplete script shell=zsh)"
 eval "$(starship init zsh)"
