@@ -6,10 +6,10 @@ return {
 	-- 	end,
 	-- },
 
-	{
-		"vigoux/notifier.nvim",
-		opts = {},
-	},
+	-- {
+	-- 	"vigoux/notifier.nvim",
+	-- 	opts = {},
+	-- },
 
 	-- {
 	-- 	-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -20,8 +20,9 @@ return {
 	-- 	"rcarriga/nvim-notify",
 	-- },
 
-	-- {
-	-- 	"j-hui/fidget.nvim",
-	-- 	opts = {},
-	-- },
+	{
+		"j-hui/fidget.nvim",
+		opts = {},
+		tag = "legacy",
+	},
 }
