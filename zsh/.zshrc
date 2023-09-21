@@ -58,6 +58,8 @@ if ! zgenom saved; then
 
   zgenom load unixorn/fzf-zsh-plugin
 
+  zgenom load unixorn/autoupdate-zgenom
+
   # generate the init script from plugins above
   zgenom save
 
